@@ -6,4 +6,10 @@
             $this->load->view('home',$data);
             $this->load->view('template/footer');
         }
+        public function about(){
+            $data['title'] = 'About';
+            $this->load->view('template/header',$data);
+            $this->load->view('about',$data);
+            $this->load->view('template/footer');
+        }
     }
