@@ -4,7 +4,7 @@ USE louvre;
 
 CREATE TABLE users(
     email       VARCHAR(30)     PRIMARY KEY,
-    CHECK email LIKE '?%@?%.??%',
+    CHECK email LIKE '_%@_%.__%',
     role        VARCHAR(9)      NOT NULL,
     CHECK role IN ('admin', 'manager', 'employee', 'buyer'),
     fname       VARCHAR(25)     NOT NULL,
