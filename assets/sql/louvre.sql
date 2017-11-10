@@ -45,15 +45,15 @@ CREATE TABLE bookreview(
 );
 
 CREATE TABLE bookfeatured(
-    isbn13      CHAR(13),
+    isbn13      CHAR(13)        PRIMARY KEY,
     FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    description TEXT,
+    info        TEXT,
     until       DATE            NOT NULL,
     CHECK until >= CURDATE()
 );
 
 CREATE TABLE bookpromotion(
-    isbn13      CHAR(13),
+    isbn13      CHAR(13)        PRIMARY KEY,
     FOREIGN KEY(isbn13) REFERENCES book(isbn13),
     discount    DECIMAL(5,2)    DEFAULT 0.0,
     until       DATE            NOT NULL,
@@ -77,9 +77,9 @@ CREATE TABLE cart(
 CREATE TABLE transactions(
     invoiceno   CHAR(12)        PRIMARY KEY,
     CHECK invoiceno REGEXP 'TR-[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][0-9]',
-    email       VARCHAR(30),
+    email       VARCHAR(30)     NOT NULL,
     FOREIGN KEY(email) REFERENCES users(email),
-    paymethod   VARCHAR(15),
+    payment     VARCHAR(15)     NOT NULL,
     CHECK paymethod IN ('VISA', 'Master Card', 'PayPal', 'Bitcoin'),
     invdate     DATETIME        NOT NULL,
     CHECK invoice <= CURDATE()
