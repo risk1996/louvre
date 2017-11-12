@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a href="#" class="navbar-brand mb-0 h-1">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a href="<?php echo site_url(); ?>" class="navbar-brand mb-0 h-1">
                     <img src="assets/branding/Louvre-Header.png" alt="The Louvre Header Icon" width="80" height="37" class="d-inline-block align-top">
                     The Louvre Bookstore
                 </a>
@@ -23,8 +23,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item <?php if($title=='Home')echo 'active'; ?>"><a href="#" class="nav-link">Home</a></li>
-                        <li class="nav-item <?php if($title=='About')echo 'active'; ?>"><a href="#" class="nav-link">About</a></li>
+                        <li class="nav-item <?php if($title=='Home')echo 'active'; ?>"><a href="<?php echo site_url(); ?>" class="nav-link">Home</a></li>
+                        <li class="nav-item <?php if($title=='About')echo 'active'; ?>"><a href="<?php echo site_url('about'); ?>" class="nav-link">About</a></li>
                     </ul>
                     <form action="" method="post" class="form-inline" style="margin-left: auto;">
                         <div class="input-group">
@@ -42,5 +42,6 @@
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit" name="submit">Search</button>
                     </form>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>    

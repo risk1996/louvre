@@ -1,4 +1,3 @@
-    </div>
     <footer>
         <!-- Footernya pake apa? Atau ga mau pake footer? -->
     </footer>
