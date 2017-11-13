@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="color: white;">
     <h1>Developers</h1>
     <div class="row">
         <div class="col-sm-4">
