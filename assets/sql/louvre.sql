@@ -1,106 +1,88 @@
-DROP DATABASE IF EXISTS louvre;
-CREATE DATABASE louvre;
-USE louvre;
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="origin-when-crossorigin">
+<title>Export: louvre - Adminer</title>
+<link rel="stylesheet" type="text/css" href="?file=default.css&amp;version=4.3.1">
+<script type="text/javascript" src="?file=functions.js&amp;version=4.3.1"></script>
+<link rel="shortcut icon" type="image/x-icon" href="?file=favicon.ico&amp;version=4.3.1">
+<link rel="apple-touch-icon" href="?file=favicon.ico&amp;version=4.3.1">
 
-CREATE TABLE users(
-    email       VARCHAR(30)     PRIMARY KEY,
-    CHECK email LIKE '_%@_%.__%',
-    roles       VARCHAR(9)      NOT NULL,
-    CHECK roles IN ('admin', 'manager', 'buyer'),
-    fname       VARCHAR(25)     NOT NULL,
-    lname       VARCHAR(25),
-    pass        CHAR(64)        NOT NULL,
-    salt        CHAR(5)         NOT NULL
-);
+<body class="ltr nojs" onkeydown="bodyKeydown(event);" onclick="bodyClick(event);">
+<script type="text/javascript">
+document.body.className = document.body.className.replace(/ nojs/, ' js');
+var offlineMessage = 'You are offline.';
+</script>
 
-CREATE TABLE book(
-    isbn13      CHAR(13)        PRIMARY KEY,
-    title       VARCHAR(50)     NOT NULL,
-    price       DECIMAL(10,2)   NOT NULL,
-    CHECK price >= 0.0,
-    stock       SMALLINT        NOT NULL,
-    CHECK stock >= 0,
-    cover       VARCHAR(50),
-    summary     TEXT,
-    ed          VARCHAR(5),
-    pages       SMALLINT        NOT NULL,
-    CHECK pages > 0,
-    pubdate     DATE            NOT NULL,
-    genre       VARCHAR(20)     NOT NULL,
-    author      VARCHAR(50)     NOT NULL,
-    lang        VARCHAR(12)     NOT NULL,
-    format      VARCHAR(5)      NOT NULL,
-    CHECK format IN ('PDF', 'EPUB', 'MOBI', 'DJVU', 'AZW3')
-);
+<div id="help" class="jush-sql jsonly hidden" onmouseover="helpOpen = 1;" onmouseout="helpMouseout(this, event);"></div>
 
-CREATE TABLE bookreview(
-    isbn13      CHAR(13),
-    FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    email       VARCHAR(30),
-    FOREIGN KEY(email) REFERENCES users(email),
-    PRIMARY KEY(isbn13, email),
-    rating      TINYINT         NOT NULL,
-    CHECK rating BETWEEN 1 AND 10,
-    review      TEXT
-);
+<div id="content">
+<p id="breadcrumb"><a href=".">MySQL</a> &raquo; <a href='?username=root' accesskey='1' title='Alt+Shift+1'>Server</a> &raquo; <a href="?username=root&amp;db=louvre">louvre</a> &raquo; Export
+<h2>Export: louvre</h2>
+<div id='ajaxstatus' class='jsonly hidden'></div>
 
-CREATE TABLE bookfeatured(
-    isbn13      CHAR(13)        PRIMARY KEY,
-    FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    info        TEXT,
-    until       DATE            NOT NULL,
-    CHECK until >= CURDATE()
-);
+<form action="" method="post">
+<table cellspacing="0">
+<tr><th>Output<td><label><input type='radio' name='output' value='text' checked>open</label><label><input type='radio' name='output' value='file'>save</label><label><input type='radio' name='output' value='gz'>gzip</label>
+<tr><th>Format<td><label><input type='radio' name='format' value='sql' checked>SQL</label><label><input type='radio' name='format' value='csv'>CSV,</label><label><input type='radio' name='format' value='csv;'>CSV;</label><label><input type='radio' name='format' value='tsv'>TSV</label>
+<tr><th>Database<td><select name='db_style'><option selected><option>USE<option>DROP+CREATE<option>CREATE</select><label><input type='checkbox' name='routines' value='1' checked>Routines</label><label><input type='checkbox' name='events' value='1' checked>Events</label><tr><th>Tables<td><select name='table_style'><option><option selected>DROP+CREATE<option>CREATE</select><label><input type='checkbox' name='auto_increment' value='1'>Auto Increment</label><label><input type='checkbox' name='triggers' value='1' checked>Triggers</label><tr><th>Data<td><select name='data_style'><option><option>TRUNCATE+INSERT<option selected>INSERT<option>INSERT+UPDATE</select></table>
+<p><input type="submit" value="Export">
+<input type="hidden" name="token" value="140604:356142">
 
-CREATE TABLE bookpromotion(
-    isbn13      CHAR(13)        PRIMARY KEY,
-    FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    discount    DECIMAL(5,2)    DEFAULT 0.0,
-    until       DATE            NOT NULL,
-    CHECK until >= CURDATE()
-);
+<table cellspacing="0">
+<thead><tr><th style='text-align: left;'><label class='block'><input type='checkbox' id='check-tables' checked onclick='formCheck(this, /^tables\[/);'>Tables</label><th style='text-align: right;'><label class='block'>Data<input type='checkbox' id='check-data' checked onclick='formCheck(this, /^data\[/);'></label></thead>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='book' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">book</label><td align='right'><label class='block'><span id='Rows-book'></span><input type='checkbox' name='data[]' value='book' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='bookfeatured' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">bookfeatured</label><td align='right'><label class='block'><span id='Rows-bookfeatured'></span><input type='checkbox' name='data[]' value='bookfeatured' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='bookpromotion' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">bookpromotion</label><td align='right'><label class='block'><span id='Rows-bookpromotion'></span><input type='checkbox' name='data[]' value='bookpromotion' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='bookreview' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">bookreview</label><td align='right'><label class='block'><span id='Rows-bookreview'></span><input type='checkbox' name='data[]' value='bookreview' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='cart' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">cart</label><td align='right'><label class='block'><span id='Rows-cart'></span><input type='checkbox' name='data[]' value='cart' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='transactions' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">transactions</label><td align='right'><label class='block'><span id='Rows-transactions'></span><input type='checkbox' name='data[]' value='transactions' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='transactionsdetail' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">transactionsdetail</label><td align='right'><label class='block'><span id='Rows-transactionsdetail'></span><input type='checkbox' name='data[]' value='transactionsdetail' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<tr><td><label class='block'><input type='checkbox' name='tables[]' value='users' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-tables&#039;);">users</label><td align='right'><label class='block'><span id='Rows-users'></span><input type='checkbox' name='data[]' value='users' checked onclick="checkboxClick(event, this); formUncheck(&#039;check-data&#039;);"></label>
+<script type='text/javascript'>ajaxSetHtml('?username=root&db=louvre&script=db');</script>
+</table>
+</form>
+</div>
 
-CREATE TABLE cart(
-    email       VARCHAR(30),
-    FOREIGN KEY(email) REFERENCES users(email),
-    isbn13      CHAR(13),
-    FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    PRIMARY KEY(email, isbn13),
-    quantity    SMALLINT        NOT NULL,
-    CHECK quantity > 0,
-    discount    DECIMAL(5,2)    DEFAULT 0.0,
-    CHECK discount >= 0.0,
-    addded      DATETIME        NOT NULL,
-    CHECK adddate <= CURDATE()
-);
-
-CREATE TABLE transactions(
-    invoiceno   CHAR(12)        PRIMARY KEY,
-    CHECK invoiceno REGEXP 'TR-[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][0-9]',
-    email       VARCHAR(30)     NOT NULL,
-    FOREIGN KEY(email) REFERENCES users(email),
-    payment     VARCHAR(15)     NOT NULL,
-    CHECK paymethod IN ('VISA', 'Master Card', 'PayPal', 'Bitcoin'),
-    invdate     DATETIME        NOT NULL,
-    CHECK invoice <= CURDATE()
-);
-
-CREATE TABLE transactionsdetail(
-    invoiceno   CHAR(12),
-    FOREIGN KEY(invoiceno) REFERENCES transactions(invoiceno),
-    isbn13      CHAR(13),
-    FOREIGN KEY(isbn13) REFERENCES book(isbn13),
-    PRIMARY KEY(invoiceno, isbn13),
-    quantity    SMALLINT        NOT NULL,
-    CHECK quantity > 0,
-    discount    DECIMAL(5,2)    DEFAULT 0.0,
-    CHECK discount >= 0.0
-);
-
-INSERT INTO users(email, roles, fname, lname, pass, salt) VALUES
-    ('stefanus.kurniawan@student.umn.ac.id', 'manager', 'Stefanus', 'Kurniawan'  , '2a5f5d7be83e3f3352d6100dff7917a7709e46f9f0ca3ce1865256d8ffa61906', '8FWvP'),
-    ('william.darian@student.umn.ac.id'    , 'manager', 'William' , 'Darian'     , '6294a4ceedecfdb87e3591cd102e12e739bbb202dad937a2ac48935c463eb76a', 'xIhtq'),
-    ('miqdad.abdurrahman@student.umn.ac.id', 'admin'  , 'Miqdad'  , 'Abdurrahman', 'c1f99ea5d90bbe5b112065dfd6c6d68b3457c454d6df934625be4089d7244988', 'z8Uc5');
-
-INSERT INTO book(isbn13, title, price, stock, cover, summary, ed, pages, pubdate, genre, author, lang, format) VALUES
-    ('9788120343399', 'C++ How to Program', 171.40, 4, '9788120343399.png', 'This best-selling book provides a clear, simple, engaging and entertaining introduction to C++ programming with of fully coded C++ Programs. It is aimed at readers with little or no programming experience, It provides\r\nRich coverage of fundamentals, including two chapters on control statements.\r\nA clear, example-driven presentation of object-oriented programming.\r\nOptional modular sections on language features of the new C++ standard.\r\nMaking a Difference exercises set.\r\nException handling, strings, files, streams, data structures, Standard Template Library.\r\nSeveral major case studies: GradeBook, Time Employee classes, and the optional object-oriented design ATM case study.', '8', 1303, '2012-01-01', 'Textbook', 'Paul J. Deitel', 'English', 'PDF');
+<form action="" method="post">
+<p class="logout">
+<input type="submit" name="logout" value="Logout" id="logout">
+<input type="hidden" name="token" value="140604:356142">
+</p>
+</form>
+<div id="menu">
+<h1>
+<a href='https://www.adminer.org/' target='_blank' id='h1'>Adminer</a> <span class="version">4.3.1</span>
+<a href="https://www.adminer.org/#download" target="_blank" id="version"></a>
+</h1>
+<script type="text/javascript" src="?file=jush.js&amp;version=4.3.1"></script>
+<script type="text/javascript">
+var jushLinks = { sql: [ '?username=root&db=louvre&table=$&', /\b(book|bookfeatured|bookpromotion|bookreview|cart|transactions|transactionsdetail|users)\b/g ] };
+jushLinks.bac = jushLinks.sql;
+jushLinks.bra = jushLinks.sql;
+jushLinks.sqlite_quo = jushLinks.sql;
+jushLinks.mssql_bra = jushLinks.sql;
+bodyLoad('5.7');
+</script>
+<form action="">
+<p id="dbs">
+<input type="hidden" name="username" value="root"><span title='database'>DB</span>: <select name='db' onmousedown='dbMouseDown(event, this);' onchange='dbChange(this);'><option value=""><option>information_schema<option selected>louvre<option>mahasiswa<option>mysql<option>performance_schema<option>sys<option>testblog</select><input type='submit' value='Use' class='hidden'>
+<input type="hidden" name="dump" value=""></p></form>
+<p class='links'><a href='?username=root&amp;db=louvre&amp;sql='>SQL command</a>
+<a href='?username=root&amp;db=louvre&amp;import='>Import</a>
+<a href='?username=root&amp;db=louvre&amp;dump=' id='dump' class='active '>Export</a>
+<a href="?username=root&amp;db=louvre&amp;create=">Create table</a>
+<ul id='tables' onmouseover='menuOver(this, event);' onmouseout='menuOut(this);'>
+<li><a href="?username=root&amp;db=louvre&amp;select=book" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=book" class='structure' title='Show structure'>book</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=bookfeatured" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=bookfeatured" class='structure' title='Show structure'>bookfeatured</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=bookpromotion" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=bookpromotion" class='structure' title='Show structure'>bookpromotion</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=bookreview" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=bookreview" class='structure' title='Show structure'>bookreview</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=cart" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=cart" class='structure' title='Show structure'>cart</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=transactions" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=transactions" class='structure' title='Show structure'>transactions</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=transactionsdetail" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=transactionsdetail" class='structure' title='Show structure'>transactionsdetail</a>
+<li><a href="?username=root&amp;db=louvre&amp;select=users" class='select'>select</a> <a href="?username=root&amp;db=louvre&amp;table=users" class='structure' title='Show structure'>users</a>
+</ul>
+</div>
+<script type="text/javascript">setupSubmitHighlight(document);</script>
