@@ -37,4 +37,13 @@
 				return $query->result_array();
 			}
 		}
+
+		/*
+		get recommended books
+		@return result array
+		*/
+		public function get_recommended(){
+			$query = $this->db->get('bookfeatured');
+			return $query->result_array();
+		}
 	}
