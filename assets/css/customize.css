@@ -5,3 +5,11 @@ body {
 .popover-header {
     color: #212529;
 }
+.slider-handle,
+.slider.slider-horizontal .slider-selection,
+.slider-tick.in-selection{
+    background: #42474d;
+}
+.slider-track, .slider-tick{
+    background: #e9ecef;
+}
