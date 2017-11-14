@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Books extends CI_Controller{
 	public function index(){
 		$data["books"] = $this->books_model->get_books();
-		print_r($data["books"]);
 		$data['title'] = 'Books Catalog';
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);

@@ -7,6 +7,7 @@
     <title><?php echo $title; ?> - The Louvre Bookstore</title>
     <link rel="icon" href="<?php echo site_url(); ?>/assets/branding/Favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/bootstrap-slider/css/bootstrap-slider.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/css/customize.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/font-awesome-4.7.0/css/font-awesome.css">
 </head>
@@ -35,13 +36,15 @@
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';
                                     echo '<form action=\'\' method=\'\'>';
                                         echo '<div class=\'input-group\'>';
-                                            echo '<span class=\'input-group-addon\' id=\'basic-addon1\'><span class=\'fa fa-envelope\'></span></span>';
-                                            echo '<input type=\'text\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'basic-addon1\'>';
+                                            echo '<span class=\'input-group-addon\' id=\'emailaddon\'><span class=\'fa fa-envelope\'></span></span>';
+                                            echo '<input type=\'text\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
                                         echo '</div>';
+                                        echo '<br>';
                                         echo '<div class=\'input-group\'>';
-                                            echo '<span class=\'input-group-addon\' id=\'basic-addon2\'><span class=\'fa fa-key\'></span></span>';
-                                            echo '<input type=\'password\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'basic-addon2\'>';
+                                            echo '<span class=\'input-group-addon\' id=\'passwordaddon\'><span class=\'fa fa-key\'></span></span>';
+                                            echo '<input type=\'password\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'passwordaddon\'>';
                                         echo '</div>';
+                                        echo '<br>';
                                         echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
                                     echo '</form>" id="popover">';
                                 echo '<span class="fa fa-sign-in"></span></button>';
@@ -56,7 +59,6 @@
                                     <option>Title</option>
                                     <option>ISBN</option>
                                     <option>Author</option>
-                                    <option>Genre</option>
                                 </select>
                             </span>
                             <input type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">

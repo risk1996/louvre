@@ -4,6 +4,7 @@
     <script src="<?php echo site_url(); ?>/assets/jquery/jquery-3.2.1.js"></script>
     <script src="<?php echo site_url(); ?>/assets/popper/popper.js"></script>
     <script src="<?php echo site_url(); ?>/assets/bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <script src="<?php echo site_url(); ?>/assets/bootstrap-slider/bootstrap-slider.js"></script>
     <script>
         $(function () {
             $('[data-toggle="popover"]').popover()
@@ -16,6 +17,11 @@
             content: function() {
             return $("#popover-content").html();
             }
+        });
+    </script>
+    <script>
+        $('.slider').slider({
+            tooltip: 'always'
         });
     </script>
 </body>
