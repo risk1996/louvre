@@ -29,7 +29,7 @@
                     <span style="margin-left: auto;">
                         <?php
                             if(isset($_SESSION['logged'])){
-
+                                echo '<span class="fa fa-user-circle"></span>';
                             }
                             else{
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';

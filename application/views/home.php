@@ -27,17 +27,26 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
-            <div class="card bg-dark">
-                <img class="card-img-top" src="assets/covers/_placeholder.png" alt="Book Cover">
-                <div class="card-body">
-                    <h4 class="card-title">Placeholder</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-secondary">Go somewhere</a>
-                </div>
-                <div class="card-footer text-muted">
-                    2 days ago
-                </div>
-            </div>
-        </div>
+        <?php
+            $books = array(array(
+                'title' => 'Placeholder',
+                'cover' => '_placeholder',
+                'text'  => 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+                'foot'  => '2 days ago',
+                'slug'  => 'placeholder'
+            ));
+            foreach($books as $book){
+                echo '<div class="col-sm-3">';
+                    echo '<div class="card bg-dark">';
+                        echo '<img class="card-img-top" src="assets/covers/'.$book['cover'].'.png" alt="'.$book['title'].' Book Cover">';
+                        echo '<div class="card-body">';
+                            echo '<h4 class="card-title">'.$book['title'].'</h4>';
+                            echo '<p class="card-text">'.$book['text'].'</p>';
+                            echo '<a href="'.site_url('book/'.$book['slug']).'" class="btn btn-secondary">More Info</a>';
+                        echo '</div>';
+                        echo '<div class="card-footer text-muted">'.$book['foot'].'</div>';
+                    echo '</div>';
+                echo '</div>';
+            }
+        ?>
 </div>

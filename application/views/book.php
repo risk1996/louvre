@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-sm-2">
-        <img src="/assets/cover/<?php echo $cover; ?>" alt="<?php echo $title; ?> Book Cover">
+        <img src="/assets/cover/<?php echo $book['cover']; ?>" alt="<?php echo $book['title']; ?> Book Cover">
         <button class="btn btn-secondary btn-sm">Look at Preview</button>
-        <h3>Rp<?php echo $price; ?></h3>
+        <h3>$<?php echo $price; ?></h3>
         <button class="btn btn-primary">Buy</button>
     </div>
     <div class="col-sm-7">
