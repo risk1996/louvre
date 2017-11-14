@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" aria-describedby="titleaddon">
                     </div>
                     <br>
-                    <label for="pricerange">Price Range</label>
+                    <label for="pricerange">Price Range: <span id="slidervalue">$0 - $400</span></label>
                     <br>
                     <input class="slider" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["$0", "$100", "$200", "$300", "$400"]' data-slider-value="[0,400]" style="width:100%;"/>
                     <br><br>

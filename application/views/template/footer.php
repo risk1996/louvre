@@ -20,8 +20,10 @@
         });
     </script>
     <script>
-        $('.slider').slider({
-            tooltip: 'always'
+        $(".slider").slider({});
+        $(".slider").on("slide", function(slideEvt) {
+            var val = String(slideEvt.value).split(',');
+            $("#slidervalue").text('$' + val[0] + ' - ' + '$' + val[1]);
         });
     </script>
 </body>
