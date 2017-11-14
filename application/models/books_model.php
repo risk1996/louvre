@@ -22,12 +22,11 @@ class books_model extends CI_Model{
 		}
 	}
 
-	public function get_latest_books($limit = FALSE){
-		if(!$limit){
-			//$query = $this->db->get_limit()
-		}else{
-			//
-		}
+	public function get_limit($limit = FALSE, $start = FALSE){
+		if($limit && $start)$this->db->limit($limit, $start);
+		else if($limit)$this->db->limit($limit);
+		$query = $this->db->get('book');
+		return $query->result_array();
 	}
 	/*
 	find book with matching a string on it's title

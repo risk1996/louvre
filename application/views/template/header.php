@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $title; ?> - The Louvre Bookstore</title>
-    <link rel="icon" href="assets/branding/Favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/customize.css">
-    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="icon" href="<?php echo site_url(); ?>/assets/branding/Favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/css/customize.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/font-awesome-4.7.0/css/font-awesome.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a href="<?php echo site_url(); ?>" class="navbar-brand mb-0 h-1">
-                    <img src="assets/branding/Louvre-Header.png" alt="The Louvre Header Icon" width="80" height="37" class="d-inline-block align-top">
+                    <img src="<?php echo site_url(); ?>/assets/branding/Louvre-Header.png" alt="The Louvre Header Icon" width="80" height="37" class="d-inline-block align-top">
                     The Louvre Bookstore
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,12 +42,7 @@
                                             echo '<span class=\'input-group-addon\' id=\'basic-addon2\'><span class=\'fa fa-key\'></span></span>';
                                             echo '<input type=\'password\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'basic-addon2\'>';
                                         echo '</div>';
-                                        echo '<button class=\'btn btn-secondary\' type=\'submit\' name=\'submit\'>';
-                                            $sp=20;
-                                            for($i=0; $i<$sp; $i++)echo '&nbsp;';
-                                            echo 'Login';
-                                            for($i=0; $i<$sp; $i++)echo '&nbsp;';
-                                        echo '</button>';
+                                        echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
                                     echo '</form>" id="popover">';
                                 echo '<span class="fa fa-sign-in"></span></button>';
                             }
