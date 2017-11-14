@@ -31,7 +31,7 @@
             foreach($books as $book){
                 echo '<div class="col-sm-3">';
                     echo '<div class="card bg-dark">';
-                        echo '<img class="card-img-top" src="'.site_url().'assets/covers/'.((file_exists(site_url().'assets/covers/'.$book['cover']))?$book['cover']:'_placeholder.png').'" alt="'.$book['title'].' Book Cover">';
+                        echo '<img class="card-img-top" src="'.site_url().'assets/covers/'.((file_exists(site_url().'assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover">';
                         echo '<div class="card-body">';
                             echo '<h4 class="card-title">'.$book['title'].'</h4>';
                             echo '<p class="card-text">'.$book['summary'].'</p>';

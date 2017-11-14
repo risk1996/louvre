@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <img class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists(site_url().'assets/covers/'.$book['cover']))?$book['cover']:'_placeholder.png'); ?>" alt="<?php echo $book['title']; ?> Book Cover">
+            <img class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists(site_url().'assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $book['title']; ?> Book Cover">
+            <?php echo site_url().'assets/covers/'.$book['isbn13'].'.png'; ?>
+            <?php echo file_exists(site_url().'assets/covers/'.$book['isbn13'].'.png')?'true':'false'; ?>
             <button class="btn btn-secondary btn-block">Look at Preview</button>
             <h3 class="text-center">$<?php echo $book['price']; ?></h3>
             <button class="btn btn-primary btn-block">Buy</button>

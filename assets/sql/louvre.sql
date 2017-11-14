@@ -12,7 +12,6 @@ CREATE TABLE `book` (
   `slug` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock` smallint(6) NOT NULL,
-  `cover` varchar(50) DEFAULT NULL,
   `summary` text,
   `edition` varchar(5) DEFAULT NULL,
   `pages` smallint(6) NOT NULL,
@@ -24,14 +23,14 @@ CREATE TABLE `book` (
   PRIMARY KEY (`isbn13`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `cover`, `summary`, `edition`, `pages`, `pubdate`, `genre`, `author`, `language`, `format`) VALUES
-('9780134448237',	'C++:How to Program 10th ed',	'how-to-program-10th-deitel',	171.40,	17,	NULL,	NULL,	'10',	1080,	'2016-03-10',	'Textbook',	'Paul Deitel',	'English',	'PDF'),
-('9780316322409',	'I Am Malala',	'i-am-malala',	34.30,	31,	NULL,	NULL,	NULL,	327,	'2013-10-08',	'Biography',	'Malala Yousafzai',	'English',	'PDF'),
-('9780439023481',	'The Hunger Games',	'the-hunger-games',	18.99,	21,	NULL,	NULL,	NULL,	384,	'2008-09-14',	'Sci-Fi',	'Suzanne Collins',	'English',	'PDF'),
-('9781451648539',	'Steve Jobs',	'steve-jobs',	35.00,	10,	NULL,	'',	NULL,	656,	'2011-10-24',	'Biography',	'Walter Isaacson',	'English',	'PDF'),
-('9781455582341',	'How Google Works',	'how-google-works',	30.00,	5,	NULL,	NULL,	NULL,	304,	'2014-09-23',	'Business',	'Eric Schmidt',	'English',	'PDF'),
-('9781568364841',	'The Handbook of Japanese Verbs',	'handbook-japanese-verbs',	15.90,	3,	NULL,	NULL,	NULL,	256,	'2012-11-06',	'Handbook',	'Taeko Kamiya',	'English',	'PDF'),
-('9781853260315',	'20000 Leagues Under the Sea',	'twenty-thousands-league-under',	7.98,	15,	NULL,	'',	NULL,	256,	'1998-01-01',	'Literature',	'Jules Verne',	'English',	'PDF');
+INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `edition`, `pages`, `pubdate`, `genre`, `author`, `language`, `format`) VALUES
+('9788120343399',	'C++:How to Program 10th ed',	'how-to-program-10th-deitel',	171.40,	17,	NULL,	'10',	1080,	'2016-03-10',	'Textbook',	'Paul Deitel',	'English',	'PDF'),
+('9780316322409',	'I Am Malala',	'i-am-malala',	34.30,	31,	NULL,	NULL,	327,	'2013-10-08',	'Biography',	'Malala Yousafzai',	'English',	'PDF'),
+('9780439023481',	'The Hunger Games',	'the-hunger-games',	18.99,	21,	NULL,	NULL,	384,	'2008-09-14',	'Sci-Fi',	'Suzanne Collins',	'English',	'PDF'),
+('9781451648539',	'Steve Jobs',	'steve-jobs',	35.00,	10,	'',	NULL,	656,	'2011-10-24',	'Biography',	'Walter Isaacson',	'English',	'PDF'),
+('9781455582341',	'How Google Works',	'how-google-works',	30.00,	5,	NULL,	NULL,	304,	'2014-09-23',	'Business',	'Eric Schmidt',	'English',	'PDF'),
+('9781568364841',	'The Handbook of Japanese Verbs',	'handbook-japanese-verbs',	15.90,	3,	NULL,	NULL,	256,	'2012-11-06',	'Handbook',	'Taeko Kamiya',	'English',	'PDF'),
+('9781853260315',	'20000 Leagues Under the Sea',	'twenty-thousands-league-under',	7.98,	15,	'',	NULL,	256,	'1998-01-01',	'Literature',	'Jules Verne',	'English',	'PDF');
 
 DROP TABLE IF EXISTS `bookfeatured`;
 CREATE TABLE `bookfeatured` (
