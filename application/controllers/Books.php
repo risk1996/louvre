@@ -5,6 +5,7 @@ class Books extends CI_Controller{
 	public function index(){
 		$data["books"] = $this->books_model->get_books();
 		$data['title'] = 'Books Catalog';
+		
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
         $this->load->view('template/footer');
@@ -12,10 +13,9 @@ class Books extends CI_Controller{
 
 	public function view($slug=NULL){
 		$data["book"] = $this->books_model->get_books($slug);
-		if(empty($data["book"])){
-			show_404();
-		}
+		if(empty($data["book"]))show_404();
 		$data['title'] = $data['book']['title'].' Info';
+
 		$this->load->view('template/header',$data);
         $this->load->view('book',$data);
         $this->load->view('template/footer');
@@ -23,10 +23,9 @@ class Books extends CI_Controller{
 
 	public function search($keyword = NULL){
 		$data["books"] = $this->books_model->find_book($keyword);
-		if(empty($data["books"])){
-			$data["books"] = $this->books_model->get_books();
-		}
+		if(empty($data["books"]))$data["books"] = $this->books_model->get_books();
 		$data['title'] = 'Books Catalog';
+
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
         $this->load->view('template/footer');
@@ -35,6 +34,7 @@ class Books extends CI_Controller{
 	public function recomended(){
 		$data["books"] = $this->books_model->get_recommended();
 		$data['title'] = 'Recommended Books Catalog';
+		
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
         $this->load->view('template/footer');
