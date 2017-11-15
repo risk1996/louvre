@@ -26,6 +26,15 @@
 </div>
 <br>
 <div class="container">
+    <div class="jumbotron" style="background-image: url(https://image.freepik.com/free-photo/wooden-texture_1208-334.jpg); background-size: cover;">
+        <h1 class="display-3">Hello, world!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+    </div>
     <div class="row">
         <?php
             foreach($books as $book){
@@ -33,11 +42,16 @@
                     echo '<div class="card bg-dark">';
                         echo '<img class="card-img-top" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover">';
                         echo '<div class="card-body">';
-                            echo '<h4 class="card-title">'.$book['title'].'</h4>';
-                            echo '<p class="card-text">'.$book['summary'].'</p>';
+                            echo '<h4 class="card-title"><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></h4>';
+                            echo '<p class="card-text card-text-limit ellipsis multiline">'.$book['summary'].'</p>';
                             echo '<a href="'.site_url('books/'.$book['slug']).'" class="btn btn-secondary btn-block">More Info</a>';
                         echo '</div>';
-                        echo '<div class="card-footer text-muted"><a href="#" class="badge badge-secondary">'.$book['genre'].'</a></div>';
+                        $genres=explode(',', $book['genre']);
+                        echo '<div class="card-footer text-muted">';
+                        foreach($genres as $genre){
+                            echo '<a href="#" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
+                        }
+                        echo '</div>';
                     echo '</div>';
                 echo '</div>';
             }

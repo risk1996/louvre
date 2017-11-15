@@ -23,9 +23,13 @@ class books_model extends CI_Model{
 	}
 
 	public function get_limit($limit = FALSE, $start = FALSE){
+		$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
+		$this->db->from('book');
+		$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
+		$this->db->group_by('1');
 		if($limit && $start)$this->db->limit($limit, $start);
 		else if($limit)$this->db->limit($limit);
-		$query = $this->db->get('book');
+		$query = $this->db->get();
 		return $query->result_array();
 	}
 	/*
