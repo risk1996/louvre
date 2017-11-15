@@ -21,18 +21,9 @@
                             <span class="fa fa-facebook-official"></span>&nbsp;
                             <span class="fa fa-twitter"></span>&nbsp;
                             <span class="fa fa-google-plus"></span>&nbsp;
-                            <span class="fa fa-yahoo"></span>&nbsp;
                             <span class="fa fa-instagram"></span>&nbsp;
                             <span class="fa fa-linkedin"></span>&nbsp;
                             <span class="fa fa-delicious"></span>&nbsp;
-                            <span class="fa fa-snapchat"></span>&nbsp;
-                            <span class="fa fa-twitch"></span>&nbsp;
-                            <span class="fa fa-tumblr"></span>&nbsp;
-                            <span class="fa fa-reddit"></span>&nbsp;
-                            <span class="fa fa-quora"></span>&nbsp;
-                            <span class="fa fa-stumbleupon"></span>&nbsp;
-                            <span class="fa fa-youtube-play"></span>&nbsp;
-                            <span class="fa fa-vimeo"></span>&nbsp;
                         </div>
                     </div>
                 </div>

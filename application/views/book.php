@@ -10,7 +10,10 @@
             <h2><?php echo $book['title']; ?></h2>
             <h4>By <?php echo $book['author']; ?></h4>
             <p><?php echo $book['summary']; ?></p>
-            <a href="#" class="badge badge-secondary"><?php echo $book['genre']; ?></a>
+            <?php
+                $genres=explode(',', $book['genre']);
+                foreach($genres as $genre)echo '<a href="#" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
+            ?>
         </div>
         <div class="col-sm-3">
             <?php
