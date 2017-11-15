@@ -1,6 +1,42 @@
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-thin.ttf);
+    font-weight: 100;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-extralight.ttf);
+    font-weight: 300;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-light.ttf);
+    font-weight: 300;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-regular.ttf);
+    font-weight: 400;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-medium.ttf);
+    font-weight: 500;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-semibold.ttf);
+    font-weight: 600;
+}
+@font-face{
+    font-family: Palanquin;
+    src: url(assets/font/palanquin-bold.ttf);
+    font-weight: 700;
+}
 body {
     background-color: #5c5c64;
     color: white;
+    font-family: Palanquin, Sans-serif;
 }
 .popover-header {
     color: #212529;
