@@ -9,20 +9,39 @@ DROP DATABASE IF EXISTS `louvre`;
 CREATE DATABASE `louvre` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `louvre`;
 
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `email` varchar(30) NOT NULL,
+  CHECK (`email` LIKE '?%@?%.??%'),
+  `roles` varchar(9) NOT NULL,
+  CHECK (`roles` IN ('buyer', 'manager', 'admin')),
+  `fname` varchar(25) NOT NULL,
+  `lname` varchar(25) DEFAULT NULL,
+  `pass` char(64) NOT NULL,
+  `salt` char(5) NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+TRUNCATE `users`;
+
 DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `isbn13` char(13) NOT NULL,
   `title` varchar(50) NOT NULL,
-  `slug` varchar(50) NOT NULL,
+  `slug` varchar(50) UNIQUE NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  CHECK (`price` > 0),
   `stock` smallint(6) NOT NULL,
+  CHECK (`stock` >= 0),
   `summary` text,
   `edition` varchar(5) DEFAULT NULL,
   `pages` smallint(6) NOT NULL,
+  CHECK (`pages` > 0),
   `pubdate` date NOT NULL,
   `author` varchar(50) NOT NULL,
   `language` varchar(12) NOT NULL,
   `format` varchar(5) NOT NULL,
+  CHECK (`format` IN ('PDF', 'EPUB', 'MOBI', 'AZW3', 'DVJU')),
   PRIMARY KEY (`isbn13`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -97,6 +116,7 @@ DROP TABLE IF EXISTS `bookpromotion`;
 CREATE TABLE `bookpromotion` (
   `isbn13` char(13) NOT NULL,
   `discount` decimal(5,2) DEFAULT '0.00',
+  CHECK (`discount` >= 0),
   `until` date NOT NULL,
   PRIMARY KEY (`isbn13`),
   CONSTRAINT `bookpromotion_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
@@ -109,6 +129,7 @@ CREATE TABLE `bookreview` (
   `isbn13` char(13) NOT NULL,
   `email` varchar(30) NOT NULL,
   `rating` tinyint(4) NOT NULL,
+  CHECK (`rating` BETWEEN 1 AND 10),
   `review` text,
   PRIMARY KEY (`isbn13`,`email`),
   KEY `email` (`email`),
@@ -123,7 +144,9 @@ CREATE TABLE `cart` (
   `email` varchar(30) NOT NULL,
   `isbn13` char(13) NOT NULL,
   `quantity` smallint(6) NOT NULL,
+  CHECK (`quantity` > 0),
   `discount` decimal(5,2) DEFAULT '0.00',
+  CHECK (`discount` >= 0),
   `addded` datetime NOT NULL,
   PRIMARY KEY (`email`,`isbn13`),
   KEY `isbn13` (`isbn13`),
@@ -138,7 +161,9 @@ CREATE TABLE `transactions` (
   `invoiceno` char(12) NOT NULL,
   `email` varchar(30) NOT NULL,
   `payment` varchar(15) NOT NULL,
+  CHECK (`payment` IN ('Debit', 'Visa', 'MasterCard', 'PayPal')),
   `invdate` datetime NOT NULL,
+  CHECK ('invdate' <= CURDATE()),
   PRIMARY KEY (`invoiceno`),
   KEY `email` (`email`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
@@ -151,7 +176,9 @@ CREATE TABLE `transactionsdetail` (
   `invoiceno` char(12) NOT NULL,
   `isbn13` char(13) NOT NULL,
   `quantity` smallint(6) NOT NULL,
+  CHECK (`quantity` > 0),
   `discount` decimal(5,2) DEFAULT '0.00',
+  CHECK (`discount` >= 0),
   PRIMARY KEY (`invoiceno`,`isbn13`),
   KEY `isbn13` (`isbn13`),
   CONSTRAINT `transactionsdetail_ibfk_1` FOREIGN KEY (`invoiceno`) REFERENCES `transactions` (`invoiceno`),
@@ -159,18 +186,5 @@ CREATE TABLE `transactionsdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 TRUNCATE `transactionsdetail`;
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `email` varchar(30) NOT NULL,
-  `roles` varchar(9) NOT NULL,
-  `fname` varchar(25) NOT NULL,
-  `lname` varchar(25) DEFAULT NULL,
-  `pass` char(64) NOT NULL,
-  `salt` char(5) NOT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-TRUNCATE `users`;
 
 -- 2017-11-15 06:15:24

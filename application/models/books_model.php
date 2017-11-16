@@ -84,7 +84,7 @@ class books_model extends CI_Model{
 	// 	}
 	// }
 
-	public function edit($data = NULL){
-		if()
-	}
+	// public function edit($data = NULL){
+	// 	if()
+	// }
 }
