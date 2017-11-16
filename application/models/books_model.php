@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class books_model extends CI_Model{
 	
 	public function __construct(){
+		parent::__construct();
 		$this->load->database();
 	}
 
@@ -53,11 +54,11 @@ class books_model extends CI_Model{
 			$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
 			$this->db->from('book');
 			foreach($criteria as $key => $keyword){
-				if($key)$this->db->like($key, $keyword);
+				// if($key)$this->db->like($key, '%'.$keyword.'%');
 			}
 			$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
 			$this->db->group_by('1');
-			$query = $this->db->get('book');
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 	}
@@ -67,7 +68,23 @@ class books_model extends CI_Model{
 	@return result array
 	*/
 	public function get_recommended(){
-		$query = $this->db->get('bookfeatured');
+		$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre, info, until');
+		$this->db->from('bookfeatured');
+		$this->db->join('book', 'bookfeatured.isbn13 = book.isbn13');
+		$this->db->join('bookgenre', 'bookfeatured.isbn13 = bookgenre.isbn13');
+		$this->db->group_by('1');
+		$query = $this->db->get();
 		return $query->result_array();
+	}
+
+	// public function add($data = NULL){
+	// 	if(isset($data))return FALSE;
+	// 	else{
+	// 		$this->db->insert();
+	// 	}
+	// }
+
+	public function edit($data = NULL){
+		if()
 	}
 }
