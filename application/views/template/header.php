@@ -47,7 +47,10 @@
                                         echo '<br>';
                                         echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
                                         echo validation_errors();
-                                    echo '</form>" id="popover">';
+                                    echo '</form>';
+                                    echo '<hr>';
+                                    echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Register</button>';
+                                    echo '" id="popover">';
                                 echo '<span class="fa fa-sign-in"></span></button>';
                             }
                         ?>
@@ -57,9 +60,9 @@
                         <div class="input-group">
                             <span class="input-group-addon" style="padding: 0 0 0 0;">
                                 <select class="form-control" name="searchby">
-                                    <option>Title</option>
-                                    <option>ISBN</option>
-                                    <option>Author</option>
+                                    <option value="title">Title</option>
+                                    <option value="isbn13">ISBN</option>
+                                    <option value="author">Author</option>
                                 </select>
                             </span>
                             <input type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">

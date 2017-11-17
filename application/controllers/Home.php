@@ -9,7 +9,7 @@ class Home extends CI_Controller{
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]|max_length[30]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
 
-        if($this->form_validation_run() != FALSE){
+        if($this->form_validation->run() != FALSE){
             $this->users_model->user_verify();
         }
 
