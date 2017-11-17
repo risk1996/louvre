@@ -49,7 +49,7 @@
                                         echo validation_errors();
                                     echo '</form>';
                                     echo '<hr>';
-                                    echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Register</button>';
+                                    echo '<a href=\''.site_url().'register\' class=\'btn btn-dark btn-block\' name=\'submit\' role=\'button\'>Register</a>';
                                     echo '" id="popover">';
                                 echo '<span class="fa fa-sign-in"></span></button>';
                             }

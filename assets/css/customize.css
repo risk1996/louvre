@@ -52,15 +52,6 @@ a:hover {
 .popover-header { 
     color: #212529;
 }
-footer .card{
-    border-radius: 0 0 0 0;
-}
-.card-text-limit{
-    width: 100%;
-    height: 230px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 /* Bootstrap Slider Override */
 .slider-handle,
@@ -70,4 +61,21 @@ footer .card{
 }
 .slider-track, .slider-tick{
     background: #e9ecef;
+}
+
+/* Customization */
+footer .card{
+    border-radius: 0 0 0 0;
+}
+.card-text-limit{
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#eula{
+    width: 100%;
+    height: 30em;
+    max-height: 40em;
+    overflow: scroll;
 }
