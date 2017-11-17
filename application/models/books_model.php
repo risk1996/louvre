@@ -53,8 +53,19 @@ class books_model extends CI_Model{
 		}else{
 			$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
 			$this->db->from('book');
-			foreach($criteria as $key => $keyword){
-				// if($key)$this->db->like($key, '%'.$keyword.'%');
+			foreach($criteria as $key => $val){
+				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'summary' || $key == 'genre'){
+					$keyword = explode(' ', $val);
+					$this->db->like($key, '%'.$keyword.'%');
+				}
+				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
+					$min = explode(',', $val)[0];
+					$max = explode(',', $val)[1];
+					$this->db->where($key.' BETWEEN '.$min.' AND '. $max);
+				}
+				else if($key == 'language' || $key == 'format'){
+					$this->db->where($key.' = '.$val);
+				}
 			}
 			$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
 			$this->db->group_by('1');

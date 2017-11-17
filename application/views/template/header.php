@@ -34,10 +34,10 @@
                             }
                             else{
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';
-                                    echo '<form action=\'\' method=\'\'>';
+                                    echo str_replace('"', '\\\'', form_open('home'));
                                         echo '<div class=\'input-group\'>';
                                             echo '<span class=\'input-group-addon\' id=\'emailaddon\'><span class=\'fa fa-envelope\'></span></span>';
-                                            echo '<input type=\'text\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
+                                            echo '<input type=\'email\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
                                         echo '</div>';
                                         echo '<br>';
                                         echo '<div class=\'input-group\'>';
@@ -46,6 +46,7 @@
                                         echo '</div>';
                                         echo '<br>';
                                         echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
+                                        echo validation_errors();
                                     echo '</form>" id="popover">';
                                 echo '<span class="fa fa-sign-in"></span></button>';
                             }
