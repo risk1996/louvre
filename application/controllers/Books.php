@@ -8,10 +8,11 @@ class Books extends CI_Controller{
 		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
 			$criteria[$filter] = $this->input->post($filter);
 		}
-		var_dump($criteria);
 		$data['books'] = $this->books_model->find_book($criteria);
+		$data['langs'] = $this->books_model->get_column('lang');
+		$data['formats'] = $this->books_model->get_column('format');
 		$data['title'] = 'Books Catalog';
-
+		
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
         $this->load->view('template/footer');

@@ -68,6 +68,17 @@ class books_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_column($col){
+		$this->db->distinct();
+		$this->db->select($col);
+		$this->db->from('bookdetail');
+		$query = $this->db->get();
+		$raws = $query->result_array();
+		$res = array();
+		foreach($raws as $raw)array_push($res, $raw[$col]);
+		return $res;
+	}
+
 	// public function add($data = NULL){
 	// 	if(isset($data))return FALSE;
 	// 	else{

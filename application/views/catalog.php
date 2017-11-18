@@ -30,7 +30,7 @@
                         document.getElementById("pricerange").textContent = '$' + val[0] + ' - ' + '$' + val[1];
                     });
                 </script>
-                <br>
+                <br><br>
                 <label for="pagesslider">Page Range: <span id="pagesrange">0 - 5000</span></label>
                 <br>
                 <input id="pagesslider" name="pages" data-slider-id="pagesslider" type="text" data-slider-ticks="[0, 1000, 2000, 3000, 4000, 5000]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["0", "1000", "2000", "3000", "4000", "5000"]' data-slider-value="[0,5000]" style="width:100%;"/>
@@ -42,12 +42,43 @@
                     });
                 </script>
                 <br><br>
+                <label>Language:</label>
+                <select class="form-control">
+                    <option value="">Any</option>
+                    <?php
+                        foreach($langs as $lang)echo '<option value="'.$lang.'">'.$lang.'</option>';
+                    ?>
+                </select>
+                <br>
+                <label>Format:</label>
+                <select class="form-control">
+                    <option value="">Any</option>
+                    <?php
+                        foreach($formats as $format)echo '<option value="'.$format.'">'.$format.'</option>';
+                    ?>
+                </select>
+                <br><br>
                 <button class="btn btn-dark btn-block" type="submit" name="submit">Search</button>
             </form>
         </div>
         <div class="col-sm-9">
             <h3>Search Result</h3>
-            <?php var_dump($books); ?>
+            <?php //var_dump($books); ?>
+            <div class="row">
+                <?php
+                    foreach($books as $book){
+                        echo '<div class="col-sm-3">';
+                            echo '<div class="card bg-dark">';
+                            echo '<img class="card-img-top" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover">';
+                            echo '<div class="card-body" style="padding: 5px;">';
+                                echo '<p class="card-title text-center" style="margin: 0;"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
+                                echo '<p class="card-title text-center" style="margin: 0;">by '.$book['author'].'</p>';
+                            echo '</div>';
+                            echo '</div>';
+                        echo '</div>';
+                    }
+                ?>
+            </div>
         </div>
     </div>
 </div>
