@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
+            <div class="container" style="margin-top: 0;">
                 <a href="<?php echo site_url(); ?>" class="navbar-brand mb-0 h-1">
                     <img src="<?php echo site_url(); ?>/assets/branding/Louvre-Header.png" alt="The Louvre Header Icon" width="80" height="37" class="d-inline-block align-top">
                     The Louvre Bookstore
