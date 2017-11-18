@@ -6,13 +6,28 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-        <img class="d-block w-100" src="assets/slide/a.png" alt="First slide">
+            <img class="d-block w-100" src="assets/slide/harpot.png" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>Harry Potter and the Deathly Hallows</h3>
+                <p>Final book of the series usulaly marked the ending. But does it?</p>
+                <button class="btn btn-outline-light">Learn More</button>
+            </div>
         </div>
         <div class="carousel-item">
-        <img class="d-block w-100" src="assets/slide/b.png" alt="Second slide">
+            <img class="d-block w-100" src="assets/slide/hgt.png" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>The Hunger Games Trilogy</h3>
+                <p>The Hunger Games Trilogy boxed set is out now!</p>
+                <button class="btn btn-outline-light">Learn More</button>
+            </div>
         </div>
         <div class="carousel-item">
-        <img class="d-block w-100" src="assets/slide/c.png" alt="Third slide">
+            <img class="d-block w-100" src="assets/slide/ndt.png" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>His Latest Book</h3>
+                <p>Take a look at Neil DeGrasse Tyson's latest book.</p>
+                <button class="btn btn-outline-light">Learn More</button>
+            </div>
         </div>
     </div>
     <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">

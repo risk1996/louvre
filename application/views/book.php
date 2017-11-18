@@ -4,7 +4,7 @@
             <img class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $book['title']; ?> Book Cover">
             <button class="btn btn-secondary btn-block">Look at Preview</button>
             <h3 class="text-center">$<?php echo $book['price']; ?></h3>
-            <button class="btn btn-primary btn-block">Buy</button>
+            <button class="btn btn-primary btn-block">Add to Cart</button>
         </div>
         <div class="col-sm-6">
             <h2><?php echo $book['title']; ?></h2>
