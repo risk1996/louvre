@@ -9,43 +9,27 @@ DROP DATABASE IF EXISTS `louvre`;
 CREATE DATABASE `louvre` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `louvre`;
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `email` varchar(30) NOT NULL,
-  CHECK (`email` LIKE '?%@?%.??%'),
-  `roles` varchar(9) NOT NULL,
-  CHECK (`roles` IN ('buyer', 'manager', 'admin')),
-  `fname` varchar(25) NOT NULL,
-  `lname` varchar(25) DEFAULT NULL,
-  `pass` char(64) NOT NULL,
-  `salt` char(5) NOT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-TRUNCATE `users`;
-
-DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `isbn13` char(13) NOT NULL,
   `title` varchar(50) NOT NULL,
-  `slug` varchar(50) UNIQUE NOT NULL,
+  `slug` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  CHECK (`price` > 0),
   `stock` smallint(6) NOT NULL,
-  CHECK (`stock` >= 0),
-  `summary` text,
+  `summary` text DEFAULT NULL,
   `ed` varchar(5) DEFAULT NULL,
   `pages` smallint(6) NOT NULL,
-  CHECK (`pages` > 0),
   `pubdate` date NOT NULL,
   `author` varchar(50) NOT NULL,
   `lang` varchar(12) NOT NULL,
   `format` varchar(5) NOT NULL,
-  CHECK (`format` IN ('PDF', 'EPUB', 'MOBI', 'AZW3', 'DVJU')),
-  PRIMARY KEY (`isbn13`)
+  PRIMARY KEY (`isbn13`),
+  UNIQUE KEY `slug` (`slug`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`price` > 0),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`stock` >= 0),
+  CONSTRAINT `CONSTRAINT_3` CHECK (`pages` > 0),
+  CONSTRAINT `CONSTRAINT_4` CHECK (`format` in ('PDF','EPUB','MOBI','AZW3','DVJU'))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `book`;
 INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `ed`, `pages`, `pubdate`, `author`, `lang`, `format`) VALUES
 ('9780316322409',	'I Am Malala',	'i-am-malala',	16.00,	3,	'When the Taliban took control of the Swat Valley in Pakistan, one girl spoke out. Malala Yousafzai refused to be silenced and fought for her right to an education.\r\n\r\nOn Tuesday, October 9, 2012, when she was fifteen, she almost paid the ultimate price. She was shot in the head at point-blank range while riding the bus home from school, and few expected her to survive. \r\n\r\nInstead, Malala''s miraculous recovery has taken her on an extraordinary journey from a remote valley in northern Pakistan to the halls of the United Nations in New York. At sixteen, she has become a global symbol of peaceful protest and the youngest-ever Nobel Peace Prize laureate.\r\n\r\nI Am Malala is the remarkable tale of a family uprooted by global terrorism, of the fight for girls'' education, of a father who, himself a school owner, championed and encouraged his daughter to write and attend school, and of brave parents who have a fierce love for their daughter in a society that prizes sons.',	NULL,	327,	'2012-11-01',	'Malala Yousafzai',	'English',	'PDF'),
 ('9780439023481',	'The Hunger Games',	'the-hunger-games',	10.99,	7,	'The nation of Panem, formed from a post-apocalyptic North America, is a country that consists of a wealthy Capitol region surrounded by 12 poorer districts. Early in its history, a rebellion led by a 13th district against the Capitol resulted in its destruction and the creation of an annual televised event known as the Hunger Games. In punishment, and as a reminder of the power and grace of the Capitol, each district must yield one boy and one girl between the ages of 12 and 18 through a lottery system to participate in the games. The ''tributes'' are chosen during the annual Reaping and are forced to fight to the death, leaving only one survivor to claim victory.\r\n\r\nWhen 16-year-old Katniss''s young sister, Prim, is selected as District 12''s female representative, Katniss volunteers to take her place. She and her male counterpart Peeta, are pitted against bigger, stronger representatives, some of whom have trained for this their whole lives. , she sees it as a death sentence. But Katniss has been close to death before. For her, survival is second nature.',	NULL,	374,	'2008-09-14',	'Suzanne Collins',	'English',	'PDF'),
@@ -55,18 +39,18 @@ INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `ed`
 ('9781853260315',	'20000 Leagues Under the Sea',	'twenty-thousands-league-under',	3.39,	8,	'Professor Aronnax, his faithful servant, Conseil, and the Canadian harpooner, Ned Land, begin an extremely hazardous voyage to rid the seas of a little-known and terrifying sea monster. However, the \"monster\" turns out to be a giant submarine, commanded by the mysterious Captain Nemo, by whom they are soon held captive. So begins not only one of the great adventure classics by Jules Verne, the ''Father of Science Fiction'', but also a truly fantastic voyage from the lost city of Atlantis to the South Pole.',	NULL,	406,	'1998-01-01',	'Jules Verne',	'English',	'PDF'),
 ('9788120343399',	'C++:How to Program',	'cpp-how-to-program',	171.40,	4,	'With over 250,000 sold, Harvey and Paul Deitel''s \"C++ How to Program\" is the world''s best-selling introduction to C++ programming. Now, this classic has been thoroughly updated! The Deitels'' groundbreaking How to Program series offers unparalleled breadth and depth of programming concepts and intermediate-level topics for further study. The books in this series feature hundreds of complete, working programs with thousands of lines of code. Deitels'' \"C++ How to Program\" is the most comprehensive, practical introduction to C++ ever published-with hundreds of hands-on exercises, roughly 250 complete programs written and documented for easy learning, and exceptional insight into good programming practices, maximizing performance, avoiding errors, debugging, and testing. The updated Fifth Edition now includes a new early classes pedagogy-classes and objects are introduced in Chapter 3 and used throughout the book as appropriate. The new edition uses string and vector classes to make earlier examples more object-oriented. Large chapters are broken down into smaller, more manageable pieces. A new OOD/UML ATM case study replaces the elevator case study of previous editions, and UML in the OOD/UML case study and elsewhere in the book has been upgraded to UML 2. The Fifth Edition features new mini case studies (e.g., GradeBook and Time classes). An employee hierarchy replaces Point/Circle/Cylinder to introduce inheritance and polymorphism. Additional enhancements include tuned treatment of exception handling, new \"Using the Debugger\" material and a new \"Before You Begin\" section to help readers get set up properly. Also included are separate chapters on recursion and searching/sorting. TheFifth Edition retains every key concept and technique ANSI C++ developers need to master: control statements, functions, arrays, pointers and strings, classes and data abstraction, operator overloading, inheritance, virtual functions, polymorphism, I/O, templates, exception handling, file processing, data structures, and more. It also includes a detailed introduction to Standard Template Library (STL) containers, container adapters, algorithms, and iterators. The accompanying CD-ROM includes all the source code from the book. A valuable reference for programmers and anyone interested in learning the C++ programming language and object-oriented development in C++.',	'8',	1536,	'2004-12-01',	'Paul Deitel',	'English',	'PDF');
 
-DROP TABLE IF EXISTS `bookfeatured`;
+CREATE TABLE `bookdetail` (`isbn13` char(13), `title` varchar(50), `slug` varchar(50), `price` decimal(10,2), `stock` smallint(6), `summary` text, `ed` varchar(5), `pages` smallint(6), `pubdate` date, `author` varchar(50), `lang` varchar(12), `format` varchar(5), `genre` mediumtext, `discount` decimal(5,2));
+
+
 CREATE TABLE `bookfeatured` (
   `isbn13` char(13) NOT NULL,
-  `info` text,
+  `info` text DEFAULT NULL,
   `until` date NOT NULL,
   PRIMARY KEY (`isbn13`),
   CONSTRAINT `bookfeatured_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `bookfeatured`;
 
-DROP TABLE IF EXISTS `bookgenre`;
 CREATE TABLE `bookgenre` (
   `isbn13` char(13) NOT NULL,
   `genre` varchar(25) NOT NULL,
@@ -74,7 +58,6 @@ CREATE TABLE `bookgenre` (
   CONSTRAINT `bookgenre_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `bookgenre`;
 INSERT INTO `bookgenre` (`isbn13`, `genre`) VALUES
 ('9780316322409',	'Nonfiction'),
 ('9780316322409',	'Autobiography'),
@@ -112,87 +95,90 @@ INSERT INTO `bookgenre` (`isbn13`, `genre`) VALUES
 ('9788120343399',	'Reference'),
 ('9788120343399',	'Nonfiction');
 
-DROP TABLE IF EXISTS `bookpromotion`;
 CREATE TABLE `bookpromotion` (
   `isbn13` char(13) NOT NULL,
-  `discount` decimal(5,2) DEFAULT '0.00',
-  CHECK (`discount` >= 0),
+  `discount` decimal(5,2) DEFAULT 0.00,
   `until` date NOT NULL,
   PRIMARY KEY (`isbn13`),
-  CONSTRAINT `bookpromotion_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
+  CONSTRAINT `bookpromotion_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `bookpromotion`;
 
-DROP TABLE IF EXISTS `bookreview`;
+CREATE TABLE `bookrecommended` (`isbn13` char(13), `title` varchar(50), `slug` varchar(50), `price` decimal(10,2), `stock` smallint(6), `summary` text, `ed` varchar(5), `pages` smallint(6), `pubdate` date, `author` varchar(50), `lang` varchar(12), `format` varchar(5), `genre` mediumtext, `discount` decimal(5,2), `info` text);
+
+
 CREATE TABLE `bookreview` (
   `isbn13` char(13) NOT NULL,
   `email` varchar(30) NOT NULL,
   `rating` tinyint(4) NOT NULL,
-  CHECK (`rating` BETWEEN 1 AND 10),
-  `review` text,
+  `review` text DEFAULT NULL,
   PRIMARY KEY (`isbn13`,`email`),
   KEY `email` (`email`),
   CONSTRAINT `bookreview_ibfk_1` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`),
-  CONSTRAINT `bookreview_ibfk_2` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
+  CONSTRAINT `bookreview_ibfk_2` FOREIGN KEY (`email`) REFERENCES `users` (`email`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`rating` between 1 and 10)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `bookreview`;
 
-DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `email` varchar(30) NOT NULL,
   `isbn13` char(13) NOT NULL,
   `quantity` smallint(6) NOT NULL,
-  CHECK (`quantity` > 0),
-  `discount` decimal(5,2) DEFAULT '0.00',
-  CHECK (`discount` >= 0),
+  `discount` decimal(5,2) DEFAULT 0.00,
   `addded` datetime NOT NULL,
   PRIMARY KEY (`email`,`isbn13`),
   KEY `isbn13` (`isbn13`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`),
-  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`quantity` > 0),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `cart`;
 
-DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `invoiceno` char(12) NOT NULL,
   `email` varchar(30) NOT NULL,
   `payment` varchar(15) NOT NULL,
-  CHECK (`payment` IN ('Debit', 'Visa', 'MasterCard', 'PayPal')),
   `invdate` datetime NOT NULL,
   PRIMARY KEY (`invoiceno`),
   KEY `email` (`email`),
-  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
+  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`payment` in ('Debit','Visa','MasterCard','PayPal'))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `transactions`;
 
-DROP TABLE IF EXISTS `transactionsdetail`;
 CREATE TABLE `transactionsdetail` (
   `invoiceno` char(12) NOT NULL,
   `isbn13` char(13) NOT NULL,
   `quantity` smallint(6) NOT NULL,
-  CHECK (`quantity` > 0),
-  `discount` decimal(5,2) DEFAULT '0.00',
-  CHECK (`discount` >= 0),
+  `discount` decimal(5,2) DEFAULT 0.00,
   PRIMARY KEY (`invoiceno`,`isbn13`),
   KEY `isbn13` (`isbn13`),
   CONSTRAINT `transactionsdetail_ibfk_1` FOREIGN KEY (`invoiceno`) REFERENCES `transactions` (`invoiceno`),
-  CONSTRAINT `transactionsdetail_ibfk_2` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`)
+  CONSTRAINT `transactionsdetail_ibfk_2` FOREIGN KEY (`isbn13`) REFERENCES `book` (`isbn13`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`quantity` > 0),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE `transactionsdetail`;
 
-CREATE VIEW bookdetail
-  AS SELECT isbn13, title, slug, price, stock, summary, ed, pages, pubdate, author, lang, format, GROUP_CONCAT(genre) AS genre, discount
-    FROM book NATURAL JOIN bookgenre LEFT OUTER JOIN bookpromotion USING (isbn13)
-    GROUP BY 1;
+CREATE TABLE `users` (
+  `email` varchar(30) NOT NULL,
+  `roles` varchar(9) NOT NULL,
+  `fname` varchar(25) NOT NULL,
+  `lname` varchar(25) DEFAULT NULL,
+  `pass` char(64) NOT NULL,
+  `salt` char(5) NOT NULL,
+  PRIMARY KEY (`email`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '?%@?%.??%'),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin'))
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE VIEW bookrecommended
-  AS SELECT isbn13, title, slug, price, stock, summary, ed, pages, pubdate, author, lang, format, genre, discount, info
-    FROM bookfeatured LEFT OUTER JOIN bookdetail USING (isbn13);
 
--- 2017-11-15 06:15:24
+DROP TABLE IF EXISTS `bookdetail`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookdetail` AS select `book`.`isbn13` AS `isbn13`,`book`.`title` AS `title`,`book`.`slug` AS `slug`,`book`.`price` AS `price`,`book`.`stock` AS `stock`,`book`.`summary` AS `summary`,`book`.`ed` AS `ed`,`book`.`pages` AS `pages`,`book`.`pubdate` AS `pubdate`,`book`.`author` AS `author`,`book`.`lang` AS `lang`,`book`.`format` AS `format`,group_concat(`bookgenre`.`genre` separator ',') AS `genre`,`bookpromotion`.`discount` AS `discount` from ((`book` join `bookgenre` on(`book`.`isbn13` = `bookgenre`.`isbn13`)) left join `bookpromotion` on(`book`.`isbn13` = `bookpromotion`.`isbn13`)) group by 1;
+
+DROP TABLE IF EXISTS `bookrecommended`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookrecommended` AS select `bookfeatured`.`isbn13` AS `isbn13`,`bookdetail`.`title` AS `title`,`bookdetail`.`slug` AS `slug`,`bookdetail`.`price` AS `price`,`bookdetail`.`stock` AS `stock`,`bookdetail`.`summary` AS `summary`,`bookdetail`.`ed` AS `ed`,`bookdetail`.`pages` AS `pages`,`bookdetail`.`pubdate` AS `pubdate`,`bookdetail`.`author` AS `author`,`bookdetail`.`lang` AS `lang`,`bookdetail`.`format` AS `format`,`bookdetail`.`genre` AS `genre`,`bookdetail`.`discount` AS `discount`,`bookfeatured`.`info` AS `info` from (`bookfeatured` left join `bookdetail` on(`bookfeatured`.`isbn13` = `bookdetail`.`isbn13`));
+
+-- 2017-11-18 04:14:49

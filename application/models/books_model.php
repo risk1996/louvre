@@ -18,7 +18,7 @@ class books_model extends CI_Model{
 			$query = $this->db->get('bookdetail');
 			return $query->result_array();
 		}else{
-			$query = $this->db->get('bookdetail', array('slug' => $slug));
+			$query = $this->db->get_where('bookdetail', array('slug' => $slug));
 			return $query->row_array();
 		}
 	}
