@@ -15,31 +15,18 @@ class books_model extends CI_Model{
 	*/
 	public function get_books($slug = FALSE){
 		if(!$slug){
-			$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
-			$this->db->from('book');
-			$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
-			$this->db->group_by('1');
-			$query = $this->db->get();
+			$query = $this->db->get('bookdetail');
 			return $query->result_array();
 		}else{
-			$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
-			$this->db->from('book');
-			$this->db->where(array('slug' => $slug));
-			$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
-			$this->db->group_by('1');
-			$query = $this->db->get();
+			$query = $this->db->get('bookdetail', array('slug' => $slug));
 			return $query->row_array();
 		}
 	}
 
 	public function get_limit($limit = FALSE, $start = FALSE){
-		$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
-		$this->db->from('book');
-		$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
-		$this->db->group_by('1');
 		if($limit && $start)$this->db->limit($limit, $start);
 		else if($limit)$this->db->limit($limit);
-		$query = $this->db->get();
+		$query = $this->db->get('bookdetail');
 		return $query->result_array();
 	}
 	/*
@@ -51,8 +38,7 @@ class books_model extends CI_Model{
 		if(!$keyword){
 			return FALSE;
 		}else{
-			$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre');
-			$this->db->from('book');
+			$this->db->from('bookdetail');
 			foreach($criteria as $key => $val){
 				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'summary' || $key == 'genre'){
 					$keyword = explode(' ', $val);
@@ -67,8 +53,6 @@ class books_model extends CI_Model{
 					$this->db->where($key.' = '.$val);
 				}
 			}
-			$this->db->join('bookgenre', 'book.isbn13 = bookgenre.isbn13');
-			$this->db->group_by('1');
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -79,12 +63,7 @@ class books_model extends CI_Model{
 	@return result array
 	*/
 	public function get_recommended(){
-		$this->db->select('book.isbn13, title, slug, price, stock, summary, edition, pages, pubdate, author, language, format, GROUP_CONCAT(genre) as genre, info, until');
-		$this->db->from('bookfeatured');
-		$this->db->join('book', 'bookfeatured.isbn13 = book.isbn13');
-		$this->db->join('bookgenre', 'bookfeatured.isbn13 = bookgenre.isbn13');
-		$this->db->group_by('1');
-		$query = $this->db->get();
+		$query = $this->db->get('bookrecommended');
 		return $query->result_array();
 	}
 

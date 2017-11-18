@@ -34,19 +34,19 @@ CREATE TABLE `book` (
   `stock` smallint(6) NOT NULL,
   CHECK (`stock` >= 0),
   `summary` text,
-  `edition` varchar(5) DEFAULT NULL,
+  `ed` varchar(5) DEFAULT NULL,
   `pages` smallint(6) NOT NULL,
   CHECK (`pages` > 0),
   `pubdate` date NOT NULL,
   `author` varchar(50) NOT NULL,
-  `language` varchar(12) NOT NULL,
+  `lang` varchar(12) NOT NULL,
   `format` varchar(5) NOT NULL,
   CHECK (`format` IN ('PDF', 'EPUB', 'MOBI', 'AZW3', 'DVJU')),
   PRIMARY KEY (`isbn13`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 TRUNCATE `book`;
-INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `edition`, `pages`, `pubdate`, `author`, `language`, `format`) VALUES
+INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `ed`, `pages`, `pubdate`, `author`, `lang`, `format`) VALUES
 ('9780316322409',	'I Am Malala',	'i-am-malala',	16.00,	3,	'When the Taliban took control of the Swat Valley in Pakistan, one girl spoke out. Malala Yousafzai refused to be silenced and fought for her right to an education.\r\n\r\nOn Tuesday, October 9, 2012, when she was fifteen, she almost paid the ultimate price. She was shot in the head at point-blank range while riding the bus home from school, and few expected her to survive. \r\n\r\nInstead, Malala''s miraculous recovery has taken her on an extraordinary journey from a remote valley in northern Pakistan to the halls of the United Nations in New York. At sixteen, she has become a global symbol of peaceful protest and the youngest-ever Nobel Peace Prize laureate.\r\n\r\nI Am Malala is the remarkable tale of a family uprooted by global terrorism, of the fight for girls'' education, of a father who, himself a school owner, championed and encouraged his daughter to write and attend school, and of brave parents who have a fierce love for their daughter in a society that prizes sons.',	NULL,	327,	'2012-11-01',	'Malala Yousafzai',	'English',	'PDF'),
 ('9780439023481',	'The Hunger Games',	'the-hunger-games',	10.99,	7,	'The nation of Panem, formed from a post-apocalyptic North America, is a country that consists of a wealthy Capitol region surrounded by 12 poorer districts. Early in its history, a rebellion led by a 13th district against the Capitol resulted in its destruction and the creation of an annual televised event known as the Hunger Games. In punishment, and as a reminder of the power and grace of the Capitol, each district must yield one boy and one girl between the ages of 12 and 18 through a lottery system to participate in the games. The ''tributes'' are chosen during the annual Reaping and are forced to fight to the death, leaving only one survivor to claim victory.\r\n\r\nWhen 16-year-old Katniss''s young sister, Prim, is selected as District 12''s female representative, Katniss volunteers to take her place. She and her male counterpart Peeta, are pitted against bigger, stronger representatives, some of whom have trained for this their whole lives. , she sees it as a death sentence. But Katniss has been close to death before. For her, survival is second nature.',	NULL,	374,	'2008-09-14',	'Suzanne Collins',	'English',	'PDF'),
 ('9781451648539',	'Steve Jobs',	'steve-jobs',	35.00,	10,	'From best-selling author Walter Isaacson comes the landmark biography of Apple co-founder Steve Jobs.\r\n\r\nIn Steve Jobs: The Exclusive Biography, Isaacson provides an extraordinary account of Jobs'' professional and personal life. Drawn from three years of exclusive and unprecedented interviews Isaacson has conducted with Jobs as well as extensive interviews with Jobs'' family members and key colleagues from Apple and its competitors, Steve Jobs: The Exclusive Biography is the definitive portrait of the greatest innovator of his generation.',	NULL,	656,	'2011-10-24',	'Walter Isaacson',	'English',	'PDF'),
@@ -163,7 +163,6 @@ CREATE TABLE `transactions` (
   `payment` varchar(15) NOT NULL,
   CHECK (`payment` IN ('Debit', 'Visa', 'MasterCard', 'PayPal')),
   `invdate` datetime NOT NULL,
-  CHECK ('invdate' <= CURDATE()),
   PRIMARY KEY (`invoiceno`),
   KEY `email` (`email`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
@@ -186,5 +185,14 @@ CREATE TABLE `transactionsdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 TRUNCATE `transactionsdetail`;
+
+CREATE VIEW bookdetail
+  AS SELECT isbn13, title, slug, price, stock, summary, ed, pages, pubdate, author, lang, format, GROUP_CONCAT(genre) AS genre, discount
+    FROM book NATURAL JOIN bookgenre LEFT OUTER JOIN bookpromotion USING (isbn13)
+    GROUP BY 1;
+
+CREATE VIEW bookrecommended
+  AS SELECT isbn13, title, slug, price, stock, summary, ed, pages, pubdate, author, lang, format, genre, discount, info
+    FROM bookfeatured LEFT OUTER JOIN bookdetail USING (isbn13);
 
 -- 2017-11-15 06:15:24
