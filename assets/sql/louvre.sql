@@ -9,27 +9,6 @@ DROP DATABASE IF EXISTS `louvre`;
 CREATE DATABASE `louvre` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `louvre`;
 
-CREATE TABLE `users` (
-  `email` varchar(30) NOT NULL,
-  `roles` varchar(9) NOT NULL,
-  `fname` varchar(25) NOT NULL,
-  `lname` varchar(25) DEFAULT NULL,
-  `gender` CHAR(1) NOT NULL,
-  `pass` char(64) NOT NULL,
-  `salt` char(5) NOT NULL,
-  PRIMARY KEY (`email`),
-  CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '_%@_%.__%'),
-  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin')),
-  CONSTRAINT `CONSTRAINT_3` CHECK (`gender` in ('M', 'F', 'O'))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `pass`, `salt`, gender) VALUES
-('buyer1@example.com',	'buyer',	'Buyersatu',	NULL,	'ea5ff37b3d91a0bf99ba76a66806e8fd734710e729690502ae97ad54ba91f8c5',	'DLrtV', 'O'),
-('miqdad@louvre.dev',	'admin',	'Miqdad',	'Abdurrahman',	'6188fafdb356e3f30cd476d3d8a019630d8fddc375feea1f1d28bbce73d43587',	'lfS8X', 'M'),
-('stefanus@louvre.dev',	'manager',	'Stefanus',	'Kurniawan',	'f34504d41e676303b197bef6ef925b8e685193335ab0e5df374fbad86cde9e58',	'YkpPp', 'M'),
-('william@louvre.dev',	'manager',	'William',	'Darian',	'f1c8885ef90f8112ad5f4606f54598f946a5d8e07ed2f729e642cc2fcef078a8',	'cCZx6', 'M');
-
-
 CREATE TABLE `book` (
   `isbn13` char(13) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -58,7 +37,8 @@ INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `stock`, `summary`, `ed`
 ('9781455582341',	'How Google Works',	'how-google-works',	18.99,	6,	'Both Eric Schmidt and Jonathan Rosenberg came to Google as seasoned Silicon Valley business executives, but over the course of a decade they came to see the wisdom in Coach John Wooden''s observation that ''it''s what you learn after you know it all that counts''. As they helped grow Google from a young start-up to a global icon, they relearned everything they knew about management. How Google Works is the sum of those experiences distilled into a fun, easy-to-read primer on corporate culture, strategy, talent, decision-making, communication, innovation, and dealing with disruption.\r\n\r\nThe authors explain how the confluence of three seismic changes - the internet, mobile, and cloud computing - has shifted the balance of power from companies to consumers. The companies that will thrive in this ever-changing landscape will be the ones that create superior products and attract a new breed of multifaceted employees whom the authors dub ''smart creatives''. The management maxims (''Consensus requires dissension'', ''Exile knaves but fight for divas'', ''Think 10X, not 10%'') are illustrated with previously unreported anecdotes from Google''s corporate history.\r\n\r\n''Back in 2010, Eric and I created an internal class for Google managers,'' says Rosenberg. ''The class slides all read ''Google confidential'' until an employee suggested we uphold the spirit of openness and share them with the world. This book codifies the recipe for our secret sauce: how Google innovates and how it empowers employees to succeed.''',	NULL,	305,	'2014-09-23',	'Eric Schmidt',	'English',	'PDF'),
 ('9781568364841',	'The Handbook of Japanese Verbs',	'handbook-japanese-verbs',	19.00,	2,	'From the very earliest stages of study until far into the intermediate level, students of the Japanese language are continually scratching their heads over the usage of verbs. It is no wonder that they should feel the need for a solid reference book, one they can continually turn to throughout their studying careers. The Handbook of Japanese Verbs is just that book.\r\n\r\nThe Introduction takes the first step toward comprehension by pointing out the features of Japanese verbs that stand in contrast to their English counterparts, such as tense, politeness level, auxiliaries, and transitive and intransitive forms.\r\n\r\nPart 1 shows through tables and concise commentary how Japanese verbs are categorized, conjugated, and combined with auxiliaries. Each form is followed by a short exercise, reinforcing the points just made.\r\n\r\nPart 2 takes up the forms described in the first part and shows how they function in full-fledged sentences. Each discussion is followed by examples and exercises, ensuring that the student has understood the forms under discussion.\r\n\r\nIn the appendices, the student is offered a number of look-up methods, including an English-Japanese verb dictionary. This completes the apparatus necessary for a solid handbook on Japanese verbs, a book students can rely on for many years to come',	NULL,	256,	'2001-06-19',	'Taeko Kamiya',	'English',	'PDF'),
 ('9781853260315',	'20000 Leagues Under the Sea',	'twenty-thousands-league-under',	3.39,	8,	'Professor Aronnax, his faithful servant, Conseil, and the Canadian harpooner, Ned Land, begin an extremely hazardous voyage to rid the seas of a little-known and terrifying sea monster. However, the \"monster\" turns out to be a giant submarine, commanded by the mysterious Captain Nemo, by whom they are soon held captive. So begins not only one of the great adventure classics by Jules Verne, the ''Father of Science Fiction'', but also a truly fantastic voyage from the lost city of Atlantis to the South Pole.',	NULL,	406,	'1998-01-01',	'Jules Verne',	'English',	'PDF'),
-('9788120343399',	'C++:How to Program',	'cpp-how-to-program',	171.40,	4,	'With over 250,000 sold, Harvey and Paul Deitel''s \"C++ How to Program\" is the world''s best-selling introduction to C++ programming. Now, this classic has been thoroughly updated! The Deitels'' groundbreaking How to Program series offers unparalleled breadth and depth of programming concepts and intermediate-level topics for further study. The books in this series feature hundreds of complete, working programs with thousands of lines of code. Deitels'' \"C++ How to Program\" is the most comprehensive, practical introduction to C++ ever published-with hundreds of hands-on exercises, roughly 250 complete programs written and documented for easy learning, and exceptional insight into good programming practices, maximizing performance, avoiding errors, debugging, and testing. The updated Fifth Edition now includes a new early classes pedagogy-classes and objects are introduced in Chapter 3 and used throughout the book as appropriate. The new edition uses string and vector classes to make earlier examples more object-oriented. Large chapters are broken down into smaller, more manageable pieces. A new OOD/UML ATM case study replaces the elevator case study of previous editions, and UML in the OOD/UML case study and elsewhere in the book has been upgraded to UML 2. The Fifth Edition features new mini case studies (e.g., GradeBook and Time classes). An employee hierarchy replaces Point/Circle/Cylinder to introduce inheritance and polymorphism. Additional enhancements include tuned treatment of exception handling, new \"Using the Debugger\" material and a new \"Before You Begin\" section to help readers get set up properly. Also included are separate chapters on recursion and searching/sorting. TheFifth Edition retains every key concept and technique ANSI C++ developers need to master: control statements, functions, arrays, pointers and strings, classes and data abstraction, operator overloading, inheritance, virtual functions, polymorphism, I/O, templates, exception handling, file processing, data structures, and more. It also includes a detailed introduction to Standard Template Library (STL) containers, container adapters, algorithms, and iterators. The accompanying CD-ROM includes all the source code from the book. A valuable reference for programmers and anyone interested in learning the C++ programming language and object-oriented development in C++.',	'8',	1536,	'2004-12-01',	'Paul Deitel',	'English',	'PDF');
+('9788120343399',	'C++:How to Program',	'cpp-how-to-program',	171.40,	4,	'With over 250,000 sold, Harvey and Paul Deitel''s \"C++ How to Program\" is the world''s best-selling introduction to C++ programming. Now, this classic has been thoroughly updated! The Deitels'' groundbreaking How to Program series offers unparalleled breadth and depth of programming concepts and intermediate-level topics for further study. The books in this series feature hundreds of complete, working programs with thousands of lines of code. Deitels'' \"C++ How to Program\" is the most comprehensive, practical introduction to C++ ever published-with hundreds of hands-on exercises, roughly 250 complete programs written and documented for easy learning, and exceptional insight into good programming practices, maximizing performance, avoiding errors, debugging, and testing. The updated Fifth Edition now includes a new early classes pedagogy-classes and objects are introduced in Chapter 3 and used throughout the book as appropriate. The new edition uses string and vector classes to make earlier examples more object-oriented. Large chapters are broken down into smaller, more manageable pieces. A new OOD/UML ATM case study replaces the elevator case study of previous editions, and UML in the OOD/UML case study and elsewhere in the book has been upgraded to UML 2. The Fifth Edition features new mini case studies (e.g., GradeBook and Time classes). An employee hierarchy replaces Point/Circle/Cylinder to introduce inheritance and polymorphism. Additional enhancements include tuned treatment of exception handling, new \"Using the Debugger\" material and a new \"Before You Begin\" section to help readers get set up properly. Also included are separate chapters on recursion and searching/sorting. TheFifth Edition retains every key concept and technique ANSI C++ developers need to master: control statements, functions, arrays, pointers and strings, classes and data abstraction, operator overloading, inheritance, virtual functions, polymorphism, I/O, templates, exception handling, file processing, data structures, and more. It also includes a detailed introduction to Standard Template Library (STL) containers, container adapters, algorithms, and iterators. The accompanying CD-ROM includes all the source code from the book. A valuable reference for programmers and anyone interested in learning the C++ programming language and object-oriented development in C++.',	'8',	1536,	'2004-12-01',	'Paul Deitel',	'English',	'PDF'),
+('9789792274813',	'Merry Riana: Mimpi Sejuta Dolar',	'merry-riana-mimpi-sejuta-dolar',	13.50,	1,	'Titik awal keberhasilan adalah impian.\r\n\r\nDari seorang mahasiswi dengan ekonomi pas-pasan, Merry Riana, anak muda Indonesia, menjelma menjadi miliuner muda dan diakui sebagai pengusaha sukses, motivator yang sangat dinamis, serta pengarang buku terlaris di Singapura. Melewatkan masa kuliah yang penuh dengan keprihatinan finansial di Nanyang Technological University, Merry kemudian menciptakan perubahan paradigma berpikir dan memulai suatu perjuangan dengan konsep dan etos kerja keras luar biasa. Akhirnya, dia berhasil meraih penghasilan 1 juta dolar di usia 26 tahun.\r\n\r\nKini Merry ingin menciptakan dampak positif di dalam kehidupan banyak orang, terutama di Indonesia.\r\n\r\nBuku ini berisi pengalaman perjuangan Merry beserta hikmah yang sangat inspiratif dan bisa diterapkan untuk mencapai sukses dalam kehidupan.\r\n\r\n\r\n“Apa yang dilakukan Merry Riana adalah salah satu contoh bahwa usia tidak membatasi kita untuk sukses, melainkan keuletan dan kerja keras yang menjadi kuncinya.”\r\n--Andy F. Noya, Host Program Kick Andy\r\n\r\n“Saya suka cara Merry Riana membagi kisah perjuangan hidupnya, cara dia memandang hidup, dan cara dia memberikan motivasi tanpa menggurui.”\r\n--Ronal Surapradja, Penyiar, Host, Aktor, Musisi, Pekerja Seni\r\n\r\n“Terus berkarya yaah Mbak Merry Riana, semoga selalu menjadi inspirasi buat kita semua....”\r\n--Nycta Gina “Jeng Kelin”, Pemain Sinetron, Bintang Iklan, Presenter\r\n\r\n“Merry Riana mengajarkan pada kita bagaimana impian yang diselimuti tekad, keyakinan, dan kerja keras bisa membuahkan keberhasilan.”',	NULL,	362,	'2011-01-01',	'Alberthiene Endah',	'Indonesian',	'EPUB');
 
 CREATE TABLE `bookdetail` (`isbn13` char(13), `title` varchar(50), `slug` varchar(50), `price` decimal(10,2), `stock` smallint(6), `summary` text, `ed` varchar(5), `pages` smallint(6), `pubdate` date, `author` varchar(50), `lang` varchar(12), `format` varchar(5), `genre` mediumtext, `discount` decimal(5,2));
 
@@ -114,7 +94,10 @@ INSERT INTO `bookgenre` (`isbn13`, `genre`) VALUES
 ('9788120343399',	'Computer Science'),
 ('9788120343399',	'Programming'),
 ('9788120343399',	'Reference'),
-('9788120343399',	'Nonfiction');
+('9788120343399',	'Nonfiction'),
+('9789792274813',	'Nonfiction'),
+('9789792274813',	'Biography'),
+('9789792274813',	'Leadership');
 
 CREATE TABLE `bookpromotion` (
   `isbn13` char(13) NOT NULL,
@@ -183,10 +166,30 @@ CREATE TABLE `transactionsdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+CREATE TABLE `users` (
+  `email` varchar(30) NOT NULL,
+  `roles` varchar(9) NOT NULL,
+  `fname` varchar(25) NOT NULL,
+  `lname` varchar(25) DEFAULT NULL,
+  `gender` char(1) NOT NULL,
+  `pass` char(64) NOT NULL,
+  `salt` char(5) NOT NULL,
+  PRIMARY KEY (`email`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '_%@_%.__%'),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin')),
+  CONSTRAINT `CONSTRAINT_3` CHECK (`gender` in ('M','F','O'))
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `gender`, `pass`, `salt`) VALUES
+('buyer1@example.com',	'buyer',	'Buyersatu',	NULL,	'O',	'ea5ff37b3d91a0bf99ba76a66806e8fd734710e729690502ae97ad54ba91f8c5',	'DLrtV'),
+('miqdad@louvre.dev',	'admin',	'Miqdad',	'Abdurrahman',	'M',	'6188fafdb356e3f30cd476d3d8a019630d8fddc375feea1f1d28bbce73d43587',	'lfS8X'),
+('stefanus@louvre.dev',	'manager',	'Stefanus',	'Kurniawan',	'M',	'f34504d41e676303b197bef6ef925b8e685193335ab0e5df374fbad86cde9e58',	'YkpPp'),
+('william@louvre.dev',	'manager',	'William',	'Darian',	'M',	'f1c8885ef90f8112ad5f4606f54598f946a5d8e07ed2f729e642cc2fcef078a8',	'cCZx6');
+
 DROP TABLE IF EXISTS `bookdetail`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookdetail` AS select `book`.`isbn13` AS `isbn13`,`book`.`title` AS `title`,`book`.`slug` AS `slug`,`book`.`price` AS `price`,`book`.`stock` AS `stock`,`book`.`summary` AS `summary`,`book`.`ed` AS `ed`,`book`.`pages` AS `pages`,`book`.`pubdate` AS `pubdate`,`book`.`author` AS `author`,`book`.`lang` AS `lang`,`book`.`format` AS `format`,group_concat(`bookgenre`.`genre` separator ',') AS `genre`,`bookpromotion`.`discount` AS `discount` from ((`book` join `bookgenre` on(`book`.`isbn13` = `bookgenre`.`isbn13`)) left join `bookpromotion` on(`book`.`isbn13` = `bookpromotion`.`isbn13`)) group by 1;
 
 DROP TABLE IF EXISTS `bookrecommended`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookrecommended` AS select `bookfeatured`.`isbn13` AS `isbn13`,`bookdetail`.`title` AS `title`,`bookdetail`.`slug` AS `slug`,`bookdetail`.`price` AS `price`,`bookdetail`.`stock` AS `stock`,`bookdetail`.`summary` AS `summary`,`bookdetail`.`ed` AS `ed`,`bookdetail`.`pages` AS `pages`,`bookdetail`.`pubdate` AS `pubdate`,`bookdetail`.`author` AS `author`,`bookdetail`.`lang` AS `lang`,`bookdetail`.`format` AS `format`,`bookdetail`.`genre` AS `genre`,`bookdetail`.`discount` AS `discount`,`bookfeatured`.`info` AS `info` from (`bookfeatured` left join `bookdetail` on(`bookfeatured`.`isbn13` = `bookdetail`.`isbn13`));
 
--- 2017-11-18 04:14:49
+-- 2017-11-18 09:28:38
