@@ -24,12 +24,10 @@ class users_model extends CI_Model{
         return $res;
     }
 
-    // public function user_register($data = NULL){
-    //     if(isset($data))return FALSE;
-    //     else{
-    //         $salt = generate_random_string();
-    //     }
-    // }
+    public function user_register(){
+        $email = $this->input->post('email');
+        $salt = generate_random_string();
+    }
 
     public function user_verify($email = FALSE, $pass = FALSE, $remember = FALSE){
         if($email || $pass)return FALSE;
