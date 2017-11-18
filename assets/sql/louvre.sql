@@ -9,6 +9,27 @@ DROP DATABASE IF EXISTS `louvre`;
 CREATE DATABASE `louvre` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `louvre`;
 
+CREATE TABLE `users` (
+  `email` varchar(30) NOT NULL,
+  `roles` varchar(9) NOT NULL,
+  `fname` varchar(25) NOT NULL,
+  `lname` varchar(25) DEFAULT NULL,
+  `gender` CHAR(1) NOT NULL,
+  `pass` char(64) NOT NULL,
+  `salt` char(5) NOT NULL,
+  PRIMARY KEY (`email`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '_%@_%.__%'),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin')),
+  CONSTRAINT `CONSTRAINT_3` CHECK (`gender` in ('M', 'F', 'O'))
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `pass`, `salt`, gender) VALUES
+('buyer1@example.com',	'buyer',	'Buyersatu',	NULL,	'ea5ff37b3d91a0bf99ba76a66806e8fd734710e729690502ae97ad54ba91f8c5',	'DLrtV', 'O'),
+('miqdad@louvre.dev',	'admin',	'Miqdad',	'Abdurrahman',	'6188fafdb356e3f30cd476d3d8a019630d8fddc375feea1f1d28bbce73d43587',	'lfS8X', 'M'),
+('stefanus@louvre.dev',	'manager',	'Stefanus',	'Kurniawan',	'f34504d41e676303b197bef6ef925b8e685193335ab0e5df374fbad86cde9e58',	'YkpPp', 'M'),
+('william@louvre.dev',	'manager',	'William',	'Darian',	'f1c8885ef90f8112ad5f4606f54598f946a5d8e07ed2f729e642cc2fcef078a8',	'cCZx6', 'M');
+
+
 CREATE TABLE `book` (
   `isbn13` char(13) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -161,24 +182,6 @@ CREATE TABLE `transactionsdetail` (
   CONSTRAINT `CONSTRAINT_2` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-CREATE TABLE `users` (
-  `email` varchar(30) NOT NULL,
-  `roles` varchar(9) NOT NULL,
-  `fname` varchar(25) NOT NULL,
-  `lname` varchar(25) DEFAULT NULL,
-  `pass` char(64) NOT NULL,
-  `salt` char(5) NOT NULL,
-  PRIMARY KEY (`email`),
-  CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '?%@?%.??%'),
-  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin'))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `pass`, `salt`) VALUES
-('buyer1@example.com',	'buyer',	'Buyersatu',	NULL,	'EA5FF37B3D91A0BF99BA76A66806E8FD734710E729690502AE97AD54BA91F8C5',	'DLrtV'),
-('miqdad@louvre.dev',	'admin',	'Miqdad',	'Abdurrahman',	'6188FAFDB356E3F30CD476D3D8A019630D8FDDC375FEEA1F1D28BBCE73D43587',	'lfS8X'),
-('stefanus@louvre.dev',	'manager',	'Stefanus',	'Kurniawan',	'F34504D41E676303B197BEF6EF925B8E685193335AB0E5DF374FBAD86CDE9E58',	'YkpPp'),
-('william@louvre.dev',	'manager',	'William',	'Darian',	'F1C8885EF90F8112AD5F4606F54598F946A5D8E07ED2F729E642CC2FCEF078A8',	'cCZx6');
 
 DROP TABLE IF EXISTS `bookdetail`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookdetail` AS select `book`.`isbn13` AS `isbn13`,`book`.`title` AS `title`,`book`.`slug` AS `slug`,`book`.`price` AS `price`,`book`.`stock` AS `stock`,`book`.`summary` AS `summary`,`book`.`ed` AS `ed`,`book`.`pages` AS `pages`,`book`.`pubdate` AS `pubdate`,`book`.`author` AS `author`,`book`.`lang` AS `lang`,`book`.`format` AS `format`,group_concat(`bookgenre`.`genre` separator ',') AS `genre`,`bookpromotion`.`discount` AS `discount` from ((`book` join `bookgenre` on(`book`.`isbn13` = `bookgenre`.`isbn13`)) left join `bookpromotion` on(`book`.`isbn13` = `bookpromotion`.`isbn13`)) group by 1;
