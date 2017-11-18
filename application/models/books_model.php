@@ -42,7 +42,7 @@ class books_model extends CI_Model{
 			foreach($criteria as $key => $val){
 				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'summary' || $key == 'genre'){
 					$keyword = explode(' ', $val);
-					$this->db->like($key, '%'.$keyword.'%');
+					$this->db->like($key, $keyword);
 				}
 				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
 					$min = explode(',', $val)[0];
