@@ -3,9 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Books extends CI_Controller{
 	public function index(){
-		$data['books'] = $this->books_model->get_books();
+		$criteria = array();
+		$filters = array('isbn13', 'title', 'author', 'price', 'pages');
+		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
+			$criteria[$filter] = $this->input->post($filter);
+		}
+		var_dump($criteria);
+		$data['books'] = $this->books_model->find_book($criteria);
 		$data['title'] = 'Books Catalog';
-		
+
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
         $this->load->view('template/footer');
@@ -18,16 +24,6 @@ class Books extends CI_Controller{
 
 		$this->load->view('template/header',$data);
         $this->load->view('book',$data);
-        $this->load->view('template/footer');
-	}
-
-	public function search($keyword = NULL){
-		$data['books'] = $this->books_model->find_book($keyword);
-		if(empty($data['books']))$data['books'] = $this->books_model->get_books();
-		$data['title'] = 'Books Catalog';
-
-		$this->load->view('template/header',$data);
-        $this->load->view('catalog',$data);
         $this->load->view('template/footer');
 	}
 

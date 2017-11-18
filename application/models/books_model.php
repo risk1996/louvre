@@ -35,19 +35,20 @@ class books_model extends CI_Model{
 	@return result array
 	*/
 	public function find_book($criteria){
-		if(!$keyword){
-			return FALSE;
+		if(!$criteria){
+			return $this->books_model->get_books(FALSE);
 		}else{
 			$this->db->from('bookdetail');
 			foreach($criteria as $key => $val){
 				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'summary' || $key == 'genre'){
-					$keyword = explode(' ', $val);
-					$this->db->like($key, '%'.$keyword.'%');
+					$keywords = explode(' ', $val);
+					foreach($keywords as $keyword)$this->db->like($key, $keyword);
 				}
 				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
 					$min = explode(',', $val)[0];
 					$max = explode(',', $val)[1];
-					$this->db->where($key.' BETWEEN '.$min.' AND '. $max);
+					$this->db->where($key.' >= '.$min);
+					$this->db->where($key.' <= '.$max);
 				}
 				else if($key == 'language' || $key == 'format'){
 					$this->db->where($key.' = '.$val);
