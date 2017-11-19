@@ -56,7 +56,7 @@
                         ?>
                     </span>
                     &nbsp;&nbsp;
-                    <form action="" method="post" class="form-inline">
+                    <?php echo form_open('books', array('class' => 'form-inline')); ?>
                         <div class="input-group">
                             <span class="input-group-addon" style="padding: 0 0 0 0;">
                                 <select class="form-control" name="searchby">
@@ -65,9 +65,8 @@
                                     <option value="author">Author</option>
                                 </select>
                             </span>
-                            <input type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">
+                            <input type="text" name="keyword" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">
                         </div>
-                        &nbsp;&nbsp;
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="submit">Search</button>
                     </form>
                 </div>
