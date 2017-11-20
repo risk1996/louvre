@@ -40,7 +40,7 @@ class books_model extends CI_Model{
 		}else{
 			$this->db->from('bookdetail');
 			foreach($criteria as $key => $val){
-				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'summary' || $key == 'genre'){
+				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'genre'){
 					$keywords = explode(' ', $val);
 					foreach($keywords as $keyword)$this->db->like($key, $keyword);
 				}
@@ -50,8 +50,8 @@ class books_model extends CI_Model{
 					$this->db->where($key.' >= '.$min);
 					$this->db->where($key.' <= '.$max);
 				}
-				else if($key == 'language' || $key == 'format'){
-					$this->db->where($key.' = '.$val);
+				else if($key == 'lang' || $key == 'format'){
+					$this->db->like($key, $val);
 				}
 			}
 			$query = $this->db->get();

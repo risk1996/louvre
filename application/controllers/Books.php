@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Books extends CI_Controller{
 	public function index(){
 		$criteria = array();
-		$filters = array('isbn13', 'title', 'author', 'price', 'pages');
+		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'lang', 'format');
 		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
 			$criteria[$filter] = $this->input->post($filter);
 		}
@@ -14,6 +14,7 @@ class Books extends CI_Controller{
 		$data['books'] = $this->books_model->find_book($criteria);
 		$data['langs'] = $this->books_model->get_column('lang');
 		$data['formats'] = $this->books_model->get_column('format');
+		$data['criteria'] = $criteria;
 		$data['title'] = 'Books Catalog';
 		
 		$this->load->view('template/header',$data);
