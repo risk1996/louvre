@@ -57,6 +57,12 @@
                         foreach($formats as $format)echo '<option value="'.$format.'" '.((isset($criteria['format'])&&$criteria['format']==$format)?'selected':'').'>'.$format.'</option>';
                     ?>
                 </select>
+                <br>
+                <label>Genre:</label>
+                <br>
+                <?php
+                    foreach($genres as $genre)echo '<label><span class="badge badge-secondary"><input type="checkbox" name="genre[]" value="'.$genre.'" '.((isset($criteria['genre']) && in_array($genre, explode(',',$criteria['genre'])))?'checked':'').'> '.$genre.'</span></label>&nbsp;';
+                ?>
                 <br><br>
                 <button class="btn btn-dark btn-block" type="submit" name="submit">Refine Search</button>
             </form>

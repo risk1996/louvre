@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-sm-3">
                             <h6>Contact Us</h6>
-                            <span class="fa fa-info-circle"></span>&nbsp;info@louvre.dev <br>
+                            <span class="fa fa-envelope"></span>&nbsp;info@louvre.dev <br>
                             <span class="fa fa-phone"></span>&nbsp;(+62)821 xxxx xxxx <br>
                             <span class="fa fa-whatsapp"></span>&nbsp;(+62)821 xxxx xxxx
                         </div>

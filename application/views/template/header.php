@@ -66,8 +66,10 @@
                                 </select>
                             </span>
                             <input type="text" name="keyword" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">
+                            <span class="input-group-btn">
+                                <button class="btn btn-light my-2 my-sm-0" type="submit" name="submit"><span class="fa fa-search"></span></button>
+                            </span>
                         </div>
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="submit">Search</button>
                     </form>
                 </div>
             </div>

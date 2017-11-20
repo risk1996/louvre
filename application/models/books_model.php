@@ -41,7 +41,7 @@ class books_model extends CI_Model{
 			$this->db->from('bookdetail');
 			foreach($criteria as $key => $val){
 				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'genre'){
-					$keywords = explode(' ', $val);
+					$keywords = explode(($key=='genre')?',':' ', $val);
 					foreach($keywords as $keyword)$this->db->like($key, $keyword);
 				}
 				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
@@ -76,6 +76,18 @@ class books_model extends CI_Model{
 		$raws = $query->result_array();
 		$res = array();
 		foreach($raws as $raw)array_push($res, $raw[$col]);
+		return $res;
+	}
+
+	public function get_genres(){
+		$this->db->distinct();
+		$this->db->select('genre');
+		$this->db->from('bookgenre');
+		$this->db->order_by('1');
+		$query = $this->db->get();
+		$raws = $query->result_array();
+		$res = array();
+		foreach($raws as $raw)array_push($res, $raw['genre']);
 		return $res;
 	}
 
