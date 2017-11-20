@@ -8,12 +8,27 @@
         </div>
         <div class="col-sm-6">
             <h2><?php echo $book['title']; ?></h2>
-            <h4>By <?php echo $book['author']; ?></h4>
-            <p><?php echo $book['summary']; ?></p>
+            <h4 class="text-muted">By <?php echo $book['author']; ?></h4>
             <?php
                 $genres=explode(',', $book['genre']);
-                foreach($genres as $genre)echo '<a href="#" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
+                foreach($genres as $genre){
+                    echo form_open('books', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;'));
+                        echo '<input type="hidden" name="genre[]" value="'.$genre.'">';
+                    echo '</form>';
+                    echo '<a href="#" onclick="document.getElementById(\''.$book['isbn13'].$genre.'form\').submit();" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
+                }
             ?>
+            <br><br>
+            <h5>Book Summary</h5>
+            <p><?php echo $book['summary']; ?></p>
+            <br>
+            <h5 class="text-muted">Technical Information</h5>
+            <p class="text-muted">
+                ISBN: <?php echo $book['isbn13']; ?><br>
+                Pages: <?php echo $book['pages']; ?><br>
+                Language: <?php echo $book['lang']; ?><br>
+                Format: <?php echo $book['format']; ?>
+            </p>
         </div>
         <div class="col-sm-3">
             <?php

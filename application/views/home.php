@@ -55,16 +55,19 @@
             foreach($books as $book){
                 echo '<div class="col-sm-3">';
                     echo '<div class="card bg-dark">';
-                        echo '<img class="card-img-top" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover">';
+                        echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
                         echo '<div class="card-body">';
-                            echo '<h4 class="card-title"><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></h4>';
+                            echo '<h4 class="card-title singleline"><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></h4>';
                             echo '<p class="card-text card-text-limit ellipsis multiline">'.$book['summary'].'</p>';
                             echo '<a href="'.site_url('books/'.$book['slug']).'" class="btn btn-secondary btn-block">More Info</a>';
                         echo '</div>';
                         $genres=explode(',', $book['genre']);
                         echo '<div class="card-footer text-muted">';
                         foreach($genres as $genre){
-                            echo '<a href="#" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
+                            echo form_open('books', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;'));
+                                echo '<input type="hidden" name="genre[]" value="'.$genre.'">';
+                            echo '</form>';
+                            echo '<a href="#" onclick="document.getElementById(\''.$book['isbn13'].$genre.'form\').submit();" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
                         }
                         echo '</div>';
                     echo '</div>';

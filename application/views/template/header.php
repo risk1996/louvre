@@ -24,15 +24,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item <?php if($title=='Home')echo 'active'; ?>"><a href="<?php echo site_url(); ?>" class="nav-link">Home</a></li>
-                        <li class="nav-item <?php if($title=='About')echo 'active'; ?>"><a href="<?php echo site_url('about'); ?>" class="nav-link">About</a></li>
+                        <li class="nav-item <?php if(strpos($title, 'Home')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url(); ?>" class="nav-link"><span class="fa fa-home"></span> Home</a></li>
+                        <li class="nav-item <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url('books'); ?>" class="nav-link"><span class="fa fa-book"></span> Books</a></li>
+                        <li class="nav-item <?php if(strpos($title, 'About')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url('about'); ?>" class="nav-link"><span class="fa fa-info-circle"></span> About</a></li>
                     </ul>
                     <span style="margin-left: auto;">
                         <?php
                             if(isset($_SESSION['logged'])){
                                 echo '<span class="fa fa-user-circle"></span>';
-                            }
-                            else{
+                            } else{
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';
                                     echo str_replace('"', '\\\'', form_open('home'));
                                         echo '<div class=\'input-group\'>';
@@ -66,8 +66,10 @@
                                 </select>
                             </span>
                             <input type="text" name="keyword" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="searchby">
+                            <span class="input-group-btn">
+                                <button class="btn btn-light my-2 my-sm-0" type="submit" name="submit"><span class="fa fa-search"></span></button>
+                            </span>
                         </div>
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="submit">Search</button>
                     </form>
                 </div>
             </div>

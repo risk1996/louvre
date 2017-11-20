@@ -5,8 +5,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
-                            <h6>Contact Us:</h6>
-                            <span class="fa fa-info-circle"></span>&nbsp;info@louvre.dev <br>
+                            <h6>Site Map</h6>
+                            <a href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a><br>
+                            <a href="<?php echo site_url('books'); ?>"><span class="fa fa-book"></span> Books</a><br>
+                            <a href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a>
+                        </div>
+                        <div class="col-sm-3">
+                            <h6>Contact Us</h6>
+                            <span class="fa fa-envelope"></span>&nbsp;info@louvre.dev <br>
                             <span class="fa fa-phone"></span>&nbsp;(+62)821 xxxx xxxx <br>
                             <span class="fa fa-whatsapp"></span>&nbsp;(+62)821 xxxx xxxx
                         </div>
@@ -15,16 +21,21 @@
                             <span class="fa fa-map-marker"></span>&nbsp;Jl. Scientia Boulevard, Gading Serpong <br>
                             &nbsp;&nbsp;&nbsp;Tangerang, Banten-15811, Indonesia
                         </div>
-                        <div class="col-sm-3">
-                            <h6>Share This:</h6>
-                            <span class="fa fa-share-alt"></span>&nbsp;
-                            <span class="fa fa-facebook-official"></span>&nbsp;
-                            <span class="fa fa-twitter"></span>&nbsp;
-                            <span class="fa fa-google-plus"></span>&nbsp;
-                            <span class="fa fa-instagram"></span>&nbsp;
-                            <span class="fa fa-linkedin"></span>&nbsp;
-                            <span class="fa fa-delicious"></span>&nbsp;
-                        </div>
+                    </div>
+                    <div class="row">
+                        <h6 style="margin: 0 auto; display: block;">Share This</h6>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <span style="margin-left:auto;"></span>
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-share-alt"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-facebook"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-twitter"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-google-plus"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-instagram"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-linkedin"></span></a>&nbsp;
+                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-delicious"></span></a>
+                        <span style="margin-right:auto;"></span>
                     </div>
                 </div>
             </div>
