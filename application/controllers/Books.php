@@ -2,44 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Books extends CI_Controller{
-	public function index(){
-		$criteria = array();
-		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'lang', 'format', 'genre');
-		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
-			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->post($filter));
-			else $criteria[$filter] = $this->input->post($filter);
-		}
-		if($this->input->post('searchby') !== NULL){
-			$criteria[$this->input->post('searchby')] = $this->input->post('keyword');
-		}
-		$data['books'] = $this->books_model->find_book($criteria);
-		$data['langs'] = $this->books_model->get_column('lang');
-		$data['formats'] = $this->books_model->get_column('format');
-		$data['genres'] = $this->books_model->get_genres();
-		$data['criteria'] = $criteria;
-		$data['title'] = 'Books Catalog';
-		
-		$this->load->view('template/header',$data);
-        $this->load->view('catalog',$data);
-        $this->load->view('template/footer');
-	}
-
-	public function view($slug=NULL){
+	public function index($slug=NULL){
 		$data['book'] = $this->books_model->get_books($slug);
 		if(empty($data['book']))show_404();
 		$data['title'] = $data['book']['title'].' Info';
 
 		$this->load->view('template/header',$data);
         $this->load->view('book',$data);
-        $this->load->view('template/footer');
-	}
-
-	public function recomended(){
-		$data['books'] = $this->books_model->get_recommended();
-		$data['title'] = 'Recommended Books Catalog';
-		
-		$this->load->view('template/header',$data);
-        $this->load->view('catalog',$data);
         $this->load->view('template/footer');
 	}
 

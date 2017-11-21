@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item <?php if(strpos($title, 'Home')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url(); ?>" class="nav-link"><span class="fa fa-home"></span> Home</a></li>
-                        <li class="nav-item <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url('books'); ?>" class="nav-link"><span class="fa fa-book"></span> Books</a></li>
+                        <li class="nav-item <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url('catalog'); ?>" class="nav-link"><span class="fa fa-book"></span> Books</a></li>
                         <li class="nav-item <?php if(strpos($title, 'About')!==FALSE)echo 'active'; ?>"><a href="<?php echo site_url('about'); ?>" class="nav-link"><span class="fa fa-info-circle"></span> About</a></li>
                     </ul>
                     <span style="margin-left: auto;">
@@ -56,7 +56,7 @@
                         ?>
                     </span>
                     &nbsp;&nbsp;
-                    <?php echo form_open('books', array('class' => 'form-inline')); ?>
+                    <?php echo form_open('catalog', array('class' => 'form-inline')); ?>
                         <div class="input-group">
                             <span class="input-group-addon" style="padding: 0 0 0 0;">
                                 <select class="form-control" name="searchby">

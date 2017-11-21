@@ -68,11 +68,12 @@
             </form>
         </div>
         <div class="col-sm-9">
-            <h3>Search Result (<?php echo count($books); ?>)</h3>
+            <h3>Search Result</h3>
             <div class="row">
                 <?php
                     $ctr=0;
-                    foreach($books as $book){
+                    $bookchunk = array_chunk($books, 12);
+                    foreach($bookchunk[$page] as $book){
                         echo '<div class="col-sm-3">';
                             echo '<div class="card bg-dark">';
                             echo '<p class="card-title text-center singleline"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
@@ -88,19 +89,9 @@
                 ?>
             </div>
             <br>
-            <div class="row">
-                <nav aria-label="Search results pages" style="margin: 0 auto;">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-left"></span><span class="fa fa-angle-left"></span></a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-left"></span></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-right"></span></a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-right"></span><span class="fa fa-angle-right"></span></a></li>
-                    </ul>
-                </nav>
-            </div>
+            <h6 class="pull-right"><?php echo count($books); ?> result<?php echo count($books)==1?'':'s'; ?> in {elapsed_time} seconds.</h6>
+            <br><br>
+            <div class="row"><?php echo $pagination; ?></div>
         </div>
     </div>
 </div>

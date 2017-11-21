@@ -64,7 +64,7 @@
                         $genres=explode(',', $book['genre']);
                         echo '<div class="card-footer text-muted">';
                         foreach($genres as $genre){
-                            echo form_open('books', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;'));
+                            echo form_open('catalog', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;'));
                                 echo '<input type="hidden" name="genre[]" value="'.$genre.'">';
                             echo '</form>';
                             echo '<a href="#" onclick="document.getElementById(\''.$book['isbn13'].$genre.'form\').submit();" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
