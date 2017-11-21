@@ -77,13 +77,29 @@
                             echo '<div class="card bg-dark">';
                             echo '<p class="card-title text-center singleline"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
                             echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
-                            echo '<p class="card-subtitle text-center mb-2 text-muted" style="margin: 0;">by '.$book['author'].'</p>';
+                            echo '<p class="card-subtitle text-center mb-2 text-muted" style="margin: 0 !important;">by '.$book['author'].'</p>';
+                            echo '<p class="text-center text-muted" style="margin: 0;"><small>'.$book['lang'].' '.$book['format'].'</small></p>';
+                            echo '<p class="text-center" style="margin: 0;">'.($book['price']>$book['discountedprice']?'<strike class="text-muted">$ '.$book['price'].'</strike>   ':'').'<big>$ '.$book['discountedprice'].'</big></p>';
                             echo '<button class="btn btn-sm btn-secondary"><span class="fa fa-cart-plus"></span> Add to Cart</button>';
                             echo '</div>';
                         echo '</div>';
                         if($ctr++&&$ctr%4==0)echo '</div><br><div class="row">';
                     }
                 ?>
+            </div>
+            <br>
+            <div class="row">
+                <nav aria-label="Search results pages" style="margin: 0 auto;">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-left"></span><span class="fa fa-angle-left"></span></a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-left"></span></a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-right"></span></a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span class="fa fa-angle-right"></span><span class="fa fa-angle-right"></span></a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

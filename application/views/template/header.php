@@ -17,7 +17,7 @@
             <div class="container" style="margin-top: 0;">
                 <a href="<?php echo site_url(); ?>" class="navbar-brand mb-0 h-1">
                     <img src="<?php echo site_url(); ?>/assets/branding/Louvre-Header.png" alt="The Louvre Header Icon" width="80" height="37" class="d-inline-block align-top">
-                    The Louvre Bookstore
+                    The Louvre E-Bookstore
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

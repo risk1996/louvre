@@ -55,6 +55,22 @@ a:hover {
 .popover-header { 
     color: #212529;
 }
+.pagination > li > a{
+    color: white;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.pagination > li > a:focus,
+.pagination > li > a:hover{
+    color: grey;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.pagination > li.page-item.active > a{
+    color: white;
+    background-color: #868e96;
+    border-color: #868e96;
+}
 
 /* Bootstrap Slider Override */
 .slider-handle,

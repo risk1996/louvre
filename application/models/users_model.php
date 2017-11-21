@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class users_model extends CI_Model{
+class Users_model extends CI_Model{
 
     public function __construct(){
         parent::__construct();
@@ -24,17 +24,22 @@ class users_model extends CI_Model{
         return $res;
     }
 
-    public function user_register(){
-        $email = $this->input->post('email');
+    public function user_register($data){
+        $email = $data['email'];
+        $pass = $data['pass'];
+        $fname = $data['fname'];
+        $lname = $data['lname'];
+        $gender = $data['gender'];
         $salt = generate_random_string();
     }
 
-    public function user_verify($email = FALSE, $pass = FALSE, $remember = FALSE){
-        if($email || $pass)return FALSE;
-        else{
-            $query = $this->db->get_where('users', array('email' => $email, 'pass' => hash('sha256', $pass)));
-            if($query->num_rows())return $query->result_array();
-            else return FALSE;
-        }
+    public function get_user($email = FALSE){
+        $this->db->select('*');
+        $this->db->from('user');
+        if($email)$this->db->where('email = '.$email);
+        $query = $this->db->get();
+        if($email)return $query->row_result();
+        else if(isset($query))return $query->result_array();
+        else return FALSE;
     }
 }
