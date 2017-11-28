@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?php echo $title; ?> - The Louvre Bookstore</title>
-    <link rel="icon" href="<?php echo site_url(); ?>/assets/branding/Favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/bootstrap-slider/css/bootstrap-slider.css">
-    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/css/customize.css">
-    <link rel="stylesheet" href="<?php echo site_url(); ?>/assets/font-awesome-4.7.0/css/font-awesome.css">
+    <title><?php echo $title; ?> - The Louvre E-Bookstore</title>
+    <link rel="icon" href="<?php echo site_url(); ?>assets/branding/Favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bootstrap-slider/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>assets/css/customize.css">
+    <link rel="stylesheet" href="<?php echo site_url(); ?>assets/font-awesome-4.7.0/css/font-awesome.css">
 </head>
 <body>
     <header>

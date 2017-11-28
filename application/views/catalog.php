@@ -78,7 +78,7 @@
                             echo '<div class="card bg-dark">';
                             echo '<p class="card-title text-center singleline"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
                             echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
-                            echo '<p class="card-subtitle text-center mb-2 text-muted" style="margin: 0 !important;">by '.$book['author'].'</p>';
+                            echo '<p class="card-subtitle text-center mb-2 text-muted singleline" style="margin: 0 !important;">by '.$book['author'].'</p>';
                             echo '<p class="text-center text-muted" style="margin: 0;"><small>'.$book['lang'].' '.$book['format'].'</small></p>';
                             echo '<p class="text-center" style="margin: 0;">'.($book['price']>$book['discountedprice']?'<strike class="text-muted">$ '.$book['price'].'</strike>   ':'').'<big>$ '.$book['discountedprice'].'</big></p>';
                             echo '<button class="btn btn-sm btn-secondary"><span class="fa fa-cart-plus"></span> Add to Cart</button>';

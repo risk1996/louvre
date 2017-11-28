@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $route['default_controller'] = 'welcome';
 $route['default_controller'] = 'home';
 $route['register'] = 'users/register';
-$route['books/(:any)'] = 'books/view/$1';
+$route['books/(:any)'] = 'books/index/$1';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['about'] = 'about';
 $route['404_override'] = '';
