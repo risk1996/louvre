@@ -12,11 +12,25 @@ class Users_model extends CI_Model{
         if(!$email)return FALSE;
         else{
             $query = $this->db->get_where('users', array('email' => $email));
-            if($query->num_rows())return TRUE;
+            if($query->num_rows()>0)return TRUE;
             else return FALSE;
         }
     }
     
+    public function user_info($email, $col){
+        if(!$email)return FALSE;
+        else{
+            $this->db->select($col);
+            $query = $this->db->get_where('users', array('email' => $email));
+            return $query->row_array()[$col];
+        }
+    }
+
+    public function user_verify($email, $pass){
+        if($this->user_info($email, 'pass')===hash('sha256', $pass.$this->user_info($email, 'salt')))return TRUE;
+        else return FALSE;
+    }
+
     public function generate_random_string($len = 5){
         $dict = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $res = "";
@@ -33,7 +47,7 @@ class Users_model extends CI_Model{
         $salt = generate_random_string();
     }
 
-    public function get_user($email = FALSE){
+    public function user_get($email = FALSE){
         $this->db->select('*');
         $this->db->from('user');
         if($email)$this->db->where('email = '.$email);

@@ -30,23 +30,25 @@
                     </ul>
                     <span style="margin-left: auto;">
                         <?php
-                            if(isset($_SESSION['logged'])){
-                                echo '<span class="fa fa-user-circle"></span>';
+                            if($this->session->userdata('email')!==NULL){
+                                echo '<a href="'.base_url().'users" class="navbar-text"><span class="fa fa-user-circle"></span>&nbsp;';
+                                    echo $this->session->userdata('fname').' '.$this->session->userdata('lname');
+                                echo '&nbsp;</a>';
+                                echo '<a href="'.base_url().'users/logout" class="btn btn-outline-secondary"><span class="fa fa-sign-out"></span></a>';
                             } else{
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';
-                                    echo str_replace('"', '\\\'', form_open('home'));
+                                    echo str_replace('"', '\'', form_open('users/login'));
                                         echo '<div class=\'input-group\'>';
                                             echo '<span class=\'input-group-addon\' id=\'emailaddon\'><span class=\'fa fa-envelope\'></span></span>';
-                                            echo '<input type=\'email\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
+                                            echo '<input type=\'email\' name=\'email\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
                                         echo '</div>';
-                                        echo '<br>';
+                                        echo form_error('email')==''?'<br>':str_replace('"', '\'', form_error('email', '<p class="text-danger">', '</p>'));
                                         echo '<div class=\'input-group\'>';
                                             echo '<span class=\'input-group-addon\' id=\'passwordaddon\'><span class=\'fa fa-key\'></span></span>';
-                                            echo '<input type=\'password\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'passwordaddon\'>';
+                                            echo '<input type=\'password\' name=\'pass\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'passwordaddon\'>';
                                         echo '</div>';
-                                        echo '<br>';
+                                        echo isset($log)?'<p class=\'text-danger\'>'.$log.'</p>':(form_error('pass')==''?'<br>':str_replace('"', '\'', form_error('pass', '<p class="text-danger">', '</p>')));
                                         echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
-                                        echo validation_errors();
                                     echo '</form>';
                                     echo '<hr>';
                                     echo '<a href=\''.site_url().'register\' class=\'btn btn-dark btn-block\' name=\'submit\' role=\'button\'>Register</a>';

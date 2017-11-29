@@ -61,6 +61,7 @@
             return $("#popover-content").html();
             }
         });
+        <?php if(isset($log))echo '$(\'#popover\').popover(\'show\')'; ?>
     </script>
     <script type="text/javascript">
         $(".ellipsis").ellipsis();
