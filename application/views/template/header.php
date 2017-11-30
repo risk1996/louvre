@@ -42,12 +42,12 @@
                                             echo '<span class=\'input-group-addon\' id=\'emailaddon\'><span class=\'fa fa-envelope\'></span></span>';
                                             echo '<input type=\'email\' name=\'email\' class=\'form-control\' placeholder=\'E-Mail\' aria-label=\'E-Mail\' aria-describedby=\'emailaddon\'>';
                                         echo '</div>';
-                                        echo form_error('email')==''?'<br>':str_replace('"', '\'', form_error('email', '<p class="text-danger">', '</p>'));
+                                        echo '<br>';
                                         echo '<div class=\'input-group\'>';
                                             echo '<span class=\'input-group-addon\' id=\'passwordaddon\'><span class=\'fa fa-key\'></span></span>';
                                             echo '<input type=\'password\' name=\'pass\' class=\'form-control\' placeholder=\'Password\' aria-label=\'Password\' aria-describedby=\'passwordaddon\'>';
                                         echo '</div>';
-                                        echo isset($log)?'<p class=\'text-danger\'>'.$log.'</p>':(form_error('pass')==''?'<br>':str_replace('"', '\'', form_error('pass', '<p class="text-danger">', '</p>')));
+                                        echo isset($log)?'<p class=\'text-danger\'>'.$log.'</p>':'<br>';
                                         echo '<button class=\'btn btn-secondary btn-block\' type=\'submit\' name=\'submit\'>Login</button>';
                                     echo '</form>';
                                     echo '<hr>';

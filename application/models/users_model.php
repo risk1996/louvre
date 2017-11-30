@@ -39,20 +39,19 @@ class Users_model extends CI_Model{
     }
 
     public function user_register($data){
-        $email = $data['email'];
-        $pass = $data['pass'];
-        $fname = $data['fname'];
-        $lname = $data['lname'];
-        $gender = $data['gender'];
-        $salt = generate_random_string();
+        $data['salt'] = $this->generate_random_string();
+        $data['pass'] = hash('sha256',$data['pass'].$data['salt']);
+        if($data['lname']=='')$data['lname']=NULL;
+        $this->db->insert('users', $data);
+        redirect(base_url());
     }
 
     public function user_get($email = FALSE){
         $this->db->select('*');
-        $this->db->from('user');
-        if($email)$this->db->where('email = '.$email);
+        $this->db->from('users');
+        if($email)$this->db->where('email', $email);
         $query = $this->db->get();
-        if($email)return $query->row_result();
+        if($email)return $query->row_array();
         else if(isset($query))return $query->result_array();
         else return FALSE;
     }
