@@ -71,6 +71,15 @@ a:hover {
     background-color: #868e96;
     border-color: #868e96;
 }
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #212529 !important;
+    color: white !important;
+}
+.dropdown-item.active, .dropdown-item:active{
+    background-color: #212529 !important;
+    color: white !important;
+}
 
 /* Bootstrap Slider Override */
 .slider-handle,

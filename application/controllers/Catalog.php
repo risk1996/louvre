@@ -40,7 +40,7 @@ class Catalog extends CI_Controller{
 
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer',$data);
     }
 
     public function recomended(){
@@ -49,6 +49,6 @@ class Catalog extends CI_Controller{
 		
 		$this->load->view('template/header',$data);
         $this->load->view('catalog',$data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer',$data);
 	}
 }

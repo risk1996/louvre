@@ -7,7 +7,14 @@
             <button class="btn btn-primary btn-block">Add to Cart</button>
         </div>
         <div class="col-sm-6">
-            <h2><?php echo $book['title']; ?></h2>
+            <h2>
+                <?php
+                    echo $book['title'];
+                    if(isset($book['ed'])){
+                        echo '<small> ('.$book['ed'].' edition)</small>';
+                    }
+                ?>
+            </h2>
             <h4 class="text-muted">By <?php echo $book['author']; ?></h4>
             <?php
                 $genres=explode(',', $book['genre']);
@@ -22,33 +29,36 @@
             <h5>Book Summary</h5>
             <p><?php echo $book['summary']; ?></p>
             <br>
-            <h5 class="text-muted">Technical Information</h5>
-            <p class="text-muted">
-                ISBN: <?php echo $book['isbn13']; ?><br>
-                Pages: <?php echo $book['pages']; ?><br>
-                Language: <?php echo $book['lang']; ?><br>
-                Format: <?php echo $book['format']; ?>
-            </p>
-        </div>
-        <div class="col-sm-3">
-            <?php
-                // if(!count($rating))echo '<div class="row"><p><i>There are no reviews yet.</i></p></div>';
-                // else{
-                //     foreach($rating as $r){
-                //         echo '<div class="row" style="margin-left:auto; margin-right:auto;">';
-                //         $fs = intval(floor($r['rating']/2));
-                //         $hs = intval(floor($r['rating']%2));
-                //         $es = intval(floor((10-$r['rating'])/2));
-                //         while($fs--) echo '<span class="fa fa-star"></span>';
-                //         while($hs--) echo '<span class="fa fa-star-half-o"></span>';
-                //         while($es--) echo '<span class="fa fa-star-o"></span>';
-                //         echo '</div>';
-                //         echo '<div class="row">';
-                //         echo $r['review'];
-                //         echo '</div>';
-                //     }
-                // }
-            ?>
+            <table class="table table-dark table-sm table-striped">
+                <thead>
+                    <tr><th colspan="2"><h5>Technical Information</h5></th></tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $technicalinfos = array(
+                            array('isbn13', 'ISBN13'),
+                            array('pages' , 'Pages'),
+                            array('lang'  , 'Language'),
+                            array('format', 'Book Format')
+                        );
+                        foreach($technicalinfos as $ti){
+                            echo '<tr>';
+                                echo '<td>'.$ti[1].'</td>';
+                                echo '<td>:</td>';
+                                echo '<td>';
+                                    if($ti[0]=='lang'&&$book[$ti[0]]=='English')echo '<span class="em em-flag-um"></span>&nbsp;&nbsp;';
+                                    if($ti[0]=='lang'&&$book[$ti[0]]=='Indonesian')echo '<span class="em em-flag-id"></span>&nbsp;&nbsp;';
+                                    if($ti[0]=='format'&&$book[$ti[0]]=='PDF')echo '<span class="em em-blue_book"></span>&nbsp;&nbsp;';
+                                    if($ti[0]=='format'&&$book[$ti[0]]=='EPUB')echo '<span class="em em-closed_book"></span>&nbsp;&nbsp;';
+                                echo $book[$ti[0]];
+                                    if($ti[0]=='pages')echo ' page';
+                                    if($ti[0]=='pages'&&$book[$ti[0]]%10>1)echo 's';
+                                echo '</td>';
+                            echo '</tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

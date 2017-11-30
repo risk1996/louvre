@@ -51,9 +51,9 @@
         </p>
     </div>
     <div class="row">
-        <?php
-            foreach($books as $book){
-                echo '<div class="col-sm-3">';
+        <div class="card-deck">
+            <?php
+                foreach($books as $book){
                     echo '<div class="card bg-dark">';
                         echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
                         echo '<div class="card-body">';
@@ -71,8 +71,8 @@
                         }
                         echo '</div>';
                     echo '</div>';
-                echo '</div>';
-            }
-        ?>
+                }
+            ?>
+        </div>
     </div>
 </div>

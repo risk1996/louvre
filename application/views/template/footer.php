@@ -4,24 +4,38 @@
             <div class="card-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <h6>Site Map</h6>
-                            <a href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a><br>
-                            <a href="<?php echo site_url('books'); ?>"><span class="fa fa-book"></span> Books</a><br>
-                            <a href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a>
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'Home')!==FALSE)echo 'active'; ?>" href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a></li>
+                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('catalog'); ?>"><span class="fa fa-book"></span> Books</a></li>
+                                <?php
+                                    if($this->session->userdata('email')!==NULL){
+                                        echo '<li class="nav-item">';
+                                            echo '<a class="nav-link '.((strpos($title, 'User')!==FALSE)?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
+                                        echo '</li>';
+                                        echo '<li class="nav-item">';
+                                            $cart = $this->purchase_model->cart_get($this->session->userdata('email'));
+                                            echo '<a class="nav-link '.((strpos($title, 'Cart')!==FALSE)?'active':'').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-light">'.count($cart).'</span></a>';
+                                        echo '</li>';
+                                    }
+                                ?>
+                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'About')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a></li>
+                            </ul>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <h6>Contact Us</h6>
                             <span class="fa fa-envelope"></span>&nbsp;info@louvre.dev <br>
                             <span class="fa fa-phone"></span>&nbsp;(+62)821 xxxx xxxx <br>
                             <span class="fa fa-whatsapp"></span>&nbsp;(+62)821 xxxx xxxx
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <h6>&nbsp;</h6>
                             <span class="fa fa-map-marker"></span>&nbsp;Jl. Scientia Boulevard, Gading Serpong <br>
                             &nbsp;&nbsp;&nbsp;Tangerang, Banten-15811, Indonesia
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <h6 style="margin: 0 auto; display: block;">Share This</h6>
                         <br>

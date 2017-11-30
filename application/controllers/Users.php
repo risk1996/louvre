@@ -48,7 +48,7 @@ class Users extends CI_Controller{
             $data['gender'] = $this->input->post('gender');
             $this->load->view('template/header', $data);
             $this->load->view('register', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer',$data);
         }
         else{
             $this->users_model->user_register(array(

@@ -9,7 +9,7 @@ class Books extends CI_Controller{
 
 		$this->load->view('template/header',$data);
         $this->load->view('book',$data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer',$data);
 	}
 
 	public function new(){
@@ -28,7 +28,7 @@ class Books extends CI_Controller{
 
 		$this->load->view('template/header',$data);
         $this->load->view('booknew',$data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer',$data);
 	}
 
 	public function edit(){
@@ -36,6 +36,6 @@ class Books extends CI_Controller{
 
 		$this->load->view('template/header',$data);
         $this->load->view('bookedit',$data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer',$data);
 	}
 } 
