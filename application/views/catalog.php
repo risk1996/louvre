@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-3">
             <h3>Search Criteria</h3>
-            <?php echo form_open('books'); ?>
+            <?php echo form_open('catalog'); ?>
                 <div class="input-group">
                     <span class="input-group-addon" id="titleaddon" style="width: 70px;">Title</span>
                     <input type="text" name="title" class="form-control" aria-describedby="titleaddon" placeholder="Keyword" value="<?php if(isset($criteria['title']))echo $criteria['title']; ?>">
@@ -71,20 +71,22 @@
             <h3>Search Result</h3>
             <div class="row">
                 <?php
-                    $ctr=0;
-                    $bookchunk = array_chunk($books, 12);
-                    foreach($bookchunk[$page] as $book){
-                        echo '<div class="col-sm-3">';
-                            echo '<div class="card bg-dark">';
-                            echo '<p class="card-title text-center singleline"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
-                            echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
-                            echo '<p class="card-subtitle text-center mb-2 text-muted singleline" style="margin: 0 !important;">by '.$book['author'].'</p>';
-                            echo '<p class="text-center text-muted" style="margin: 0;"><small>'.$book['lang'].' '.$book['format'].'</small></p>';
-                            echo '<p class="text-center" style="margin: 0;">'.($book['price']>$book['discountedprice']?'<strike class="text-muted">$ '.$book['price'].'</strike>   ':'').'<big>$ '.$book['discountedprice'].'</big></p>';
-                            echo '<button class="btn btn-sm btn-secondary"><span class="fa fa-cart-plus"></span> Add to Cart</button>';
+                    if(count($books)>0){
+                        $ctr=0;
+                        $bookchunk = array_chunk($books, 12);
+                        foreach($bookchunk[$page] as $book){
+                            echo '<div class="col-sm-3">';
+                                echo '<div class="card bg-dark">';
+                                echo '<p class="card-title text-center singleline"><b><a href="'.site_url('books/'.$book['slug']).'">'.$book['title'].'</a></b></p>';
+                                echo '<a href="'.site_url('books/'.$book['slug']).'"><img class="card-img-top fill-3-2" src="'.site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png').'" alt="'.$book['title'].' Book Cover"></a>';
+                                echo '<p class="card-subtitle text-center mb-2 text-muted singleline" style="margin: 0 !important;">by '.$book['author'].'</p>';
+                                echo '<p class="text-center text-muted" style="margin: 0;"><small>'.$book['lang'].' '.$book['format'].'</small></p>';
+                                echo '<p class="text-center" style="margin: 0;">'.($book['price']>$book['discountedprice']?'<strike class="text-muted">$ '.$book['price'].'</strike>   ':'').'<big>$ '.$book['discountedprice'].'</big></p>';
+                                echo '<button class="btn btn-sm btn-secondary"><span class="fa fa-cart-plus"></span> Add to Cart</button>';
+                                echo '</div>';
                             echo '</div>';
-                        echo '</div>';
-                        if($ctr++&&$ctr%4==0)echo '</div><br><div class="row">';
+                            if($ctr++&&$ctr%4==0)echo '</div><br><div class="row">';
+                        }
                     }
                 ?>
             </div>

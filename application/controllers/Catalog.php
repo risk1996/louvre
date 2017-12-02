@@ -7,7 +7,7 @@ class Catalog extends CI_Controller{
 		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'lang', 'format', 'genre');
 		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
 			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->post($filter));
-			else $criteria[$filter] = $this->input->post($filter);
+			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<> ]/', '', $this->input->post($filter)));
 		}
 		if($this->input->post('searchby') !== NULL){
 			$criteria[$this->input->post('searchby')] = $this->input->post('keyword');
