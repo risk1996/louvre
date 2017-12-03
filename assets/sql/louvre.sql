@@ -19,13 +19,14 @@ CREATE TABLE `users` (
   `salt` char(5) NOT NULL,
   PRIMARY KEY (`email`),
   CONSTRAINT `CONSTRAINT_1` CHECK (`email` like '_%@_%.__%'),
-  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager')),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`roles` in ('buyer','manager','admin')),
   CONSTRAINT `CONSTRAINT_3` CHECK (`gender` in ('M','F','O'))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `gender`, `pass`, `salt`) VALUES
 ('buyer1@example.com',	'buyer',	'Buyersatu',	NULL,	'O',	'ea5ff37b3d91a0bf99ba76a66806e8fd734710e729690502ae97ad54ba91f8c5',	'DLrtV'),
-('miqdad@louvre.dev',	'manager',	'Miqdad',	'Abdurrahman',	'M',	'6188fafdb356e3f30cd476d3d8a019630d8fddc375feea1f1d28bbce73d43587',	'lfS8X'),
+('buyer2@example.com',	'buyer',	'Buyerdua',	NULL,	'O',	'678ae346315964ee5f183f18f61ac54f88d94cf879478bb0f3dba553f8d5f388',	'Yj2aJ'),
+('miqdad@louvre.dev',	'admin',	'Miqdad',	'Abdurrahman',	'M',	'6188fafdb356e3f30cd476d3d8a019630d8fddc375feea1f1d28bbce73d43587',	'lfS8X'),
 ('stefanus@louvre.dev',	'manager',	'Stefanus',	'Kurniawan',	'M',	'f34504d41e676303b197bef6ef925b8e685193335ab0e5df374fbad86cde9e58',	'YkpPp'),
 ('william@louvre.dev',	'manager',	'William',	'Darian',	'M',	'f1c8885ef90f8112ad5f4606f54598f946a5d8e07ed2f729e642cc2fcef078a8',	'cCZx6');
 
@@ -223,4 +224,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookdetail` AS select `boo
 DROP TABLE IF EXISTS `bookrecommended`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookrecommended` AS select `bookfeatured`.`isbn13` AS `isbn13`,`bookdetail`.`title` AS `title`,`bookdetail`.`slug` AS `slug`,`bookdetail`.`price` AS `price`,round(`bookdetail`.`price` * (100 - coalesce(`bookdetail`.`discount`,0)) / 100,2) AS `discountedprice`,`bookdetail`.`summary` AS `summary`,`bookdetail`.`ed` AS `ed`,`bookdetail`.`pages` AS `pages`,`bookdetail`.`pubdate` AS `pubdate`,`bookdetail`.`author` AS `author`,`bookdetail`.`lang` AS `lang`,`bookdetail`.`format` AS `format`,`bookdetail`.`genre` AS `genre`,`bookdetail`.`discount` AS `discount`,`bookfeatured`.`info` AS `info` from (`bookfeatured` left join `bookdetail` on(`bookfeatured`.`isbn13` = `bookdetail`.`isbn13`));
 
--- 2017-11-28 02:09:50
+-- 2017-12-03 15:20:18
