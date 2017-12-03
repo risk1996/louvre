@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $title; ?> - The Louvre E-Bookstore</title>
     <link rel="icon" href="<?php echo site_url(); ?>assets/branding/Favicon.ico" type="image/x-icon">
+    <?php if(isset($crud))foreach($crud->css_files as $file)echo '<link type="text/css" rel="stylesheet" href="'.$file.'">'; ?>
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bootstrap-slider/css/bootstrap-slider.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/css/customize.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/emoji/emoji.css">
-
 </head>
 <body>
     <header>

@@ -91,6 +91,29 @@ a:hover {
     background: #e9ecef;
 }
 
+/* Grocery CRUD Override */
+.grocerycrud-container{
+    width: 95%;
+    margin: 0 auto;
+    color: #42474d !important;
+}
+.ui-widget-content{
+    width: 95%;
+    margin: 0 auto;
+}
+a.ui-button{
+    color: #42474d !important;
+}
+table.dataTable tr.odd{
+    background-color: #e9ecef;
+}
+table.dataTable tr.odd td.sorting_1{
+    background-color: #bbbec0;
+}
+table.dataTable tr.even td.sorting_1{
+    background-color: #d6d9db;
+}
+
 /* Customization */
 footer .card{
     border-radius: 0 0 0 0;

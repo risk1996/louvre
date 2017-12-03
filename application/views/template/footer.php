@@ -80,4 +80,5 @@
     <script type="text/javascript">
         $(".ellipsis").ellipsis();
     </script>
+    <?php if(isset($crud))foreach($crud->js_files as $file)echo '<script src="'.$file.'"></script>'; ?>
 </body>

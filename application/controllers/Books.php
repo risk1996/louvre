@@ -11,25 +11,4 @@ class Books extends CI_Controller{
         $this->load->view('book',$data);
         $this->load->view('template/footer',$data);
 	}
-
-	public function new(){
-
-		$crud = new grocery_CRUD();
-		$crud->set_table('book');
-		$output = $crud->render();
-
-		//$this->load->view('template/header',$data);
-        $this->load->view('booknew',$output);
-        //$this->load->view('template/footer',$data);
-	}
-
-	public function addcategory(){
-		$crud = new grocery_CRUD();
-		$crud->set_table('bookgenre');
-		$output = $crud->render();
-
-		//$this->load->view('template/header',$data);
-        $this->load->view('booknew',$output);
-        //$this->load->view('template/footer',$data);
-	}
 } 
