@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/css/customize.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="<?php echo site_url(); ?>assets/emoji/emoji.css">
+
 </head>
 <body>
     <header>
