@@ -11,4 +11,8 @@ class Books extends CI_Controller{
         $this->load->view('book',$data);
         $this->load->view('template/footer',$data);
 	}
+
+	public function slug($str){
+		return url_title(strtolower($str));
+	}
 } 
