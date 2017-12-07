@@ -145,3 +145,12 @@ footer .card{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.qty{
+    float: right !important;
+    clear: both !important;
+}
+strike .qty{
+    float: right !important;
+    clear: both !important;
+    text-decoration: line-through;
+}

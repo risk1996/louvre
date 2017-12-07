@@ -157,7 +157,7 @@ CREATE TABLE `cart` (
   `email` varchar(30) NOT NULL,
   `isbn13` char(13) NOT NULL,
   `discount` decimal(5,2) DEFAULT 0.00,
-  `addded` datetime NOT NULL,
+  `added` datetime NOT NULL,
   PRIMARY KEY (`email`,`isbn13`),
   KEY `isbn13` (`isbn13`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`),

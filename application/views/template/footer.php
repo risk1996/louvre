@@ -7,20 +7,20 @@
                         <div class="col-sm-4">
                             <h6>Site Map</h6>
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'Home')!==FALSE)echo 'active'; ?>" href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a></li>
-                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('catalog'); ?>"><span class="fa fa-book"></span> Books</a></li>
+                                <li class="nav-item"><a class="nav-link <?php if($this->uri->segment(1)==NULL)echo 'active'; ?>" href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a></li>
+                                <li class="nav-item"><a class="nav-link <?php if($this->uri->segment(1)=='catalog')echo 'active'; ?>" href="<?php echo site_url('catalog'); ?>"><span class="fa fa-book"></span> Books</a></li>
                                 <?php
                                     if($this->session->userdata('email')!==NULL){
                                         echo '<li class="nav-item">';
-                                            echo '<a class="nav-link '.((strpos($title, 'User')!==FALSE)?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
+                                            echo '<a class="nav-link '.(($this->uri->segment(1)=='users')?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
                                         echo '</li>';
                                         echo '<li class="nav-item">';
                                             $cart = $this->purchase_model->cart_get($this->session->userdata('email'));
-                                            echo '<a class="nav-link '.((strpos($title, 'Cart')!==FALSE)?'active':'').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-light">'.count($cart).'</span></a>';
+                                            echo '<a class="nav-link '.(($this->uri->segment(1)=='cart')?'active':'').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-light">'.count($cart).'</span></a>';
                                         echo '</li>';
                                     }
                                 ?>
-                                <li class="nav-item"><a class="nav-link <?php if(strpos($title, 'About')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a></li>
+                                <li class="nav-item"><a class="nav-link <?php if($this->uri->segment(1)=='about')echo 'active'; ?>" href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4">
@@ -79,6 +79,11 @@
     </script>
     <script type="text/javascript">
         $(".ellipsis").ellipsis();
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#dat').DataTable();
+        });
     </script>
     <?php if(isset($crud))foreach($crud->js_files as $file)echo '<script src="'.$file.'"></script>'; ?>
 </body>
