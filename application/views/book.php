@@ -1,10 +1,25 @@
 <div class="container">
+    <h1><?php echo $title; ?></h1>
     <div class="row">
         <div class="col-sm-3">
             <img class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists('./assets/covers/'.$book['isbn13'].'.png'))?$book['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $book['title']; ?> Book Cover">
-            <button class="btn btn-secondary btn-block">Look at Preview</button>
-            <h3 class="text-center">$<?php echo $book['price']; ?></h3>
-            <button class="btn btn-primary btn-block">Add to Cart</button>
+            <button class="btn btn-light btn-block" style="color: black;">Look at Preview</button>
+            <?php
+                echo '<h3 class="text-center" style="margin: 0;">'.($book['price']>$book['discountedprice']?'<strike class="text-muted">$ '.$book['price'].'</strike><br>':'').'<big>$ '.$book['discountedprice'].'</big></h3>';
+            ?>
+            <?php
+                if($this->users_model->user_own($this->session->userdata('email'), $book['isbn13'])){
+                    echo '<a class="btn btn-secondary btn-block" href="'.site_url().'user"><span class="fa fa-book"></span> Owned</a>';
+                }else if($this->purchase_model->in_cart($this->session->userdata('email'), $book['isbn13'])){
+                    echo '<button class="btn btn-secondary btn-block" href="'.site_url().'user" disabled><span class="fa fa-cart-arrow-down"></span> In Cart</button>';
+                }else if($this->session->userdata('roles') == 'buyer'){
+                    echo form_open('purchase/add');
+                        echo '<input type="hidden" name="isbn13" value="'.$book['isbn13'].'">';
+                        echo '<input type="hidden" name="caller" value="'.current_url().'">';
+                        echo '<button type="submit" class="btn btn-secondary btn-block"><span class="fa fa-cart-plus"></span> Add to Cart</button>';
+                    echo '</form>';
+                }
+            ?>
         </div>
         <div class="col-sm-6">
             <h2>
@@ -38,7 +53,7 @@
                         $technicalinfos = array(
                             array('isbn13', 'ISBN13'),
                             array('pages' , 'Pages'),
-                            array('lang'  , 'Language'),
+                            array('language'  , 'Language'),
                             array('format', 'Book Format')
                         );
                         foreach($technicalinfos as $ti){
@@ -46,11 +61,9 @@
                                 echo '<td>'.$ti[1].'</td>';
                                 echo '<td>:</td>';
                                 echo '<td>';
-                                    if($ti[0]=='lang'&&$book[$ti[0]]=='English')echo '<span class="em em-flag-um"></span>&nbsp;&nbsp;';
-                                    if($ti[0]=='lang'&&$book[$ti[0]]=='Indonesian')echo '<span class="em em-flag-id"></span>&nbsp;&nbsp;';
-                                    if($ti[0]=='format'&&$book[$ti[0]]=='PDF')echo '<span class="em em-blue_book"></span>&nbsp;&nbsp;';
-                                    if($ti[0]=='format'&&$book[$ti[0]]=='EPUB')echo '<span class="em em-closed_book"></span>&nbsp;&nbsp;';
-                                echo $book[$ti[0]];
+                                    if($ti[0]=='format')echo '<span class="em '.$format[$book['format']]['emoji'].'"></span> ';
+                                    if($ti[0]=='language')echo '<span class="em '.$lang[$book['language']]['emoji'].'"></span> ';
+                                    echo $book[$ti[0]];
                                     if($ti[0]=='pages')echo ' page';
                                     if($ti[0]=='pages'&&$book[$ti[0]]%10>1)echo 's';
                                 echo '</td>';

@@ -55,4 +55,19 @@ class Users_model extends CI_Model{
         else if(isset($query))return $query->result_array();
         else return FALSE;
     }
+
+    public function user_books($email){
+        if($this->user_exists($email)){
+            $query = $this->db->get_where('userbook', array('email' => $email));
+            return $query->result_array();
+        }else{
+            return NULL;
+        }
+    }
+
+    public function user_own($email, $isbn13){
+        $query = $this->db->get_where('userbook', array('email' => $email, 'isbn13' => $isbn13));
+        if($query->num_rows()==0)return FALSE;
+        else return TRUE;
+    }
 }

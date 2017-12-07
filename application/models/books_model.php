@@ -40,9 +40,13 @@ class Books_model extends CI_Model{
 		}else{
 			$this->db->from('bookdetail');
 			foreach($criteria as $key => $val){
-				if($key == 'isbn13' || $key == 'title' || $key == 'author' || $key == 'genre'){
-					$keywords = explode(($key=='genre')?',':' ', $val);
+				if($key == 'isbn13' || $key == 'title' || $key == 'author'){
+					$keywords = explode(' ', $val);
 					foreach($keywords as $keyword)$this->db->like($key, $keyword);
+				}
+				else if($key == 'genre'){
+					$keywords = explode(',', $val);
+					foreach($keywords as $keyword)$this->db->where('genre LIKE BINARY', '%'.$keyword.'%');
 				}
 				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
 					$min = explode(',', $val)[0];
@@ -91,11 +95,22 @@ class Books_model extends CI_Model{
 		return $res;
 	}
 
+	public function get_datum($isbn13, $col){
+		$this->db->select($col);
+		$query = $this->db->get_where('bookdetail', array('isbn13' => $isbn13));
+		return $query->row_array()[0];
+	}
+
 	public function get_users_books($email){
 		//ambil isbn dari users
 		$this->db->from('userbook');
 		$this->db->where('email',$email);
 		$res = $this->db->get();
 		return $res->result_array();
+	}
+
+	public function get_table($table){
+		$query = $this->db->get($table);
+		return $query->result_array();
 	}
 }

@@ -4,16 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Catalog extends CI_Controller{
 	public function index($pg = 0){
 		$criteria = array();
-		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'lang', 'format', 'genre');
-		foreach($filters as $filter)if($this->input->post($filter) !== NULL){
-			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->post($filter));
-			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<> ]/', '', $this->input->post($filter)));
+		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'language', 'format', 'genre');
+		foreach($filters as $filter)if($this->input->get($filter) !== NULL){
+			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->get($filter));
+			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<>[] ]/', '', $this->input->get($filter)));
 		}
-		if($this->input->post('searchby') !== NULL){
-			$criteria[$this->input->post('searchby')] = $this->input->post('keyword');
+		if($this->input->get('searchby') !== NULL){
+			$criteria[$this->input->get('searchby')] = $this->input->get('keyword');
 		}
 		$data['books'] = $this->books_model->find_book($criteria);
-		$data['langs'] = $this->books_model->get_column('lang');
+		$data['langs'] = $this->books_model->get_column('language');
 		$data['formats'] = $this->books_model->get_column('format');
 		$data['genres'] = $this->books_model->get_genres();
 		$data['criteria'] = $criteria;

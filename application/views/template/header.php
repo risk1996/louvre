@@ -24,16 +24,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-size: 20px;">The Louvre E-Bookstore</a>
                         <div class="dropdown-menu bg-dark">
-                            <a class="dropdown-item <?php if(strpos($title, 'Home')!==FALSE)echo 'active'; ?>" href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a>
-                            <a class="dropdown-item <?php if(strpos($title, 'Catalog')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('catalog'); ?>"><span class="fa fa-book"></span> Books</a>
+                            <a class="dropdown-item <?php if($this->uri->segment(1)==NULL)echo 'active'; ?>" href="<?php echo site_url(); ?>"><span class="fa fa-home"></span> Home</a>
+                            <a class="dropdown-item <?php if($this->uri->segment(1)=='catalog')echo 'active'; ?>" href="<?php echo site_url('catalog'); ?>"><span class="fa fa-book"></span> Books</a>
                             <?php
                                 if($this->session->userdata('email')!==NULL){
                                     $cart = $this->purchase_model->cart_get($this->session->userdata('email'));
-                                    echo '<a class="dropdown-item '.(strpos($title, 'User')!==FALSE?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
-                                    echo '<a class="dropdown-item '.(strpos($title, 'Cart')!==FALSE?'active':'').'" href="'.site_url('users').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-secondary">'.count($cart).'</span></a>';
+                                    echo '<a class="dropdown-item '.($this->uri->segment(1)=='users'?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
+                                    echo '<a class="dropdown-item '.($this->uri->segment(1)=='cart'?'active':'').'" href="'.site_url('cart').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-secondary">'.count($cart).'</span></a>';
                                 }
                             ?>
-                            <a class="dropdown-item <?php if(strpos($title, 'About')!==FALSE)echo 'active'; ?>" href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a>
+                            <a class="dropdown-item <?php if($this->uri->segment(1)=='about')echo 'active'; ?>" href="<?php echo site_url('about'); ?>"><span class="fa fa-info-circle"></span> About</a>
                         </div>
                     </li>
                 </ul>
@@ -74,7 +74,7 @@
                         ?>
                     </span>
                     &nbsp;&nbsp;
-                    <?php echo form_open('catalog', array('class' => 'form-inline')); ?>
+                    <?php echo form_open('catalog', array('class' => 'form-inline', 'method' => 'get')); ?>
                         <div class="input-group">
                             <span class="input-group-addon" style="padding: 0 0 0 0;">
                                 <select class="form-control" name="searchby">
