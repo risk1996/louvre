@@ -2,14 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller{
-    public function __construct(){
-        parent::__construct();
-    }
-
     public function index(){
-
         if($this->session->userdata('roles') == "buyer"){
-
             $data['user']['email'] = $this->session->userdata('email');
             $data['user']['fname'] = $this->session->userdata('fname');
             $data['user']['lname'] = $this->session->userdata('lname');
@@ -18,12 +12,12 @@ class Users extends CI_Controller{
             else if($data['user']['gender'] == 'F')$data['user']['gender'] = "Female";
             else $data['user']['gender'] = "Rather not say";
 
-            $data['user']['booksrating'] = $this->books_model->get_users_books($data['user']['email']);
-            //$data['users']['bookdetails'] = [];
-            // foreach($data['user']['bookrating'] as $value){
-            //     array_push($data['users']['bookdetails'],$this->books_model->find_book('isbn13' => $value))
-            // }
-
+            $data['user']['bookrating'] = $this->books_model->get_users_books($data['user']['email']);
+            $data['user']['bookdetails'] = array();
+            
+            foreach($data['user']['bookrating'] as $value){
+                 array_push($data['user']['bookdetails'],$this->books_model->find_book(array('isbn13' => $value['isbn13'])));
+            }  
 
             $data['title'] = $data['user']['fname'];
 
