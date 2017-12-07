@@ -113,6 +113,14 @@ table.dataTable tr.odd td.sorting_1{
 table.dataTable tr.even td.sorting_1{
     background-color: #d6d9db;
 }
+div.report-div.success.report-list#list-report-error,
+div.report-div.success.report-list#list-report-success{
+    background-color: #d6d9db !important;
+}
+div.report-div.success.report-list#list-report-error a,
+div.report-div.success.report-list#list-report-success a{
+    color: #42474d !important;
+}
 
 /* Customization */
 footer .card{

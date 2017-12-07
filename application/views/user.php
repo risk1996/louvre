@@ -1,39 +1,27 @@
 
 <div class="container">
-    <h2>Account Detail</h2>
+    <h1>Account Detail</h1>
     <div class="row">
-        <div class="container" style="border-style:  solid;">
+        <div class="container" style="border-style: solid;">
             <div id="accordion" data-children=".item">
                 <div class="item">
                     <a data-toggle="collapse" data-parent="#accordion" href="#userdetails" aria-expanded="true" aria-controls="userdetails">
-                        <h3>USER DETAILS</h3>
+                        <h3>Account Information</h3>
                     </a>
                     <div id="userdetails" class="collapse" role="tabpanel">
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="fa fa-user-circle"></span>  Nama
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <?php echo $user['fname']." ".$user['lname']; ?>
-                                    </div>
+                                    <div class="col-sm-2"><span class="fa fa-user-circle"></span> Name</div>
+                                    <div class="col-sm-3"><?php echo $user['fname']." ".$user['lname']; ?></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="fa fa-envelope-o"></span>  Email
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <?php echo $user['email']; ?>
-                                    </div>
+                                    <div class="col-sm-2"><span class="fa fa-envelope-o"></span> E-Mail</div>
+                                    <div class="col-sm-3"><?php echo $user['email']; ?></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-2">
-                                    <span class="fa fa-venus-mars"</span> Gender
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <?php echo $user['gender']; ?>
-                                    </div>
+                                    <div class="col-sm-2"><span class="fa fa-venus-mars"</span> Gender</div>
+                                    <div class="col-sm-3"><?php echo $user['gender']; ?></div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -44,10 +32,10 @@
                 </div>
                 <div class="item">
                     <a data-toggle="collapse" data-parent="#accordion" href="#userbooks" aria-expanded="false" aria-controls="userbooks">
-                        <h3>USER BOOKS</h3>
+                        <h3>Owned Books</h3>
                     </a>
                     <div id="userbooks" class="collapse" role="tabpanel">
-                        <?php foreach($user['bookdetails'] as $som => $value):?>
+                        <?php foreach($user['bookdetails'] as $som => $value){ ?>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -56,11 +44,10 @@
                                     <div class="col-sm-9">
                                         <table class="table table-dark table-sm table-striped">
                                             <thead>
-                                                <tr><th colspan="2"><h5>A Little Book Information</h5></th></tr>
+                                                <tr><th colspan="2"><h5>Book Information</h5></th></tr>
                                             </head>
                                             <tbody>
-                                                <?php foreach($value[0] as $key => $val):?>
-                                                    
+                                                <?php foreach($value[0] as $key => $val){ ?>
                                                         <?php if($key == "isbn13" || $key == "title" || $key == "pubdate" || $key == "author" || $key == "lang" || $key == "genre" || $key == "pages" || $key == "format"){ ?>
                                                             <tr>
                                                                 <?php
@@ -75,14 +62,13 @@
                                                                 ?>
                                                             </tr>
                                                         <?php } ?>
-                                                    
-                                                <?php endforeach; ?>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

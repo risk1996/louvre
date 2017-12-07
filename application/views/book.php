@@ -9,13 +9,14 @@
             ?>
             <?php
                 if($this->users_model->user_own($this->session->userdata('email'), $book['isbn13'])){
-                    echo '<a class="btn btn-secondary btn-block" href="'.site_url().'user"><span class="fa fa-book"></span> Owned</a>';
+                    echo '<a class="btn btn-secondary btn-block" href="'.site_url().'users"><span class="fa fa-book"></span> Owned</a>';
                 }else if($this->purchase_model->in_cart($this->session->userdata('email'), $book['isbn13'])){
-                    echo '<button class="btn btn-secondary btn-block" href="'.site_url().'user" disabled><span class="fa fa-cart-arrow-down"></span> In Cart</button>';
+                    echo '<button class="btn btn-secondary btn-block" disabled><span class="fa fa-cart-arrow-down"></span> In Cart</button>';
                 }else if($this->session->userdata('roles') == 'buyer'){
                     echo form_open('purchase/add');
+                        $q = $this->input->server('QUERY_STRING');
                         echo '<input type="hidden" name="isbn13" value="'.$book['isbn13'].'">';
-                        echo '<input type="hidden" name="caller" value="'.current_url().'">';
+                        echo '<input type="hidden" name="caller" value="'.current_url().($q!=''?'?'.$q:'').'">';
                         echo '<button type="submit" class="btn btn-secondary btn-block"><span class="fa fa-cart-plus"></span> Add to Cart</button>';
                     echo '</form>';
                 }

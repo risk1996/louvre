@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller{
     public function manage($manage = NULL){
+        if($this->session->userdata('roles')!='manager')redirect(site_url());
         $data['title'] = 'Manage ';
 
 		$crud = new grocery_CRUD();
@@ -10,11 +11,19 @@ class Admin extends CI_Controller{
         $crud->set_theme('datatables');
         $crud->unset_jquery();
 
+        $booklist = array();
+        $books = $this->books_model->get_books();
+        foreach($books as $book){
+            $booklist[$book['isbn13']] = $book['isbn13'].' - '.$book['title'];
+        }
+
         if($manage == 'book'){
             $data['title'] .= 'Books';
             $crud->set_subject('Book');
             $crud->columns('isbn13','title','price','pages','pubdate','author','lang','format');
-            $crud->fields('isbn13','title','price','summary','ed','pages','pubdate','author','lang','format');
+            $crud->fields('isbn13','title','slug','price','summary','ed','pages','pubdate','author','lang','format','adddate');
+            $crud->field_type('slug', 'invisible');
+            $crud->field_type('adddate', 'invisible');
             $crud->required_fields('isbn13','title','price','pages','pubdate','author','lang','format');
             $crud->display_as('isbn13', 'ISBN13');
             $crud->display_as('title', 'Book Title');
@@ -31,32 +40,28 @@ class Admin extends CI_Controller{
             $crud->set_relation('lang','langs','lang');
             $crud->set_relation('format','formats','format');
             $crud->unique_fields(array('isbn13'));
-            $crud->unique_fields(array('slug'));
             $crud->callback_before_insert(array($this,'book_add_preapre'));
             $crud->callback_before_update(array($this,'book_edit_preapre'));
-        }
-        else if($manage == 'bookfeatured'){
-            $data['title'] .= 'Featured Books';
-            $crud->set_subject('Featured Book');
-            $crud->required_fields('isbn13','until');
-            $crud->display_as('isbn13', 'ISBN13');
-            $crud->display_as('info', 'Information');
-            $crud->display_as('until', 'Valid Until');
-            $crud->unique_fields(array('isbn13','until'));
         }
         else if($manage == 'bookgenre'){
             $data['title'] .= 'Book Genres';
             $crud->set_subject('Book Genre');
             $crud->required_fields('isbn13','genre');
+            $crud->field_type('isbn13', 'dropdown', $booklist);
             $crud->display_as('isbn13', 'ISBN13');
             $crud->display_as('genre', 'Book Genre');
-            $crud->unique_fields(array('isbn13','genre'));
+            $crud->set_relation('genre','genres','genre');
         }
-        else if($manage == 'bookpromotion'){
-            $data['title'] .= 'Promoted Books';
-            $crud->set_subject('Promoted Book');
-            $crud->required_fields('isbn13','discount','until');
+        else if($manage == 'bookspecial'){
+            $data['title'] .= 'Special Books';
+            $crud->set_subject('Special Book');
+            $crud->required_fields('isbn13','featured','discount','until');
+            $crud->field_type('isbn13', 'dropdown', $booklist);
             $crud->display_as('isbn13', 'ISBN13');
+            $crud->display_as('featured', 'Is Featured?');
+            $crud->display_as('promotiontitle', 'Promotion Title');
+            $crud->display_as('promotionsubtitle', 'Promotion Subtitle');
+            $crud->display_as('promotioninfo', 'Promotion Info');
             $crud->display_as('discount', 'Book Discount');
             $crud->display_as('until', 'Valid Until');
             $crud->unique_fields(array('isbn13','until'));
@@ -87,6 +92,7 @@ class Admin extends CI_Controller{
             $crud->required_fields('genre');
             $crud->display_as('genre', 'Book Genre');
             $crud->display_as('parentgenre', 'Parent Genre');
+            $crud->set_relation('parentgenre','genres','genre');
             $crud->unique_fields(array('genre'));
         }
         else if($manage == 'langs'){
@@ -157,12 +163,18 @@ class Admin extends CI_Controller{
         $this->load->view('template/footer',$data);
     }
 
+    public function slug($str){
+		return url_title(strtolower($str));
+	}
+
     function book_add_preapre($post){
-        $post['slug'] = $this->books->slug($post['title']);
+        $post['slug'] = $this->slug($post['title']);
         $post['adddate'] = date('Y-m-d');
+        return $post;
     }
 
     function book_edit_preapre($post){
-        $post['slug'] = $this->books->slug($post['title']);
+        $post['slug'] = $this->slug($post['title']);
+        return $post;
     }
 }

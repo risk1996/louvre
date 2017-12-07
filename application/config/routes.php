@@ -56,6 +56,5 @@ $route['books/(:any)'] = 'books/index/$1';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['cart'] = 'purchase/cart';
 $route['about'] = 'home/about';
-$route['admin/(:any)'] = 'admin/manage/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
