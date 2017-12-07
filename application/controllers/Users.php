@@ -6,7 +6,34 @@ class Users extends CI_Controller{
         parent::__construct();
     }
 
-    public function index(){}
+    public function index(){
+
+        if($this->session->userdata('roles') == "buyer"){
+
+            $data['user']['email'] = $this->session->userdata('email');
+            $data['user']['fname'] = $this->session->userdata('fname');
+            $data['user']['lname'] = $this->session->userdata('lname');
+            $data['user']['gender'] = $this->users_model->user_info($data['user']['email'],'gender');
+            if($data['user']['gender'] == 'M')$data['user']['gender'] = "Male";
+            else if($data['user']['gender'] == 'F')$data['user']['gender'] = "Female";
+            else $data['user']['gender'] = "Rather not say";
+
+            $data['user']['booksrating'] = $this->books_model->get_users_books($data['user']['email']);
+            //$data['users']['bookdetails'] = [];
+            // foreach($data['user']['bookrating'] as $value){
+            //     array_push($data['users']['bookdetails'],$this->books_model->find_book('isbn13' => $value))
+            // }
+
+
+            $data['title'] = $data['user']['fname'];
+
+            $this->load->view('template/header',$data);
+            $this->load->view('user',$data);
+            $this->load->view('template/footer',$data);
+        }else{
+            redirect(base_url());
+        }
+    }
     
     public function login(){
         $email = $this->input->post('email');

@@ -91,14 +91,11 @@ class Books_model extends CI_Model{
 		return $res;
 	}
 
-	// public function add($data = NULL){
-	// 	if(isset($data))return FALSE;
-	// 	else{
-	// 		$this->db->insert();
-	// 	}
-	// }
-
-	// public function edit($data = NULL){
-	// 	if()
-	// }
+	public function get_users_books($email){
+		//ambil isbn dari users
+		$this->db->from('userbook');
+		$this->db->where('email',$email);
+		$res = $this->db->get();
+		return $res->result_array();
+	}
 }
