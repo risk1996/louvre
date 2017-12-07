@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                    <span class="fa fa-american-sign-language-interpreting"</span> Gender
+                                    <span class="fa fa-venus-mars"</span> Gender
                                     </div>
                                     <div class="col-sm-3">
                                         <?php echo $user['gender']; ?>
@@ -50,24 +50,35 @@
                         <?php foreach($user['bookdetails'] as $som => $value):?>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-2">
-                                        <img width="160" height="240" class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists('./assets/covers/'.$value[0]['isbn13'].'.png'))?$value[0]['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $value[0]['title']; ?> Book Cover">
+                                    <div class="col-sm-3">
+                                        <img width="320" height="480" class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists('./assets/covers/'.$value[0]['isbn13'].'.png'))?$value[0]['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $value[0]['title']; ?> Book Cover">
                                     </div>
-                                    <div class="col-sm-10">
-                                        <?php foreach($value[0] as $key => $val):?>
-                                            <div class="row">
-                                                <?php if($key == "isbn13" || $key == "title" || $key == "pubdate" || $key == "author" || $key == "lang" || $key == "genre" || $key == "pages" || $key == "format"){ ?>
-                                                    <div class="col-sm-2">
-                                                        <?php echo strtoupper($key); ?>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <?php 
-                                                            echo $val; 
-                                                        ?>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                        <?php endforeach; ?>
+                                    <div class="col-sm-9">
+                                        <table class="table table-dark table-sm table-striped">
+                                            <thead>
+                                                <tr><th colspan="2"><h5>A Little Book Information</h5></th></tr>
+                                            </head>
+                                            <tbody>
+                                                <?php foreach($value[0] as $key => $val):?>
+                                                    
+                                                        <?php if($key == "isbn13" || $key == "title" || $key == "pubdate" || $key == "author" || $key == "lang" || $key == "genre" || $key == "pages" || $key == "format"){ ?>
+                                                            <tr>
+                                                                <?php
+                                                                    if($key == "isbn13")echo "<td>ISBN 13</td><td>:</td><td><span class='fa fa-book'></span> ".$val."</td>"; 
+                                                                    else if($key == "title")echo "<td>Title</td><td>:</td><td><a href='".base_url()."books/".$value[0]['slug']."'><span class='fa fa-link'></span> ".$val."</a></td>";
+                                                                    else if($key == "pubdate")echo "<td>Published Date</td><td>:</td><td><span class='fa fa-calendar'></span> ".$val."</td>";
+                                                                    else if($key == "author")echo "<td>Author</td><td>:</td><td><span class='fa fa-edit'></span> ".$val."</td>";
+                                                                    else if($key == "lang")echo "<td>Language</td><td>:</td><td>".$val."</td>";
+                                                                    else if($key == "genre")echo "<td>Genres</td><td>:</td><td>".$val."</td>";
+                                                                    else if($key == "format")echo "<td>Format</td><td>:</td><td><span class='fa fa-file-pdf-o'></span>&nbsp".$val."</td>";
+                                                                    else if($key == "pages")echo "<td>Pages</td><td>:</td><td>".$val." pages</td>";
+                                                                ?>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
