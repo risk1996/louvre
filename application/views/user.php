@@ -13,7 +13,7 @@
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        Nama
+                                        <span class="fa fa-user-circle"></span>  Nama
                                     </div>
                                     <div class="col-sm-3">
                                         <?php echo $user['fname']." ".$user['lname']; ?>
@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        Email
+                                        <span class="fa fa-envelope-o"></span>  Email
                                     </div>
                                     <div class="col-sm-3">
                                         <?php echo $user['email']; ?>
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        Gender
+                                    <span class="fa fa-american-sign-language-interpreting"</span> Gender
                                     </div>
                                     <div class="col-sm-3">
                                         <?php echo $user['gender']; ?>
@@ -61,7 +61,9 @@
                                                         <?php echo strtoupper($key); ?>
                                                     </div>
                                                     <div class="col-sm-8">
-                                                        <?php echo $val; ?>
+                                                        <?php 
+                                                            echo $val; 
+                                                        ?>
                                                     </div>
                                                 <?php } ?>
                                             </div>
