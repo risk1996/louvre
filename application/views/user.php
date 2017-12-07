@@ -12,12 +12,31 @@
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        
+                                        Nama
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php echo $user['fname']." ".$user['lname']; ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        Email
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php echo $user['email']; ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        Gender
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php echo $user['gender']; ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                ahvdmhafdhfahdfakj
+                                <a class="btn btn-default btn-lg" href="#"><span class="fa fa-pencil-square-o"></span>Edit</a>
                             </div>
                         </div>
                     </div>
