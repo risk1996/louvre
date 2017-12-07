@@ -22,4 +22,4 @@ INSERT INTO `userbook` (`email`, `isbn13`, `rating`, `review`) VALUES
 ('buyer1@example.com',	'9780439023481',	4,	NULL),
 ('buyer1@example.com',	'9780451524935',	4,	NULL);
 
--- 2017-12-07 08:04:42
+-- 2017-12-07 08:04:42 this is just a comment
