@@ -13,12 +13,12 @@ class Users extends CI_Controller{
             else $data['user']['gender'] = "Rather not say";
 
             $data['user']['bookrating'] = $this->books_model->get_users_books($data['user']['email']);
-            $data['user']['bookdetails'] = array();
+            $data['user']['bookdetails'] = [];
             
             foreach($data['user']['bookrating'] as $value){
                  array_push($data['user']['bookdetails'],$this->books_model->find_book(array('isbn13' => $value['isbn13'])));
-            }  
-
+            }
+            
             $data['title'] = $data['user']['fname'];
 
             $this->load->view('template/header',$data);

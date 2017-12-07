@@ -1,3 +1,4 @@
+
 <div class="container">
     <h2>Account Detail</h2>
     <div class="row">
@@ -46,9 +47,29 @@
                         <h3>USER BOOKS</h3>
                     </a>
                     <div id="userbooks" class="collapse" role="tabpanel">
-                        <p class="mb-3">
-                        Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        </p>
+                        <?php foreach($user['bookdetails'] as $som => $value):?>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <img width="160" height="240" class="img-fluid" src="<?php echo site_url().'assets/covers/'.((file_exists('./assets/covers/'.$value[0]['isbn13'].'.png'))?$value[0]['isbn13'].'.png':'_placeholder.png'); ?>" alt="<?php echo $value[0]['title']; ?> Book Cover">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <?php foreach($value[0] as $key => $val):?>
+                                            <div class="row">
+                                                <?php if($key == "isbn13" || $key == "title" || $key == "pubdate" || $key == "author" || $key == "lang" || $key == "genre" || $key == "pages" || $key == "format"){ ?>
+                                                    <div class="col-sm-2">
+                                                        <?php echo strtoupper($key); ?>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <?php echo $val; ?>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
