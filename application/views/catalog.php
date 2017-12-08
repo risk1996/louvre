@@ -85,7 +85,7 @@
                                 if($this->users_model->user_own($this->session->userdata('email'), $book['isbn13'])){
                                     echo '<a class="btn btn-secondary btn-sm btn-block" href="'.site_url().'users"><span class="fa fa-book"></span> Owned</a>';
                                 }else if($this->purchase_model->in_cart($this->session->userdata('email'), $book['isbn13'])){
-                                    echo '<button class="btn btn-secondary btn-sm btn-block" disabled><span class="fa fa-cart-arrow-down"></span> In Cart</button>';
+                                    echo '<a class="btn btn-secondary btn-sm btn-block" href="'.site_url().'cart"><span class="fa fa-cart-arrow-down"></span> In Cart</a>';
                                 }else if($this->session->userdata('roles') == 'buyer'){
                                     echo form_open('purchase/add');
                                         $q = $this->input->server('QUERY_STRING');

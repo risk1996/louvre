@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Users extends CI_Controller{
     public function index(){
         if($this->session->userdata('roles') == "buyer"){
+            $data['title'] = 'Account Detail';
+
             $data['user']['email'] = $this->session->userdata('email');
             $data['user']['fname'] = $this->session->userdata('fname');
             $data['user']['lname'] = $this->session->userdata('lname');
@@ -12,14 +14,17 @@ class Users extends CI_Controller{
             else if($data['user']['gender'] == 'F')$data['user']['gender'] = "Female";
             else $data['user']['gender'] = "Rather not say";
 
-            $data['user']['bookrating'] = $this->books_model->get_users_books($data['user']['email']);
-            $data['user']['bookdetails'] = [];
+            $books = $this->books_model->get_users_books($data['user']['email']);
+            $data['books'] = array();
             
-            foreach($data['user']['bookrating'] as $value){
-                 array_push($data['user']['bookdetails'],$this->books_model->find_book(array('isbn13' => $value['isbn13'])));
+            foreach($books as $value){
+                 array_push($data['books'],$this->books_model->find_book(array('isbn13' => $value['isbn13']))[0]);
             }
-            
-            $data['title'] = $data['user']['fname'];
+
+            $formats = $this->books_model->get_table('formats');
+            foreach($formats as $format)$data['format'][$format['format']]['emoji'] = $format['emoji'];
+            $langs = $this->books_model->get_table('langs');
+            foreach($langs as $lang)$data['lang'][$lang['language']]['emoji'] = $lang['emoji'];
 
             $this->load->view('template/header',$data);
             $this->load->view('user',$data);

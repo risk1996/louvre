@@ -61,6 +61,8 @@
     <script src="<?php echo site_url(); ?>assets/jquery/jquery-3.2.1.js"></script>
     <script src="<?php echo site_url(); ?>assets/popper/popper.js"></script>
     <script src="<?php echo site_url(); ?>assets/bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <script src="<?php echo site_url(); ?>assets/DataTables-1.10.16/js/jquery.dataTables.js"></script>
+    <script src="<?php echo site_url(); ?>assets/DataTables-1.10.16/js/dataTables.bootstrap4.js"></script>
     <script src="<?php echo site_url(); ?>assets/ellipsis/ellipsis.js"></script>
     <script>
         $(function () {
@@ -82,7 +84,15 @@
     </script>
     <script>
         $(document).ready(function(){
-            $('#dat').DataTable();
+            $('#userbooktable').DataTable({
+                "columnDefs": [ {
+                    "targets": [2,6],
+                    "orderable": false
+                } ]
+            });
+        });
+        $(document).ready(function(){
+            $('#usertranstable').DataTable();
         });
     </script>
     <?php if(isset($crud))foreach($crud->js_files as $file)echo '<script src="'.$file.'"></script>'; ?>

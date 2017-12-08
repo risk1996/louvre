@@ -122,6 +122,35 @@ div.report-div.success.report-list#list-report-success a{
     color: #42474d !important;
 }
 
+/* Data Tables Override */
+div#userbooktable_wrapper,
+div#usertranstable_wrapper{
+    margin: 0;
+    padding: 0;
+}
+table.table.table-dark.table-striped.dataTable.no-footer tbody tr:nth-child(odd) td.sorting_1{
+    background-color: #292d31;
+}
+table.table.table-dark.table-striped.dataTable.no-footer tbody tr:nth-child(even) td.sorting_1{
+    background-color: #1d2024;
+}
+table.table.table-dark.table-striped.dataTable.no-footer tbody tr:nth-child(even){
+    background-color: #212529;
+}
+div.dataTables_length label,
+div.dataTables_filter label,
+div.dataTables_info#userbooktable_info,
+div.dataTables_info#usertranstable_info{
+    color: white;
+}
+div.dataTables_length,
+div.dataTables_filter,
+div.dataTables_info#userbooktable_info,
+div.dataTables_info#usertranstable_info{
+    padding: 15px 15px 0 15px;
+}
+
+
 /* Customization */
 footer .card{
     border-radius: 0 0 0 0;

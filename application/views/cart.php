@@ -16,7 +16,7 @@
             <?php
                 if(count($books)){
                     $cnt = 1;
-                    $subtotal = 0;
+                    $subtotal = $price = 0;
                     foreach($books as $book){
                         echo '<tr>';
                             echo '<td class="text-right">'.$cnt++.'</td>';
@@ -45,6 +45,7 @@
                                 echo '</form>';
                             echo '</td>';
                         echo '</tr>';
+                        $price += $book['price'];
                         $subtotal += $book['discountedprice'];
                     }
                     $total = 1.1 * $subtotal;
@@ -52,6 +53,12 @@
                         echo '<td class="text-right" colspan="6">Subtotal :</td>';
                         echo '<td><big><span>$</span><span class="qty">'.number_format($subtotal, 2).'</span><big></td>';
                     echo '</tr>';
+                    if($price>$subtotal){
+                        echo '<tr>';
+                            echo '<td class="text-right text-success" colspan="6">You Save :</td>';
+                            echo '<td class="text-success"><big><span>$</span><span class="qty">'.number_format($price-$subtotal, 2).'</span><big></td>';
+                        echo '</tr>';
+                    }
                     echo '<tr>';
                         echo '<td class="text-right" colspan="6">Value Added Tax (10% VAT) :</td>';
                         echo '<td><big><span>$</span><span class="qty">'.number_format(.1*$subtotal, 2).'</span><big></td>';

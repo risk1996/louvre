@@ -8,12 +8,9 @@ class Books_model extends CI_Model{
 		$this->load->database();
 	}
 
-	/*
-	Fetch whole books or a book with a specified slug
-	@param $slug string
-	@return result array or single row array
-	*/
+	
 	public function get_books($slug = FALSE){
+		$this->db->order_by('adddate DESC');
 		if(!$slug){
 			$query = $this->db->get('bookdetail');
 			return $query->result_array();
@@ -23,17 +20,14 @@ class Books_model extends CI_Model{
 		}
 	}
 
-	public function get_limit($limit = FALSE, $start = FALSE){
+	public function get_latest($limit = FALSE, $start = FALSE){
 		if($limit && $start)$this->db->limit($limit, $start);
 		else if($limit)$this->db->limit($limit);
+		$this->db->order_by('adddate DESC');
 		$query = $this->db->get('bookdetail');
 		return $query->result_array();
 	}
-	/*
-	find book with matching a string on it's title
-	@param $keyword string
-	@return result array
-	*/
+	
 	public function find_book($criteria){
 		if(!$criteria){
 			return $this->books_model->get_books(FALSE);
@@ -58,15 +52,12 @@ class Books_model extends CI_Model{
 					$this->db->like($key, $val);
 				}
 			}
+			$this->db->order_by('adddate DESC');
 			$query = $this->db->get();
 			return $query->result_array();
 		}
 	}
 
-	/*
-	get recommended books
-	@return result array
-	*/
 	public function get_recommended(){
 		$query = $this->db->get('bookrecommended');
 		return $query->result_array();
@@ -102,7 +93,6 @@ class Books_model extends CI_Model{
 	}
 
 	public function get_users_books($email){
-		//ambil isbn dari users
 		$this->db->from('userbook');
 		$this->db->where('email',$email);
 		$res = $this->db->get();
