@@ -1,9 +1,17 @@
 <div class="container">
     <h2><?= $title ?></h2>
-    <div class="row">
-        <div class="col-sm-6">
-            <?php echo form_open('users/change'); ?>
-                <h3>User Information</h3>
+    <?php echo form_open('users/change'); ?>
+        <div class="row">
+            <h3>User Information</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>E-Mail</h4>
+                <div class="input-group">
+                    <span class="input-group-addon" id="emailaddon"><span class="fa fa-envelope"></span></span>
+                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" placeholder="E-Mail" aria-label="E-Mail" aria-describedby="emailaddon" disabled>
+                </div>
+                <br>
                 <h4>Account Name</h4>
                 <div class="input-group">
                     <span class="input-group-addon" id="nameaddon"><span class="fa fa-id-card"></span></span>
@@ -13,6 +21,8 @@
                 <?php echo form_error('fname', '<p class="bg-danger">', '</p>'); ?>
                 <?php echo form_error('lname', '<p class="bg-danger">', '</p>'); ?>
                 <?php echo form_error('fname')||form_error('lname')?'':'<br>'; ?>
+            </div>
+            <div class="col-sm-6">
                 <h4>Account Password</h4>
                 <div class="input-group">
                     <span class="input-group-addon" id="oldpassaddon"><span class="fa fa-key"></span></span>
@@ -31,11 +41,14 @@
                 </div>
                 <?php echo form_error('confpass', '<p class="bg-danger">', '</p>'); ?>
                 <?php echo form_error('confpass')?'':'<br>'; ?>
-                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
                 <button type="submit" name="submit" value="submit" class="btn btn-dark btn-block">Update</button>
                 <br>
                 <a href="<?php echo base_url(); ?>" class="btn btn-secondary btn-block">Cancel</a>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>

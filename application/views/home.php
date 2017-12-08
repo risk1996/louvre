@@ -5,30 +5,18 @@
         <li data-target="#slides" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="assets/slide/harpot.png" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Harry Potter and the Deathly Hallows</h3>
-                <p>Final book of the series usulaly marked the ending. But does it?</p>
-                <button class="btn btn-outline-light">Learn More</button>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="assets/slide/hgt.png" alt="Second slide">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>The Hunger Games Trilogy</h3>
-                <p>The Hunger Games Trilogy boxed set is out now!</p>
-                <button class="btn btn-outline-light">Learn More</button>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="assets/slide/ndt.png" alt="Third slide">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>His Latest Book</h3>
-                <p>Take a look at Neil DeGrasse Tyson's latest book.</p>
-                <button class="btn btn-outline-light">Learn More</button>
-            </div>
-        </div>
+        <?php
+            foreach($slidercontents as $slidercontent){
+                echo '<div class="carousel-item '.(($slidercontent==$slidercontents[0])?'active':'').'">';
+                    echo '<img class="d-block w-100" src="'.site_url().'assets/slide/'.$slidercontent['promotionsubtitle'].'" alt="'.$slidercontent['promotiontitle'].' Image">';
+                    echo '<div class="carousel-caption d-none d-md-block">';
+                        echo '<h3>'.$slidercontent['promotiontitle'].'</h3>';
+                        echo '<p>'.$slidercontent['promotioninfo'].'</p>';
+                        echo '<a class="btn btn-outline-light" href="'.site_url().'books/'.$slidercontent['slug'].'">Learn More</a>';
+                    echo '</div>';
+                echo '</div>';
+            }
+        ?>
     </div>
     <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -41,7 +29,7 @@
 </div>
 <br>
 <div class="container">
-    <div class="jumbotron" style="background-image: url(https://image.freepik.com/free-photo/wooden-texture_1208-334.jpg); background-size: cover;">
+    <div class="jumbotron" style="background-image: url('<?php echo site_url(); ?>assets/jumbotron/bg.jpg'); background-size: cover;">
         <h1 class="display-3">Holiday Sale</h1>
         <p class="lead">Save up to 55% off your favourite books this winter!</p>
         <hr class="my-4">

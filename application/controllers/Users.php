@@ -118,20 +118,24 @@ class Users extends CI_Controller{
             $this->load->view('template/footer',$data);
         }
         else{
-            $email = $this->input->post('email');
+            $email = $this->session->userdata('email');
             $fname = $this->input->post('fname');
             $lname = $this->input->post('lname');
             $oldpass = $this->input->post('oldpass');
             $pass = $this->input->post('pass');
-            if($lname = '')$lname = NULL;
-            if($pass = '')$pass = NULL;
+            if($pass == '')$pass = $oldpass;
             if($this->users_model->user_verify($email, $oldpass)){
-                $this->users_model->user_edit($email, array(
+                $this->users_model->user_edit(array(
                     'email'  => $email,
                     'fname'  => $fname,
                     'lname'  => $lname,
                     'pass'   => $pass
                 ));
+                $newname = array(
+                    'fname' => $fname,
+                    'lname' => $lname
+                );
+                $this->session->set_userdata($newname);
             }else $this->session->set_flashdata('log', 'Invalid login credentials');
             redirect(base_url('users'));
         } 

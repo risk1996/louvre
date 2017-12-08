@@ -105,15 +105,9 @@
                                 foreach($transactions as $transaction){
                                     echo '<tr>';
                                         echo '<td class="text-right">'.$cnt++.'</td>';
-                                        echo '<td>';
-                                        echo $transaction['invoiceno'];
-                                        echo '</td>';
-                                        echo '<td>';
-                                        echo $transaction['payment'];
-                                        echo '</td>';
-                                        echo '<td>';
-                                        echo $transaction['invdate'];
-                                        echo '</td>';
+                                        echo '<td>'.$transaction['invoiceno'].'</td>';
+                                        echo '<td>'.$transaction['payment'].'</td>';
+                                        echo '<td>'.date('D, j M Y', strtotime($transaction['invdate'])).'</td>';
                                         echo '<td>';
                                             foreach($trans[$transaction['invoiceno']] as $tran){
                                                 echo '<a href="'.site_url().'books/'.$books[$tran['isbn13']]['slug'].'">'.$books[$tran['isbn13']]['title'].'</a>';

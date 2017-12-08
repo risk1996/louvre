@@ -10,13 +10,7 @@ class Admin extends CI_Controller{
         $crud->set_table($manage);
         $crud->set_theme('datatables');
         $crud->unset_jquery();
-
-        $booklist = array();
-        $books = $this->books_model->get_books();
-        foreach($books as $book){
-            $booklist[$book['isbn13']] = $book['isbn13'].' - '.$book['title'];
-        }
-
+        
         if($manage == 'book'){
             $data['title'] .= 'Books';
             $crud->set_subject('Book');
@@ -47,16 +41,15 @@ class Admin extends CI_Controller{
             $data['title'] .= 'Book Genres';
             $crud->set_subject('Book Genre');
             $crud->required_fields('isbn13','genre');
-            $crud->field_type('isbn13', 'dropdown', $booklist);
             $crud->display_as('isbn13', 'ISBN13');
             $crud->display_as('genre', 'Book Genre');
+            $crud->set_relation('isbn13','book','isbn13');
             $crud->set_relation('genre','genres','genre');
         }
         else if($manage == 'bookspecial'){
             $data['title'] .= 'Special Books';
             $crud->set_subject('Special Book');
             $crud->required_fields('isbn13','featured','discount','until');
-            $crud->field_type('isbn13', 'dropdown', $booklist);
             $crud->display_as('isbn13', 'ISBN13');
             $crud->display_as('featured', 'Is Featured?');
             $crud->display_as('promotiontitle', 'Promotion Title');
@@ -64,6 +57,7 @@ class Admin extends CI_Controller{
             $crud->display_as('promotioninfo', 'Promotion Info');
             $crud->display_as('discount', 'Book Discount');
             $crud->display_as('until', 'Valid Until');
+            $crud->set_relation('isbn13','book','isbn13');
             $crud->unique_fields(array('isbn13','until'));
         }
         else if($manage == 'cart'){

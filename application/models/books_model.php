@@ -27,6 +27,12 @@ class Books_model extends CI_Model{
 		$query = $this->db->get('bookdetail');
 		return $query->result_array();
 	}
+
+	public function get_special($featured){
+		$this->db->where('featured', $featured);
+		$query = $this->db->get('bookdetail');
+		return $query->result_array();
+	}
 	
 	public function find_book($criteria){
 		if(!$criteria){
