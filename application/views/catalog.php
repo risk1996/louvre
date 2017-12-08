@@ -50,7 +50,7 @@
                 </script>
                 <br><br>
                 <label>Language:</label>
-                <select class="form-control" name="lang">
+                <select class="form-control" name="language">
                     <option value="">Any</option>
                     <?php
                         foreach($langs as $lang)echo '<option value="'.$lang.'" '.((isset($criteria['language'])&&$criteria['language']==$lang)?'selected':'').'>'.$lang.'</option>';

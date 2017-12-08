@@ -55,7 +55,7 @@ class Books_model extends CI_Model{
 					$this->db->where($key.' >= '.$min);
 					$this->db->where($key.' <= '.$max);
 				}
-				else if($key == 'lang' || $key == 'format'){
+				else if($key == 'language' || $key == 'format'){
 					$this->db->like($key, $val);
 				}
 				else if($key == 'discount'){

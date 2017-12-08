@@ -60,7 +60,7 @@ class Users extends CI_Controller{
     }
 
     public function logout(){
-        $session_data = array('fname', 'lname', 'email');
+        $session_data = array('fname', 'lname', 'email', 'roles');
         $this->session->unset_userdata($session_data);
         redirect(base_url());
     }
