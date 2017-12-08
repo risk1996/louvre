@@ -40,8 +40,8 @@ class Admin extends CI_Controller{
             $crud->set_relation('lang','langs','lang');
             $crud->set_relation('format','formats','format');
             $crud->unique_fields(array('isbn13'));
-            $crud->callback_before_insert(array($this,'book_add_preapre'));
-            $crud->callback_before_update(array($this,'book_edit_preapre'));
+            $crud->callback_before_insert(array($this,'book_add_prepare'));
+            $crud->callback_before_update(array($this,'book_edit_prepare'));
         }
         else if($manage == 'bookgenre'){
             $data['title'] .= 'Book Genres';
@@ -167,13 +167,13 @@ class Admin extends CI_Controller{
 		return url_title(strtolower($str));
 	}
 
-    function book_add_preapre($post){
+    function book_add_prepare($post){
         $post['slug'] = $this->slug($post['title']);
         $post['adddate'] = date('Y-m-d');
         return $post;
     }
 
-    function book_edit_preapre($post){
+    function book_edit_prepare($post){
         $post['slug'] = $this->slug($post['title']);
         return $post;
     }

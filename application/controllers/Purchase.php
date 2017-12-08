@@ -12,6 +12,8 @@ class Purchase extends CI_Controller{
             $langs = $this->books_model->get_table('langs');
             foreach($langs as $lang)$data['lang'][$lang['language']]['emoji'] = $lang['emoji'];
 
+            while(!isset($data['invoiceno']) || $this->purchase_model->invoice_exists($data['invoiceno']))$data['invoiceno'] = $this->generate_invoice();
+
             $this->purchase_model->cart_get($this->session->userdata('email'));
             $this->load->view('template/header',$data);
             $this->load->view('cart',$data);
@@ -19,6 +21,14 @@ class Purchase extends CI_Controller{
         }else{
             redirect(site_url());
         }
+    }
+
+    public function generate_invoice(){
+        $res = 'TR-';
+        $alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for($i=0; $i<4; $i++)$res.=$alpha[rand(0, 51)];
+        for($i=0; $i<5; $i++)$res.=rand(0, 9);
+        return $res;
     }
 
     public function add(){
@@ -39,5 +49,15 @@ class Purchase extends CI_Controller{
         );
         $this->purchase_model->remove_from_cart($data);
         redirect(site_url().'cart');
+    }
+
+    public function checkout(){
+        $this->purchase_model->purchase_books(array(
+            'email' => $this->session->userdata('email'),
+            'invoiceno' => $this->input->post('invoiceno'),
+            'payment' => $this->input->post('payment'),
+            'invdate' => date('Y-m-d')
+        ));
+        redirect(site_url().'users');
     }
 }

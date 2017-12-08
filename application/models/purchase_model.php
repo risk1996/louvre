@@ -22,10 +22,52 @@ class Purchase_model extends CI_Model{
     }
 
     public function add_to_cart($data){
-        $query = $this->db->insert('cart', $data);
+        $this->db->insert('cart', $data);
     }
 
     public function remove_from_cart($data){
-        $query = $this->db->delete('cart', $data);
+        $this->db->delete('cart', $data);
+    }
+
+    public function transaction_list($email){
+        $query = $this->db->get_where('transactions', array('email' => $email));
+        return $query->result_array();
+    }
+
+    public function transaction_get($invoiceno){
+        $query = $this->db->get_where('transactionsdetail', array('invoiceno' => $invoiceno));
+        return $query->result_array();
+    }
+
+    public function invoice_exists($invoiceno){
+        $query = $this->db->get_where('transactions', array('invoiceno' => $invoiceno));
+        return ($query->num_rows()>0);
+    }
+
+    public function purchase_books($data){
+        $this->db->trans_start();
+            $books = $this->cart_get($data['email']);
+            $this->db->insert('transactions', $data);
+            foreach($books as $book){
+                $details = array(
+                    'invoiceno' => $data['invoiceno'],
+                    'isbn13' => $book['isbn13'],
+                    'discount' => $book['discount']
+                );
+                $this->db->insert('transactionsdetail', $details);
+                $own = array(
+                    'email' => $book['email'],
+                    'isbn13' => $book['isbn13']
+                );
+                $this->db->insert('userbook', $own);
+            }
+            $this->db->delete('cart', array('email' => $data['email']));
+        $this->db->trans_complete();
+        if($this->db->trans_status()==FALSE){
+            $this->db->trans_rollback();
+        }
+        else{
+            $this->db->trans_commit();
+        }
     }
 }

@@ -84,16 +84,45 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Check Out</h5>
+                    <h3 class="modal-title">Check Out</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                <div class="modal-body" style="padding: 0; margin: 0;">
+                    <table class="table table-striped" style="padding: 0; margin: 0;">
+                        <tr>
+                            <td class="text-right">Invoice Number</td>
+                            <td>:</td>
+                            <td class="text-right"><b><?php echo $invoiceno; ?></b></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Grand Total</td>
+                            <td>:</td>
+                            <td><?php echo '<b><span>$</span><span class="qty">'.number_format($total, 2).'</span><b>'; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Payment Method</td>
+                            <td>:</td>
+                            <td>
+                                <?php echo form_open('purchase/checkout', array('id' => 'checkoutform')); ?>
+                                    <input type="hidden" name="invoiceno" value="<?php echo $invoiceno; ?>">
+                                    <select class="custom-select selectw" name="payment">
+                                        <option value="Debit">Debit</option>
+                                        <option value="Visa">Visa</option>
+                                        <option value="MasterCard">Master Card</option>
+                                        <option value="PayPal">PayPal</option>
+                                    </select>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button type="button" class="btn btn-block btn-primary" onClick="document.getElementById('checkoutform').submit();">Check Out</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Cancel</button></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                <!-- <div class="modal-footer"></div> -->
             </div>
         </div>
     </div>

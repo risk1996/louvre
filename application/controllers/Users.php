@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller{
     public function index(){
-        if($this->session->userdata('roles') == "buyer"){
+        if($this->session->userdata('roles') == "buyer" || $this->session->userdata('roles') == "manager"){
             $data['title'] = 'Account Detail';
 
             $data['user']['email'] = $this->session->userdata('email');
@@ -18,7 +18,13 @@ class Users extends CI_Controller{
             $data['books'] = array();
             
             foreach($books as $value){
-                 array_push($data['books'],$this->books_model->find_book(array('isbn13' => $value['isbn13']))[0]);
+                 $book = $this->books_model->find_book(array('isbn13' => $value['isbn13']))[0];
+                 $data['books'][$book['isbn13']] = $book;
+            }
+
+            $data['transactions'] = $this->purchase_model->transaction_list($data['user']['email']);
+            foreach($data['transactions'] as $transaction){
+                $data['trans'][$transaction['invoiceno']] = $this->purchase_model->transaction_get($transaction['invoiceno']);
             }
 
             $formats = $this->books_model->get_table('formats');

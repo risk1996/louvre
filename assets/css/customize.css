@@ -90,6 +90,13 @@ a:hover {
 .slider-track, .slider-tick{
     background: #e9ecef;
 }
+.modal-header,
+.modal-body{
+    color: #212529;
+}
+.selectw{
+    min-width: 300px;
+}
 
 /* Grocery CRUD Override */
 .grocerycrud-container{
@@ -120,6 +127,10 @@ div.report-div.success.report-list#list-report-success{
 div.report-div.success.report-list#list-report-error a,
 div.report-div.success.report-list#list-report-success a{
     color: #42474d !important;
+}
+table.display.groceryCrudTable.dataTable{
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Data Tables Override */
