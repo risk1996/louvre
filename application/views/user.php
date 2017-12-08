@@ -30,7 +30,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="<?php echo site_url(); ?>user/change" class="btn btn-outline-dark btn-block"><span class="fa fa-pencil-square-o"></span> Change Account Information</a>
+                    <a href="<?php echo site_url('users/change'); ?>" class="btn btn-outline-dark btn-block"><span class="fa fa-pencil-square-o"></span> Change Account Information</a>
+                    <?php if(isset($log))echo '<p class="text-center bg-danger">'.$log.'</p>'; ?>
                 </div>
             </div>
         </div>

@@ -32,6 +32,8 @@ class Users extends CI_Controller{
             $langs = $this->books_model->get_table('langs');
             foreach($langs as $lang)$data['lang'][$lang['language']]['emoji'] = $lang['emoji'];
 
+            $data['log']   = $this->session->flashdata('log')!=NULL?$this->session->flashdata('log'):NULL;
+
             $this->load->view('template/header',$data);
             $this->load->view('user',$data);
             $this->load->view('template/footer',$data);
@@ -64,6 +66,8 @@ class Users extends CI_Controller{
     }
 
     public function register(){
+        if($this->session->userdata('email') != NULL)
+            redirect(site_url());
         $data['title'] = 'Register New User';
 
         $this->form_validation->set_rules('email', 'E-Mail', 'trim|required|valid_email|is_unique[users.email]|max_length[30]');
@@ -91,7 +95,45 @@ class Users extends CI_Controller{
                 'gender' => $this->input->post('gender'),
                 'pass'   => $this->input->post('pass')
             ));
+            redirect(base_url());
         }
         
+    }
+
+    public function change(){
+        $data['title'] = 'Edit User';
+
+        $this->form_validation->set_rules('fname', 'First Name', 'trim|required|alpha|max_length[25]');
+        $this->form_validation->set_rules('lname', 'Last Name', 'trim|alpha|max_length[25]');
+        $this->form_validation->set_rules('oldpass', 'Old Password', 'trim|required|min_length[6]');
+        $this->form_validation->set_rules('pass', 'Password', 'trim|min_length[6]|differs[oldpass]');
+        $this->form_validation->set_rules('confpass', 'Password Confirmation', 'trim|min_length[6]|matches[pass]');
+
+        if($this->form_validation->run()==FALSE){
+            $data['fname'] = $this->session->userdata('fname');
+            $data['lname'] = $this->session->userdata('lname');
+            $data['email'] = $this->session->userdata('email');
+            $this->load->view('template/header', $data);
+            $this->load->view('change', $data);
+            $this->load->view('template/footer',$data);
+        }
+        else{
+            $email = $this->input->post('email');
+            $fname = $this->input->post('fname');
+            $lname = $this->input->post('lname');
+            $oldpass = $this->input->post('oldpass');
+            $pass = $this->input->post('pass');
+            if($lname = '')$lname = NULL;
+            if($pass = '')$pass = NULL;
+            if($this->users_model->user_verify($email, $oldpass)){
+                $this->users_model->user_edit($email, array(
+                    'email'  => $email,
+                    'fname'  => $fname,
+                    'lname'  => $lname,
+                    'pass'   => $pass
+                ));
+            }else $this->session->set_flashdata('log', 'Invalid login credentials');
+            redirect(base_url('users'));
+        } 
     }
 }

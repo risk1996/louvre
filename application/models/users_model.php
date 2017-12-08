@@ -42,8 +42,14 @@ class Users_model extends CI_Model{
         $data['salt'] = $this->generate_random_string();
         $data['pass'] = hash('sha256',$data['pass'].$data['salt']);
         if($data['lname']=='')$data['lname']=NULL;
-        $this->db->insert('users', $data);
-        redirect(base_url());
+        $this->db->insert('users', $data);       
+    }
+
+    public function user_edit($data){
+        $data['salt'] = $this->generate_random_string();
+        $data['pass'] = hash('sha256',$data['pass'].$data['salt']);
+        if($data['lname']=='')$data['lname']=NULL;
+        $this->db->update('users', $data, array('email' => $data['email']));
     }
 
     public function user_get($email = FALSE){
