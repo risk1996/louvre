@@ -44,13 +44,13 @@
                     </div>
                     <div class="row">
                         <span style="margin-left:auto;"></span>
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-share-alt"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-facebook"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-twitter"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-google-plus"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-instagram"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-linkedin"></span></a>&nbsp;
-                        <a href="#" class="btn btn-outline-light btn-circle"><span class="fa fa-delicious"></span></a>
+                        <a href="http://www.google.com" class="btn btn-outline-light btn-circle"><span class="fa fa-share-alt"></span></a>&nbsp;
+                        <a href="http://www.facebook.com" class="btn btn-outline-light btn-circle"><span class="fa fa-facebook"></span></a>&nbsp;
+                        <a href="http://www.twitter.com" class="btn btn-outline-light btn-circle"><span class="fa fa-twitter"></span></a>&nbsp;
+                        <a href="http://plus.google.com" class="btn btn-outline-light btn-circle"><span class="fa fa-google-plus"></span></a>&nbsp;
+                        <a href="http://www.instagram.com" class="btn btn-outline-light btn-circle"><span class="fa fa-instagram"></span></a>&nbsp;
+                        <a href="http://www.linkedin.com" class="btn btn-outline-light btn-circle"><span class="fa fa-linkedin"></span></a>&nbsp;
+                        <a href="http://del.icio.us" class="btn btn-outline-light btn-circle"><span class="fa fa-delicious"></span></a>
                         <span style="margin-right:auto;"></span>
                     </div>
                 </div>

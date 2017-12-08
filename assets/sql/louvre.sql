@@ -53,7 +53,7 @@ INSERT INTO `book` (`isbn13`, `title`, `slug`, `price`, `summary`, `ed`, `pages`
 ('9789797591519',	'5 cm',	'5-cm',	7.55,	'Bestseller book di Gramedia Bookstore selama 2 tahun berturut-turut!\r\n\r\nLima sahabat telah menjalin persahabatan selama tujuh tahun. Mereka adalah Arial yang paling tampan, Riani sebagai satu-satunya wanita dalam kelompok itu, Zafran yang berlagak seperti seorang penyair, Ian yang paling subur badannya, dan Genta yang dianggap sebagai leader dalam kelompok itu. Kegemaran mereka adalah mengeksekusi hal-hal yang tidak mungkin dan mencoba segala hal, mulai dari kafe paling terkenal di Jakarta, sampai nonton layar tancap. Semuanya penggemar film, dari film Hollywood sampai film yang nggak kelas—kecuali film India karena mereka punya prinsip bahwa semua persoalan di dunia atau masalah pasti ada jalan keluarnya, tapi bukan dalam bentuk joget.\r\n\r\nSuatu saat, karena terdorong oleh rasa bosan di antara satu dan yang lain, mereka memutuskan untuk tidak saling berkomunikasi dan bertemu satu sama lain selama tiga bulan. Selama tiga bulan berpisah itulah telah terjadi banyak hal yang membuat hati mereka lebih kaya dari sebelumnya. Pertemuan setelah tiga bulan yang penuh dengan rasa kangen akhirnya terjadi dan dirayakan dengan sebuah perjalanan. Sebuah perjalanan yang penuh dengan keyakinan, mimpi, cita-cita, dan cinta. Sebuah perjalanan yang telah mengubah mereka menjadi manusia sesungguhnya, bukan Cuma seonggok daging yang bisa berbicara, berjalan, dan punya nama.\r\n\r\n“Ada yang pernah bilang kalau idealisme adalah kemewahan terakhir yang dimiliki oleh generasi muda….”',	NULL,	381,	'2005-01-01',	'Donny Dhirgantoro',	'ID-ID',	'PDF',	'2017-12-04'),
 ('9789799731234',	'Bumi Manusia',	'bumi-manusia',	6.50,	'Roman Tetralogi Buru mengambil latar belakang dan cikal bakal nation Indonesia di awal abad ke-20. Dengan membacanya waktu kita dibalikkan sedemikian rupa dan hidup di era membibitnya pergerakan nasional mula-mula, juga pertautan rasa, kegamangan jiwa, percintaan, dan pertarungan kekuatan anonim para srikandi yang mengawal penyemaian bangunan nasional yang kemudian kelak melahirkan Indonesia modern.\r\n\r\nRoman bagian pertama; Bumi Manusia, sebagai periode penyemaian dan kegelisahan dimana Minke sebagai aktor sekaligus kreator adalah manusia berdarah priyayi yang semampu mungkin keluar dari kepompong kejawaannya menuju manusia yang bebas dan merdeka, di sudut lain membelah jiwa ke-Eropa-an yang menjadi simbol dan kiblat dari ketinggian pengetahuan dan peradaban.\r\n\r\nPram menggambarkan sebuah adegan antara Minke dengan ayahnya yang sangat sentimentil: Aku mengangkat sembah sebagaimana biasa aku lihat dilakukan punggawa terhadap kakekku dan nenekku dan orangtuaku, waktu lebaran. Dan yang sekarang tak juga kuturunkan sebelum Bupati itu duduk enak di tempatnya. Dalam mengangkat sembah serasa hilang seluruh ilmu dan pengetahuan yang kupelajari tahun demi tahun belakangan ini. Hilang indahnya dunia sebagaimana dijanjikan oleh kemajuan ilmu .... Sembah pengagungan pada leluhur dan pembesar melalui perendahan dan penghinaan diri! Sampai sedatar tanah kalau mungkin! Uh, anak-cucuku tak kurelakan menjalani kehinaan ini.\r\n\r\n\"Kita kalah, Ma,\" bisikku.\r\n\r\n\"Kita telah melawan, Nak, Nyo, sebaik-baiknya, sehormat-hormatnya.\"',	NULL,	535,	'2005-01-01',	'Pramoedya Ananta Toer',	'ID-ID',	'EPUB',	'2017-12-04');
 
-CREATE TABLE `bookdetail` (`isbn13` char(13), `title` varchar(50), `slug` varchar(50), `price` decimal(10,2), `discount` decimal(5,2), `discountedprice` decimal(15,2), `summary` text, `ed` varchar(5), `pages` smallint(6), `pubdate` date, `author` varchar(50), `language` varchar(20), `format` varchar(5), `genre` mediumtext, `adddate` date, `featured` tinyint(1), `promotiontitle` varchar(50), `promotionsubtitle` varchar(100), `promotioninfo` text, `until` date);
+CREATE TABLE `bookdetail` (`isbn13` char(13), `title` varchar(100), `slug` varchar(50), `price` decimal(10,2), `discount` decimal(5,2), `discountedprice` decimal(15,2), `summary` text, `ed` varchar(5), `pages` smallint(6), `pubdate` date, `author` varchar(50), `language` varchar(20), `format` varchar(5), `genre` mediumtext, `adddate` date, `featured` tinyint(1), `promotiontitle` varchar(50), `promotionsubtitle` varchar(100), `promotioninfo` text, `until` date);
 
 
 CREATE TABLE `bookgenre` (
@@ -176,6 +176,8 @@ CREATE TABLE `cart` (
   CONSTRAINT `CONSTRAINT_1` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `cart` (`email`, `isbn13`, `discount`, `added`) VALUES
+('buyer1@example.com',	'9780544272996',	NULL,	'2017-12-08 00:00:00');
 
 CREATE TABLE `formats` (
   `format` varchar(5) NOT NULL,
@@ -246,6 +248,8 @@ CREATE TABLE `transactions` (
   CONSTRAINT `CONSTRAINT_1` CHECK (`payment` in ('Debit','Visa','MasterCard','PayPal'))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `transactions` (`invoiceno`, `email`, `payment`, `invdate`) VALUES
+('TR-NVpw48462',	'buyer1@example.com',	'MasterCard',	'2017-12-08 00:00:00');
 
 CREATE TABLE `transactionsdetail` (
   `invoiceno` char(12) NOT NULL,
@@ -258,6 +262,10 @@ CREATE TABLE `transactionsdetail` (
   CONSTRAINT `CONSTRAINT_1` CHECK (`discount` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `transactionsdetail` (`invoiceno`, `isbn13`, `discount`) VALUES
+('TR-NVpw48462',	'9780316322409',	10.00),
+('TR-NVpw48462',	'9780439023481',	0.00),
+('TR-NVpw48462',	'9781568364841',	NULL);
 
 CREATE TABLE `userbook` (
   `email` varchar(30) NOT NULL,
@@ -271,6 +279,10 @@ CREATE TABLE `userbook` (
   CONSTRAINT `CONSTRAINT_1` CHECK (`rating` between 1 and 10)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `userbook` (`email`, `isbn13`, `rating`, `review`) VALUES
+('buyer1@example.com',	'9780316322409',	NULL,	NULL),
+('buyer1@example.com',	'9780439023481',	NULL,	NULL),
+('buyer1@example.com',	'9781568364841',	NULL,	NULL);
 
 CREATE TABLE `users` (
   `email` varchar(30) NOT NULL,
@@ -296,4 +308,4 @@ INSERT INTO `users` (`email`, `roles`, `fname`, `lname`, `gender`, `pass`, `salt
 DROP TABLE IF EXISTS `bookdetail`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `bookdetail` AS select `book`.`isbn13` AS `isbn13`,`book`.`title` AS `title`,`book`.`slug` AS `slug`,`book`.`price` AS `price`,`bookspecial`.`discount` AS `discount`,round(`book`.`price` * (100 - coalesce(`bookspecial`.`discount`,0)) / 100,2) AS `discountedprice`,`book`.`summary` AS `summary`,`book`.`ed` AS `ed`,`book`.`pages` AS `pages`,`book`.`pubdate` AS `pubdate`,`book`.`author` AS `author`,`langs`.`language` AS `language`,`book`.`format` AS `format`,group_concat(`bookgenre`.`genre` separator ',') AS `genre`,`book`.`adddate` AS `adddate`,`bookspecial`.`featured` AS `featured`,`bookspecial`.`promotiontitle` AS `promotiontitle`,`bookspecial`.`promotionsubtitle` AS `promotionsubtitle`,`bookspecial`.`promotioninfo` AS `promotioninfo`,`bookspecial`.`until` AS `until` from ((((`book` left join `bookgenre` on(`book`.`isbn13` = `bookgenre`.`isbn13`)) left join `bookspecial` on(`book`.`isbn13` = `bookspecial`.`isbn13`)) left join `langs` on(`book`.`lang` = `langs`.`lang`)) left join `formats` on(`book`.`format` = `formats`.`format`)) group by 1;
 
--- 2017-12-08 10:33:10
+-- 2017-12-08 12:38:42
