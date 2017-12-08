@@ -31,6 +31,13 @@
                     });
                 </script>
                 <br><br>
+                <label>Discount:</label>
+                <select class="form-control" name="discount">
+                    <option value="">Any</option>
+                    <option value="TRUE" <?php if(isset($criteria['discount'])&&$criteria['discount']=='TRUE')echo 'selected="selected"'; ?>>Yes</option>
+                    <option value="FALSE" <?php if(isset($criteria['discount'])&&$criteria['discount']=='FALSE')echo 'selected="selected"'; ?>>No</option>
+                </select>
+                <br>
                 <label for="pagesslider">Page Range: <span id="pagesrange"><?php if(isset($criteria['pages']))echo explode(',', $criteria['pages'])[0]; else echo '0'; ?> - <?php if(isset($criteria['pages']))echo explode(',', $criteria['pages'])[1]; else echo '5000'; ?></span></label>
                 <br>
                 <input id="pagesslider" name="pages" data-slider-id="pagesslider" type="text" data-slider-ticks="[0, 1000, 2000, 3000, 4000, 5000]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["0", "1000", "2000", "3000", "4000", "5000"]' data-slider-value="[<?php if(isset($criteria['pages']))echo explode(',', $criteria['pages'])[0]; else echo '0'; ?>,<?php if(isset($criteria['pages']))echo explode(',', $criteria['pages'])[1]; else echo '5000'; ?>]" style="width:100%;"/>

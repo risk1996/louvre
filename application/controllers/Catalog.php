@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Catalog extends CI_Controller{
 	public function index($pg = 0){
 		$criteria = array();
-		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'language', 'format', 'genre');
+		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'language', 'format', 'genre', 'discount');
 		foreach($filters as $filter)if($this->input->get($filter) !== NULL){
 			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->get($filter));
 			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<>[] ]/', '', $this->input->get($filter)));
@@ -34,6 +34,7 @@ class Catalog extends CI_Controller{
 		$cfg['last_link'] = '</span><span class="fa fa-angle-right"></span></span><span class="fa fa-angle-right"></span>';
 		$cfg['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
 		$cfg['cur_tag_close'] = '</a></li>';
+		$cfg['reuse_query_string'] = TRUE;
 		$this->pagination->initialize($cfg);
 		$data['pagination'] = $this->pagination->create_links();
 		$data['page'] = intval($pg/$cfg['per_page']);

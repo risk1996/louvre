@@ -51,11 +51,16 @@ class Books_model extends CI_Model{
 				else if($key == 'price' || $key == 'stock' || $key == 'pages'){
 					$min = explode(',', $val)[0];
 					$max = explode(',', $val)[1];
+					if($key=='price')$key='discountedprice';
 					$this->db->where($key.' >= '.$min);
 					$this->db->where($key.' <= '.$max);
 				}
 				else if($key == 'lang' || $key == 'format'){
 					$this->db->like($key, $val);
+				}
+				else if($key == 'discount'){
+					if($val=='TRUE')$this->db->where('featured', 'FALSE');
+					else if($val=='FALSE') $this->db->where('featured = TRUE OR featured IS NULL');
 				}
 			}
 			$this->db->order_by('adddate DESC');

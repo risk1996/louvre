@@ -26,16 +26,14 @@
             <h2>
                 <?php
                     echo $book['title'];
-                    if(isset($book['ed'])){
-                        echo '<small> ('.$book['ed'].' edition)</small>';
-                    }
+                    if(isset($book['ed']))echo '<small> ('.$book['ed'].' edition)</small>';
                 ?>
             </h2>
             <h4 class="text-muted">By <?php echo $book['author']; ?></h4>
             <?php
                 $genres=explode(',', $book['genre']);
                 foreach($genres as $genre){
-                    echo form_open('catalog', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;'));
+                    echo form_open('catalog', array('id'=>$book['isbn13'].$genre.'form', 'style'=>'display: inline;', 'method'=>'get'));
                         echo '<input type="hidden" name="genre[]" value="'.$genre.'">';
                     echo '</form>';
                     echo '<a href="#" onclick="document.getElementById(\''.$book['isbn13'].$genre.'form\').submit();" class="badge badge-secondary">'.$genre.'</a>&nbsp;';
