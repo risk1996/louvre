@@ -32,6 +32,8 @@
                                 if($this->session->userdata('email')!==NULL){
                                     $cart = $this->purchase_model->cart_get($this->session->userdata('email'));
                                     echo '<a class="dropdown-item '.($this->uri->segment(1)=='users'?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
+                                }
+                                if($this->session->userdata('roles')=='buyer'){
                                     echo '<a class="dropdown-item '.($this->uri->segment(1)=='cart'?'active':'').'" href="'.site_url('cart').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-secondary">'.count($cart).'</span></a>';
                                 }
                             ?>
@@ -49,9 +51,11 @@
                                 echo '<a href="'.base_url().'users" class="navbar-text"><span class="fa fa-user-circle"></span>&nbsp;';
                                     echo $this->session->userdata('fname').' '.$this->session->userdata('lname');
                                 echo '&nbsp;</a>';
-                                echo '<a href="'.base_url().'cart" class="navbar-text"><span class="fa fa-shopping-cart"></span>&nbsp;';
-                                    echo '<span class="badge badge-light">'.count($cart).'</span>';
-                                echo '</a>&nbsp;';
+                                if($this->session->userdata('roles')=='buyer'){
+                                    echo '<a href="'.base_url().'cart" class="navbar-text"><span class="fa fa-shopping-cart"></span>&nbsp;';
+                                        echo '<span class="badge badge-light">'.count($cart).'</span>';
+                                    echo '</a>&nbsp;';
+                                }
                                 echo '<a href="'.base_url().'users/logout" class="btn btn-outline-secondary"><span class="fa fa-sign-out"></span></a>';
                             } else{
                                 echo '<button type="button" class="btn btn-outline-secondary" data-placement="bottom" data-toggle="popover" title="Login" data-content="';

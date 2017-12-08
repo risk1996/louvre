@@ -14,6 +14,8 @@
                                         echo '<li class="nav-item">';
                                             echo '<a class="nav-link '.(($this->uri->segment(1)=='users')?'active':'').'" href="'.site_url('users').'"><span class="fa fa-user-circle"></span> Account</a>';
                                         echo '</li>';
+                                    }
+                                    if($this->session->userdata('roles')=='buyer'){
                                         echo '<li class="nav-item">';
                                             $cart = $this->purchase_model->cart_get($this->session->userdata('email'));
                                             echo '<a class="nav-link '.(($this->uri->segment(1)=='cart')?'active':'').'" href="'.site_url('cart').'"><span class="fa fa-shopping-cart"></span> Cart <span class="badge badge-light">'.count($cart).'</span></a>';
