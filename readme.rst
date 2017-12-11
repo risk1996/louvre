@@ -1,70 +1,70 @@
-###################
-What is CodeIgniter
-###################
+######################
+The Louvre E-Bookstore
+######################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+The Louvre E-Bookstore merupakan tempat pecinta buku untuk berbelanja berbagai jenis e-book secara online.
+Pembeli dapat melakukan transaksi dengan mudah, cepat, dan terpercaya melalui sistem yang telah terotomasi.
+Fitur-fitur mulai dari pencarian, penyaringan hasil pencarian, dan mengurutkan hasil pencarian dapat diakses
+dengan beberapa klik. Saat kalian membuka halaman awal The Louvre E-Bookstore, kalian akan disambut dengan
+buku yang banyak dibeli oleh pengguna lainnya, buku dengan rating terbaik, buku yang sedang promo, dan seleksi
+buku-buku pilihan kami.
 
-*******************
-Release Information
-*******************
+***********
+Fitur-fitur
+***********
+- Pembeli dapat melakukan transaksi dengan mudah, cepat, dan terpercaya melalui sistem yang telah terotomasi.
+- Tampilan yang user-friendly.
+- Search & Filter.
+- Informasi lengkap mengenai buku yang tersedia.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+********************
+Spesifikasi Platform
+********************
 
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
-
-*******************
-Server Requirements
-*******************
-
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+Kami mengembangkan aplikasi web The Louvre E-Bookstore dengan platform yang menjalankan Laragon 3.1.2 dengan:
+- Web Server Apache 2.4.25
+- Database Server MariaDB 10.2.10 dengan koneksi menggunakan MySQLi
+- PHP versi 7.1.6
+Beberapa komponen pihak ketiga yang kami gunakan antara lain:
+- jQuery versi 3.2.1 (https://jquery.com/)
+- Back-End PHP Framework CodeIgniter versi 3.1.6 (https://codeigniter.com/)
+- Front-End Bootstrap versi 4.0.0 beta 2 (https://getbootstrap.com/)
+- Bootstrap Slider (http://seiyria.com/bootstrap-slider/)
+- DataTables versi 1.10.16 (https://datatables.net/)
+- GroceryCRUD versi 1.5.9 (https://www.grocerycrud.com/)
+- FontAwesome versi 4.7.0 (http://fontawesome.io/)
+- Emoji CSS (https://afeld.github.io/emoji-css/)
 
 *********
-Resources
+Instalasi
 *********
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+Salin file yang terdapat pada CD atau mengekstrak konten dari zip yang diperoleh dari GitHub ke root folder
+Laragon di folder www\louvre, misal:
+C:\laragon\www\louvre
+Kemudian, buka preferensi Laragon dan pada tab "General", centang pilihan "Auto Virtual Hosts" dan ganti
+tulisan pada textbox yang ada di bawah pilihan tersebut dari "{name}.dev" menjadi "{name}.localhost".
+Tutup preferensi tersebut dan berikan akses administrator bila diperlukan.
+Aplikasi web kami yang Anda telah pasang kini dapat diakses melalui http://louvre.localhost/.
+Restart komputer Anda bila alamat http://louvre.localhost/ mengembalikan error 404.
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+******************************
+Akun Manager & Pengguna Bawaan
+******************************
 
-***************
-Acknowledgement
-***************
+Terdapat 3 akun manager yang terdapat di aplikasi web ini. Berikut adalah informasi selengkapnya:
+- email: stefanus@louvre.dev dengan password: stefanus
+- email: william@louvre.dev  dengan password: william
+- email: miqdad@louvre.dev   dengan password: miqdad
+Selain itu, terdapat juga 2 akun pembeli untuk keperluan testing:
+- email: buyer1@example.com  dengan password: buyersatu
+- email: buyer2@example.com  dengan password: buyerdua
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+********************
+Informasi Pengembang
+********************
+
+Kami merupakan mahasiswa Universitas Multimedia Nusantara jurusan Sistem Komputer angkatan 2015 yang terdiri dari:
+- Stefanus Kurniawan (NIM: 000 000 10293)
+- William Darian     (NIM: 000 000 10691)
+- Miqdad Abdurrahman (NIM: 000 000 12596)
