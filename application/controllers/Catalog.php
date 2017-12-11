@@ -7,10 +7,10 @@ class Catalog extends CI_Controller{
 		$filters = array('isbn13', 'title', 'author', 'price', 'pages', 'language', 'format', 'genre', 'discount');
 		foreach($filters as $filter)if($this->input->get($filter) !== NULL){
 			if($filter=='genre')$criteria[$filter] = implode(',',$this->input->get($filter));
-			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<>[] ]/', '', $this->input->get($filter)));
+			else $criteria[$filter] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<>\[\] ]/', '', $this->input->get($filter)));
 		}
 		if($this->input->get('searchby') !== NULL){
-			$criteria[$this->input->get('searchby')] = $this->input->get('keyword');
+			$criteria[$this->input->get('searchby')] = trim(preg_replace('/[^a-zA-Z1234567890,.!@#$%^&*()_?<>\[\] ]/', '', $this->input->get('keyword')));
 		}
 		$data['books'] = $this->books_model->find_book($criteria);
 		$data['langs'] = $this->books_model->get_column('language');
